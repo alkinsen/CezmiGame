@@ -3,7 +3,6 @@
 public class HelloWorld {
 	//BY YILMAZCAN
 	//Pinar 
-
 	//alkin
 
 }
