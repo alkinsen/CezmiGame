@@ -5,6 +5,6 @@ package game;
  */
 public class Ball {
 	
-	private String giybet;
+	private String giybet = "asdasdasd";
 	
 }
