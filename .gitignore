@@ -1,1 +1,14 @@
-/bin/
+#IntelliJ
+*.log
+.idea/*
+*.iml
+*.class
+.metadata
+bin/
+tmp/
+
+#Eclipse
+.settings/
+.loadpath
+.recommenders
+.project
