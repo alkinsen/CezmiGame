@@ -7,10 +7,10 @@ import java.awt.Rectangle;
  * Created by ASEN14 on 28.11.2016.
  */
 public class Engel {
-	private int x = 245;
-	private int y = 480;
-	private int width = 10;
-	private int height = 20;
+	private int x = 247,5;
+	private int y = 440;
+	private int width = 5;
+	private int height = 60;
 	private Color color = new Color(0, 255, 0);
 	
 	public Engel() {

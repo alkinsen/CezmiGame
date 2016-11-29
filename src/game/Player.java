@@ -6,9 +6,12 @@ package game;
 public class Player {
 	String name;
 	int score;
+	int numOfEdit;
 	
 	public Player(String name){
 		this.name = name;
+		this.score = 0;
+		this.numOfEdit = 3;
 	}
 	
 	public String getName() {
@@ -26,4 +29,31 @@ public class Player {
 	public void setScore(String score) {
 		this.score = score;
 	}
+	
+	public void incrementScore(){
+		this.score += 1;
+	}
+	
+	public int getNumOfEdit() {
+		return numOfEdit;
+	}
+
+	public void setNumOfEdit(String numOfEdit) {
+		this.numOfEdit = numOfEdit;
+	}
+	
+	public void decrementNumOfEdit(){
+		this.numOfEdit -= 1;
+	}
+	
+	public void checkNumOfEdit(){
+		if(numOfEdit >=1){
+			return true;
+		}
+		else{
+			return false;
+		}
+	}
+	
+	
 }
