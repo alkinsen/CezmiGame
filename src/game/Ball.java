@@ -73,7 +73,7 @@ public class Ball {
 		return "Ball [x=" + x + ", y=" + y + ", vx=" + vx + ", vy=" + vy + "]";
 	}
 	
-	public move(){
+	public void move(){
 		x = x + vx;
 		y = y + vy;
 	}

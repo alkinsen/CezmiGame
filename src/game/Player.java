@@ -26,7 +26,7 @@ public class Player {
 		return score;
 	}
 
-	public void setScore(String score) {
+	public void setScore(int score) {
 		this.score = score;
 	}
 	
@@ -38,7 +38,7 @@ public class Player {
 		return numOfEdit;
 	}
 
-	public void setNumOfEdit(String numOfEdit) {
+	public void setNumOfEdit(int numOfEdit) {
 		this.numOfEdit = numOfEdit;
 	}
 	
@@ -46,7 +46,7 @@ public class Player {
 		this.numOfEdit -= 1;
 	}
 	
-	public void checkNumOfEdit(){
+	public boolean checkNumOfEdit(){
 		if(numOfEdit >=1){
 			return true;
 		}

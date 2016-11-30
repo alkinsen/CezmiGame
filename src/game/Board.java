@@ -4,47 +4,37 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Rectangle;
 
-/**
- * Created by ASEN14 on 28.11.2016.
- */
-public class Engel {
-	private int x = 247; // 247.5 olmalı
-	private int y = 440;
-	private int width = 5;
-	private int height = 60;
-	private Color color = new Color(0, 255, 0);
+public class Board {
+	private int width = 500;
+	private int height = 500;
+	private Color color = new Color(0, 0, 255);
 	
-	public Engel() {
+	public Board() {
 		super();
 	}
-	
-	public int getX() {
-		return x;
-	}
 
-	public void setX(int x) {
-		this.x = x;
-	}
-
-	public int getY() {
-		return y;
-	}
-
-	public void setY(int y) {
-		this.y = y;
-	}
-	
-	public int getWidth(){
+	public int getWidth() {
 		return width;
 	}
-	
-	public int getHeight(){
+
+	public void setWidth(int width) {
+		this.width = width;
+	}
+
+	public int getHeight() {
 		return height;
 	}
-	
-	@Override
-	public String toString() {
-		return "Engel [x=" + x + ", y=" + y + ", width=" + width + ", height=" + height + "]";
+
+	public void setHeight(int height) {
+		this.height = height;
+	}
+
+	public Color getColor() {
+		return color;
+	}
+
+	public void setColor(Color color) {
+		this.color = color;
 	}
 	
 	public void paint(Graphics g) {
@@ -61,7 +51,7 @@ public class Engel {
 	    // screen this is a very important performance optimization
 	    if (clipRect.intersects(this.boundingBox())) {
 	      g.setColor(color);
-	      g.fillRect(x, y, width, height);
+	      g.fillRect(0, 0, width, height);
 	    }
 	  }
   
@@ -71,8 +61,9 @@ public class Engel {
 
 	    // a Rectangle is the x,y for the upper left corner and then the
 	    // width and height
-	    return new Rectangle(x, y, width, height);
+	    return new Rectangle(0, 0, width, height);
 	  }
+	
 	
 	
 }
