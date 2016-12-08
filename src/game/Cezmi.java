@@ -11,6 +11,7 @@ public class Cezmi {
 	private int x;
 	private int y;
 	private Color color;
+	private int vx = 10;
 	
 	public Cezmi(int xLoc, int yLoc){
 		
@@ -48,6 +49,14 @@ public class Cezmi {
 	@Override
 	public String toString() {
 		return "Cezmi [radius=" + radius + ", x=" + x + ", y=" + y + "]";
+	}
+	
+	public void moveLeft(){
+		x = x + vx;
+	}
+	
+	public void moveRight(){
+		x = x - vx;
 	}
 	
 	

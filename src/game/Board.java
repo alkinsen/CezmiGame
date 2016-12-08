@@ -9,7 +9,7 @@ import physics.*;
 
 public class Board {
 	private int width = HadiCezmi.BOARD_WIDTH;
-	private int height = HadiCezmi.BOARD_WIDTH;
+	private int height = HadiCezmi.BOARD_HEIGHT;
 	private Color color = new Color(0, 0, 255);
 	private Ball ball;
 	private Engel engel;
@@ -93,7 +93,7 @@ public class Board {
 	  if(i == 1){
 		  cezmi1.setX(x);
 		  cezmi2.setY(y);
-	  } else if {
+	  } else if(i == 2) {
 		  cezmi2.setX(x);
 		  cezmi2.setY(y);  
 	  }
