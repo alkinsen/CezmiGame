@@ -4,11 +4,11 @@ package game;
  * Created by ASEN14 on 8.12.2016.
  */
 public class GizmoFactory {
-    private GizmoFactory instance;
+    private static GizmoFactory instance;
 
     private GizmoFactory(){}
 
-    public GizmoFactory getInstance(){
+    public static GizmoFactory getInstance(){
         if(instance == null) instance = new GizmoFactory();
         return instance;
     }
