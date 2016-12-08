@@ -7,8 +7,7 @@ public class HadiCezmi {
     public static final int FRAME_WIDTH = 800;
     public static final int FRAME_HEIGHT = 800;
     //GLOBAL VARIABLES SHOULD BE HERE
-    public static final int BOARD_WIDTH = 500;
-    public static final int BOARD_HEIGHT = 500;
+
 
 
 

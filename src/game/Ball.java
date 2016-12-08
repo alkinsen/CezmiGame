@@ -8,6 +8,7 @@ import java.awt.Rectangle;
  * Created by ASEN14 on 28.11.2016.
  */
 public class Ball {
+
 	private double x = (int)((Math.random() * 100.0) + 100.0);
 	private double y = (int)((Math.random() * 100.0) + 100.0);
 	private double vx = ((int)(Math.random() * 10.0))/20.0;
@@ -105,5 +106,6 @@ public class Ball {
 		return new Rectangle((int)(x-radius), (int)(y-radius), radius+radius, radius+radius);
 	}
 	
+
 	
 }
