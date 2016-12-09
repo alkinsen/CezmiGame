@@ -175,6 +175,24 @@ public class Board {
 	  return false;
   }
   
+  public void rotateTokat(String type){
+	  
+	  for(Gizmo g : gizmoArrayList){
+		  
+		  if((g instanceof LeftTokat) && type.equalsIgnoreCase("left")){
+			  
+			  g.rotate();
+			  
+		  }else if((g instanceof RightTokat) && type.equalsIgnoreCase("right")){
+			  
+			  g.rotate();
+			
+		  }
+		  
+	  }
+	  
+  }
+  
   
   
   
