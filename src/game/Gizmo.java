@@ -14,10 +14,8 @@ public abstract class Gizmo extends Observable {
 		protected int width;
 		protected int height;
 		protected Color color;
-		
+		protected int orientation;
 	
-		
-		
 		//methods
 		public abstract void rotate();
 		
@@ -63,5 +61,15 @@ public abstract class Gizmo extends Observable {
 			setChanged();
 			notifyObservers();
 		}
+
+
+		public int getOrientation() {
+			return orientation;
+		}
+
+		public void setOrientation(int orientation) {
+			this.orientation = orientation;
+		}
+		
 	
 }

@@ -21,7 +21,8 @@ public class Board {
 	private int friction;
 	private int level; 
 	
-	
+
+
 	public Board(int level) {
 		super();
 		ball = new Ball();
@@ -95,6 +96,14 @@ public class Board {
 	  ball.setVy(vy);
   }
   
+  public void changeCezmiPosition(int i, int x){
+	  if(i == 1){
+		  cezmi1.setX(x);
+	  } else if(i == 2) {
+		  cezmi2.setX(x);  
+	  }
+  }
+  
   public void changeCezmiPosition(int i, int x, int y){
 	  if(i == 1){
 		  cezmi1.setX(x);
@@ -107,18 +116,18 @@ public class Board {
   
   public void moveCezmi(int cezmiNumber, String direction){
 	  if(cezmiNumber == 1){
-		  if (direction == "left"){
+		  if (direction.equalsIgnoreCase("left")){
 			  cezmi1.moveLeft();
 		  }
-		  else if (direction == "right"){
+		  else if (direction.equalsIgnoreCase("right")){
 			  cezmi1.moveRight();
 		  }
 	  }
 	  else if(cezmiNumber == 2){
-		  if (direction == "left"){
+		  if (direction.equalsIgnoreCase("left")){
 			  cezmi2.moveLeft();
 		  }
-		  else if (direction == "right"){
+		  else if (direction.equalsIgnoreCase("right")){
 			  cezmi2.moveRight();
 		  }
 	  }
@@ -133,6 +142,19 @@ public class Board {
 	  }
 	  if (valid){
 		  Gizmo g = gizmoFactory.getGizmo(type, x, y);
+		  gizmoArrayList.add(g);
+	  }
+}
+  
+  public void addGizmo(String type, int x, int y, int orientation){
+	  boolean valid = true;
+	  for(Gizmo element: gizmoArrayList){
+		  if (element.getX() == x && element.getY() == y){
+			  valid = false;
+		  }
+	  }
+	  if (valid){
+		  Gizmo g = gizmoFactory.getGizmo(type, x, y, orientation);
 		  gizmoArrayList.add(g);
 	  }
 }
@@ -335,8 +357,17 @@ public class Board {
 		}
          ball.move();
 	}
+     
 
   }
+  
+  public int getLevel() {
+		return level;
+	}
+
+	public void setLevel(int level) {
+		this.level = level;
+	}
   
   
 
