@@ -68,7 +68,7 @@ public class XMLParser {
 		return ballList;
 	}
 
-	public ArrayList<HashMap<String, String>> crateCezmi1FromXml() {
+	public ArrayList<HashMap<String, String>> createCezmi1FromXml() {
 		ArrayList<HashMap<String, String>> cezmiList = new ArrayList<>();
 		HashMap<String, String> cezmiInfo = new HashMap<String, String>();
 
@@ -99,7 +99,7 @@ public class XMLParser {
 		return cezmiList;
 	}
 
-	public ArrayList<HashMap<String, String>> crateCezmi2FromXml() {
+	public ArrayList<HashMap<String, String>> createCezmi2FromXml() {
 		ArrayList<HashMap<String, String>> cezmiList = new ArrayList<>();
 		HashMap<String, String> cezmiInfo = new HashMap<String, String>();
 
@@ -130,7 +130,7 @@ public class XMLParser {
 		return cezmiList;
 	}
 
-	public ArrayList<HashMap<String, String>> crateLevelFromXml() {
+	public ArrayList<HashMap<String, String>> createLevelFromXml() {
 		ArrayList<HashMap<String, String>> levelList = new ArrayList<>();
 		HashMap<String, String> levelInfo = new HashMap<String, String>();
 
@@ -157,7 +157,7 @@ public class XMLParser {
 		return levelList;
 	}  
 
-	public ArrayList<HashMap<String, String>> crateGizmoFromXml() {
+	public ArrayList<HashMap<String, String>> createGizmoFromXml() {
 		ArrayList<HashMap<String, String>> gizmoList = new ArrayList<>();
 		HashMap<String, String> gizmoInfo = new HashMap<String, String>();
 
