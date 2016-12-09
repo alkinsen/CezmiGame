@@ -19,8 +19,8 @@ public class HadiCezmi {
     public static final int FRAME_WIDTH = 800;
     public static final int FRAME_HEIGHT = 800;
     //GLOBAL VARIABLES SHOULD BE HERE
-	public static final int BOARD_WIDTH = 0;
-	public static final int BOARD_HEIGHT = 0;
+	public static final int BOARD_WIDTH = 500;
+	public static final int BOARD_HEIGHT = 500;
 	
 	private Player player1;
 	private Player player2;
@@ -46,25 +46,86 @@ public class HadiCezmi {
 		//creating ball from xml
 		ArrayList<HashMap<String, String>> ballList = xmlParser.createBallFromXml();
 		if (ballList.get(0).containsKey("x")  &&  ballList.get(0).containsKey("y")){
-			board.changeBallPosition(Integer.parseInt(ballList.get(0).get("x")), Integer.parseInt(ballList.get(0).get("y")));
-		}
-		else if (ballList.get(0).containsKey("vx")  &&  ballList.get(0).containsKey("vy")){
-			board.changeBallVelocity(Integer.parseInt(ballList.get(0).get("vx")), Integer.parseInt(ballList.get(0).get("vy")));
+			board.changeBallPosition(Double.parseDouble(ballList.get(0).get("x")), Double.parseDouble(ballList.get(0).get("y")));
 		}
 		
-		//creating cezmi from xml
-		ArrayList<HashMap<String, String>> cezmiList = xmlParser.createCezmiFromXml();
-		if (cezmiList.get(0).containsKey("cezmiNumber") && cezmiList.get(0).containsKey("x") && cezmiList.get(0).containsKey("y")){
-			board.changeCezmiPosition(Integer.parseInt(cezmiList.get(0).get("cezmiNumber")), Integer.parseInt(cezmiList.get(0).get("x")), Integer.parseInt(cezmiList.get(0).get("y")));
+		if (ballList.get(0).containsKey("vx")  &&  ballList.get(0).containsKey("vy")){
+			board.changeBallVelocity(Double.parseDouble(ballList.get(0).get("vx")), Double.parseDouble(ballList.get(0).get("vy")));
+		}
+		
+		//creating cezmi1 from xml
+		ArrayList<HashMap<String, String>> cezmiList1 = xmlParser.createCezmi1FromXml();
+		if (cezmiList1.get(0).containsKey("cezmiNumber") && cezmiList1.get(0).containsKey("x")){
+			if(cezmiList1.get(0).containsKey("y")){
+				board.changeCezmiPosition(Integer.parseInt(cezmiList1.get(0).get("cezmiNumber")), Integer.parseInt(cezmiList1.get(0).get("x")), Integer.parseInt(cezmiList1.get(0).get("y")));	
+			}
+			else{
+				board.changeCezmiPosition(Integer.parseInt(cezmiList1.get(0).get("cezmiNumber")), Integer.parseInt(cezmiList1.get(0).get("x")));
+			}	
+		}
+		
+		if (cezmiList1.get(0).containsKey("cezmiNumber") && cezmiList1.get(0).containsKey("score")){
+				player1.setName(cezmiList1.get(0).get("score"));
+		}
+		
+		if (cezmiList1.get(0).containsKey("cezmiNumber") && cezmiList1.get(0).containsKey("leftKey")){
+			cezmi1Left = cezmiList2.get(0).get("leftKey");
+		}
+		
+		if (cezmiList1.get(0).containsKey("cezmiNumber") && cezmiList1.get(0).containsKey("rightKey")){
+			cezmi1Right = cezmiList1.get(0).get("rightKey");
+		}
+
+		//creating cezmi2 from xml
+		ArrayList<HashMap<String, String>> cezmiList2 = xmlParser.createCezmi2FromXml();
+		if (cezmiList2.get(0).containsKey("cezmiNumber") && cezmiList2.get(0).containsKey("x")){
+			if(cezmiList2.get(0).containsKey("y")){
+				board.changeCezmiPosition(Integer.parseInt(cezmiList2.get(0).get("cezmiNumber")), Integer.parseInt(cezmiList2.get(0).get("x")), Integer.parseInt(cezmiList2.get(0).get("y")));	
+			}
+			else{
+				board.changeCezmiPosition(Integer.parseInt(cezmiList2.get(0).get("cezmiNumber")), Integer.parseInt(cezmiList2.get(0).get("x")));
+			}	
+		}
+		
+		if (cezmiList2.get(0).containsKey("cezmiNumber") && cezmiList2.get(0).containsKey("score")){
+			player2.setName(cezmiList2.get(0).get("score"));
+	}
+		
+		if (cezmiList2.get(0).containsKey("cezmiNumber") && cezmiList2.get(0).containsKey("leftKey")){
+			cezmi2Left = cezmiList2.get(0).get("leftKey");
+		}
+		
+		if (cezmiList2.get(0).containsKey("cezmiNumber") && cezmiList2.get(0).containsKey("rightKey")){
+			cezmi2Right = cezmiList2.get(0).get("rightKey");
 		}
 		
 		//creating gizmo from xml
 		ArrayList<HashMap<String, String>> gizmoList = xmlParser.createGizmoFromXml();
 		for (int i=0; i< gizmoList.size(); i++){
 			if (gizmoList.get(i).containsKey("type") && gizmoList.get(i).containsKey("x") && gizmoList.get(i).containsKey("y")){
-				board.changeCezmiPosition(Integer.parseInt(gizmoList.get(i).get("cezmiNumber")), Integer.parseInt(gizmoList.get(0).get("x")), Integer.parseInt(gizmoList.get(0).get("y")));
+				if(gizmoList.get(i).containsKey("orientation")){
+					board.addGizmo(gizmoList.get(i).get("type"), Integer.parseInt(gizmoList.get(0).get("x")), Integer.parseInt(gizmoList.get(0).get("y")), Integer.parseInt(gizmoList.get(0).get("orientation")));	
+				}else {
+					board.addGizmo(gizmoList.get(i).get("type"), Integer.parseInt(gizmoList.get(0).get("x")), Integer.parseInt(gizmoList.get(0).get("y")));
+				}
+				
 			}
-		}	
+			if(gizmoList.get(i).containsKey("orientation")){
+				
+			}
+		}
+		
+		//creating level from xml
+		ArrayList<HashMap<String, String>> levelList = xmlParser.createLevelFromXml();
+			if (levelList.get(0).containsKey("level")){
+				board.setLevel(Integer.parseInt(levelList.get(0).get("level")));
+			}
+		
+		
+		
+		
+		
+		
 	}
 	
     

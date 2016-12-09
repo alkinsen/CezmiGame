@@ -32,4 +32,37 @@ public class GizmoFactory {
 			return null;
 		}
 	}
+	
+	public Gizmo getGizmo(String type, int xLoc, int yLoc, int orientation){
+		Gizmo g;
+		switch (type) {
+		case "Firildak":
+			g = new Firildak(xLoc, yLoc);
+			g.setOrientation(orientation);
+			return g;
+		case "SquareTakoz":
+			g = new SquareTakoz(xLoc, yLoc);
+			g.setOrientation(orientation);
+			return g;
+		case "TriangleTakoz":
+			g = new TriangleTakoz(xLoc, yLoc);
+			g.setOrientation(orientation);
+			return g;
+		case "LeftTokat":
+			g = new LeftTokat(xLoc, yLoc);
+			g.setOrientation(orientation);
+			return g;
+		case "RightTokat":
+			g = new RightTokat(xLoc, yLoc);
+			g.setOrientation(orientation);
+			return g;
+		case "Cezerye":
+			g = new Cezerye(xLoc, yLoc);
+			g.setOrientation(orientation);
+			return g;
+
+		default:
+			return null;
+		}
+	}
 }
