@@ -53,10 +53,13 @@ public class HadiCezmi {
 
 	public void readXML(File file){
 		XMLParser xmlParser = new XMLParser(file);
-		
+
 		//creating ball from xml
 		ArrayList<HashMap<String, String>> ballList = xmlParser.createBallFromXml();
+		System.out.println(ballList.get(0).toString());
+		
 		if (ballList.get(0).containsKey("x")  &&  ballList.get(0).containsKey("y")){
+			System.out.println("giriyor mu?");
 			board.changeBallPosition(Double.parseDouble(ballList.get(0).get("x")), Double.parseDouble(ballList.get(0).get("y")));
 		}
 		
@@ -130,7 +133,7 @@ public class HadiCezmi {
 		ArrayList<HashMap<String, String>> levelList = xmlParser.createLevelFromXml();
 			if (levelList.get(0).containsKey("level")){
 				board.setLevel(Integer.parseInt(levelList.get(0).get("level")));
-			}
+			} 
 	}
 	
     
@@ -196,6 +199,7 @@ public class HadiCezmi {
     public void play(){
     	runningMode=true;
     	t.start();
+    	System.out.println("playing");
     	
     }
     
