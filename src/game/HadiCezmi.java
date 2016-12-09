@@ -1,7 +1,14 @@
 package game;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
+
+import javax.swing.Timer;
 
 import xml.XMLParser;
 
@@ -19,11 +26,17 @@ public class HadiCezmi {
 	private Player player2;
 	private Board board;
 	
+	private boolean runningMode=false;
+	private boolean editMode=false;
+	private Timer t;
+	private eventListener el=new eventListener();
+	
 	public HadiCezmi(int level, String playerName1, String playerName2) {
 		super();
 		player1 = new Player(playerName1);
 		player2 = new Player(playerName2);
 		board = new Board(level);
+		t= new Timer(20,el);
 		
 	}
 
@@ -51,31 +64,9 @@ public class HadiCezmi {
 			if (gizmoList.get(i).containsKey("type") && gizmoList.get(i).containsKey("x") && gizmoList.get(i).containsKey("y")){
 				board.changeCezmiPosition(Integer.parseInt(gizmoList.get(i).get("cezmiNumber")), Integer.parseInt(gizmoList.get(0).get("x")), Integer.parseInt(gizmoList.get(0).get("y")));
 			}
-		}
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
+		}	
 	}
 	
-	private boolean runningMode=false;
-	private boolean editMode=false;
-	private Timer t;
-	private eventListener el=new eventListener();
-	
-	public HadiCezmi(int level, String playerName1, String playerName2) {
-		super();
-		player1 = new Player(playerName1);
-		player2 = new Player(playerName2);
-		board = new Board(level);
-		t=new Timer(20,el);
-	}
     
 
     public void doAction(String s, String[] arg){
@@ -152,37 +143,31 @@ public class HadiCezmi {
     	runningMode=false;
     	t.stop();
     }
+}  
+    
     
     class eventListener implements KeyListener,ActionListener{
 
 		@Override
-		public void keyTyped(KeyEvent e) {
+		public void actionPerformed(ActionEvent e) {
 			// TODO Auto-generated method stub
 			
+		}
+
+		@Override
+		public void keyTyped(KeyEvent e) {
+			// TODO Auto-generated method stub
 			
 		}
 
 		@Override
 		public void keyPressed(KeyEvent e) {
 			// TODO Auto-generated method stub
-			if(e.getKeyCode()){
-				board.moveCezmi(cezmiNumber, direction);
-			} 
-			else if(e.getKeyCode()){
-				board.moveCezmi(cezmiNumber, direction);
-				
-			}
 			
 		}
 
 		@Override
 		public void keyReleased(KeyEvent e) {
-			// TODO Auto-generated method stub
-			
-		}
-
-		@Override
-		public void actionPerformed(ActionEvent e) {
 			// TODO Auto-generated method stub
 			
 		}
@@ -193,4 +178,3 @@ public class HadiCezmi {
 
 
 
-}
