@@ -53,10 +53,13 @@ public class HadiCezmi {
 
 	public void readXML(File file){
 		XMLParser xmlParser = new XMLParser(file);
-		
+
 		//creating ball from xml
 		ArrayList<HashMap<String, String>> ballList = xmlParser.createBallFromXml();
+		System.out.println(ballList.get(0).toString());
+		
 		if (ballList.get(0).containsKey("x")  &&  ballList.get(0).containsKey("y")){
+			System.out.println("giriyor mu?");
 			board.changeBallPosition(Double.parseDouble(ballList.get(0).get("x")), Double.parseDouble(ballList.get(0).get("y")));
 		}
 		
@@ -80,11 +83,11 @@ public class HadiCezmi {
 		}
 		
 		if (cezmiList1.get(0).containsKey("cezmiNumber") && cezmiList1.get(0).containsKey("leftKey")){
-			cezmi1Left = cezmiList2.get(0).get("leftKey");
+			cezmi1Left = Integer.getInteger(cezmiList1.get(0).get("leftKey"));
 		}
 		
 		if (cezmiList1.get(0).containsKey("cezmiNumber") && cezmiList1.get(0).containsKey("rightKey")){
-			cezmi1Right = cezmiList1.get(0).get("rightKey");
+			cezmi1Right = Integer.getInteger(cezmiList1.get(0).get("rightKey"));
 		}
 
 		//creating cezmi2 from xml
@@ -103,11 +106,11 @@ public class HadiCezmi {
 	}
 		
 		if (cezmiList2.get(0).containsKey("cezmiNumber") && cezmiList2.get(0).containsKey("leftKey")){
-			cezmi2Left = cezmiList2.get(0).get("leftKey");
+			cezmi2Left = Integer.getInteger(cezmiList2.get(0).get("leftKey"));
 		}
 		
 		if (cezmiList2.get(0).containsKey("cezmiNumber") && cezmiList2.get(0).containsKey("rightKey")){
-			cezmi2Right = cezmiList2.get(0).get("rightKey");
+			cezmi2Right = Integer.getInteger(cezmiList2.get(0).get("rightKey"));
 		}
 		
 		//creating gizmo from xml
@@ -130,13 +133,7 @@ public class HadiCezmi {
 		ArrayList<HashMap<String, String>> levelList = xmlParser.createLevelFromXml();
 			if (levelList.get(0).containsKey("level")){
 				board.setLevel(Integer.parseInt(levelList.get(0).get("level")));
-			}
-		
-		
-		
-		
-		
-		
+			} 
 	}
 	
     
@@ -182,7 +179,7 @@ public class HadiCezmi {
     	}
     	}
     }
-    
+     
     public void doAction(String s){
     	switch(s){
     	case "play":
@@ -202,6 +199,7 @@ public class HadiCezmi {
     public void play(){
     	runningMode=true;
     	t.start();
+    	System.out.println("playing");
     	
     }
     
@@ -266,22 +264,16 @@ public class HadiCezmi {
 	}
 
 	public void moveCezmi(int cezmiNum, String dir){
-		
 		board.moveCezmi(cezmiNum, dir);
-		
 	}
 	
 	public void rotateTokat(String dir){
-		
 		board.rotateTokat(dir);
-		
 	}
 	
 	public void move(){
 		board.checkCollision();
-	}
-    
-    
+	}   
 }  
     
     
@@ -290,9 +282,7 @@ public class HadiCezmi {
     	private HadiCezmi hadiCezmi;
     	
     	public EventListener(HadiCezmi hadiCezmi){
-    		
     		this.hadiCezmi = hadiCezmi;
-    		
     	}
 
 		@Override

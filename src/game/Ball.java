@@ -11,8 +11,10 @@ public class Ball {
 
 	private double x = (int)((Math.random() * 100.0) + 100.0);
 	private double y = (int)((Math.random() * 100.0) + 100.0);
-	private double vx = ((int)(Math.random() * 10.0))/20.0;
-	private double vy = ((int)(Math.random() * 10.0))/20.0;
+	//private double vx = ((int)(Math.random() * 10.0))/20.0;
+	private double vx = 1;
+	//private double vy = ((int)(Math.random() * 10.0))/20.0;
+	private double vy = 1;
 	private int radius = 6;
 	
 	private Color color = new Color(255, 0, 0);

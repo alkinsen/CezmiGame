@@ -30,6 +30,7 @@ public class Board {
 		cezmi1 = new Cezmi(110, 500, level);
 		cezmi2 = new Cezmi(350, 500, level);
 		gizmoFactory = GizmoFactory.getInstance();
+		gizmoArrayList = new ArrayList<Gizmo>();
 		gravity = 25;
 		friction = level;
 		this.level = level;	
@@ -219,6 +220,10 @@ public class Board {
   
   
   public void checkCollision(){
+	  
+	  System.out.println(""+ball.getX()+"  "+ball.getY());
+	  
+	  	
 	  	
 	  	//ball related vectors 
 	  	Circle ballCircle = new Circle(ball.getX(),ball.getY(),ball.getRadius());
@@ -248,8 +253,66 @@ public class Board {
         LineSegment engelBottomLine = new LineSegment(engelBottomLeftCorner, engelBottomRightCorner);
         LineSegment engelLeftLine = new LineSegment(engelTopLeftCorner, engelBottomLeftCorner);
 
-        
+        //duvar vectors
+        Vect boardTopLeftCorner = new Vect(0,0);
+        Circle boardTopLeftCircle = new Circle(boardTopLeftCorner.x(),boardTopLeftCorner.y(), 1);
+        Vect boardTopRightCorner = new Vect(width,0);
+        Circle boardTopRightCircle = new Circle(boardTopRightCorner.x(),boardTopRightCorner.y(), 1);
+        Vect boardBottomLeftCorner = new Vect(0,height);
+        Circle boardBottomLeftCircle = new Circle(boardBottomLeftCorner.x(),boardBottomLeftCorner.y(), 1);
+        Vect boardBottomRightCorner = new Vect(width,height);
+        Circle boardBottomRightCircle = new Circle(boardBottomRightCorner.x(),boardBottomRightCorner.y(), 1);
 		
+        LineSegment boardTopLine = new LineSegment(boardTopLeftCorner, boardTopRightCorner);
+        LineSegment boardRightLine = new LineSegment(boardTopRightCorner, boardBottomRightCorner);
+        LineSegment boardBottomLine = new LineSegment(boardBottomLeftCorner, boardBottomRightCorner);
+        LineSegment boardLeftLine = new LineSegment(boardTopLeftCorner, boardBottomLeftCorner);
+        
+        
+        //duvar collision
+        if(Geometry.timeUntilWallCollision(boardTopLine, ballCircle, ballVelocity) <= 0.01){
+            Vect returnedVector =Geometry.reflectWall(boardTopLine,ballVelocity);
+            ball.setVx(returnedVector.x());
+			ball.setVy(returnedVector.y());
+        }else if(Geometry.timeUntilWallCollision(boardRightLine, ballCircle, ballVelocity) <=0.01){
+            Vect returnedVector =Geometry.reflectWall(boardRightLine,ballVelocity);
+            ball.setVx(returnedVector.x());
+			ball.setVy(returnedVector.y());
+        }else if(Geometry.timeUntilWallCollision(boardBottomLine, ballCircle, ballVelocity) <=0.01){
+            Vect returnedVector =Geometry.reflectWall(engelBottomLine,ballVelocity);
+            ball.setVx(returnedVector.x());
+			ball.setVy(returnedVector.y());
+        }else if(Geometry.timeUntilWallCollision(boardLeftLine, ballCircle, ballVelocity) <= 0.01){
+            Vect returnedVector =Geometry.reflectWall(engelLeftLine,ballVelocity);
+            ball.setVx(returnedVector.x());
+			ball.setVy(returnedVector.y());
+			
+        }else if(Geometry.timeUntilCircleCollision(boardTopLeftCircle, ballCircle, ballVelocity) == 0){
+
+			Vect returnedVector = Geometry.reflectCircle(boardTopLeftCorner, ballVector, ballVelocity);
+			ball.setVx(returnedVector.x());
+			ball.setVy(returnedVector.y());
+			
+			
+		}else if(Geometry.timeUntilCircleCollision(boardTopRightCircle, ballCircle, ballVelocity) == 0){
+
+			Vect returnedVector = Geometry.reflectCircle(boardTopRightCorner, ballVector, ballVelocity);
+			ball.setVx(returnedVector.x());
+			ball.setVy(returnedVector.y());
+			
+		}else if(Geometry.timeUntilCircleCollision(boardBottomLeftCircle, ballCircle, ballVelocity) == 0){
+
+			Vect returnedVector = Geometry.reflectCircle(boardBottomLeftCorner, ballVector, ballVelocity);
+			ball.setVx(returnedVector.x());
+			ball.setVy(returnedVector.y());
+			
+		}else if(Geometry.timeUntilCircleCollision(boardBottomRightCircle, ballCircle, ballVelocity) == 0){
+
+			Vect returnedVector = Geometry.reflectCircle(boardBottomRightCorner, ballVector, ballVelocity);
+			ball.setVx(returnedVector.x());
+			ball.setVy(returnedVector.y());
+		}
+        
 		//cezmi1 collision
 		if(Geometry.timeUntilCircleCollision(cezmiCircle1, ballCircle, ballVelocity) == 0){
 
@@ -372,10 +435,9 @@ public class Board {
 			Vect returnedVector = Geometry.reflectCircle(bottomRightCorner, ballVector, ballVelocity);
 			ball.setVx(returnedVector.x());
 			ball.setVy(returnedVector.y());
-		}
-         ball.move();
+		}     
 	}
-     
+      ball.move();
 
   }
   
