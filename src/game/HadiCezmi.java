@@ -29,7 +29,16 @@ public class HadiCezmi {
 	private boolean runningMode=false;
 	private boolean editMode=false;
 	private Timer t;
-	private eventListener el=new eventListener();
+	private EventListener el;
+	
+	private int cezmi1Left = 37;
+	private int cezmi1Right = 39;
+	private int cezmi2Left = 50;
+	private int cezmi2Right = 53;
+	
+	private int tokatLeftKey = 60;
+	private int tokatRightKey = 61;
+	
 	
 	public HadiCezmi(int level, String playerName1, String playerName2) {
 		super();
@@ -37,6 +46,7 @@ public class HadiCezmi {
 		player2 = new Player(playerName2);
 		board = new Board(level);
 		t= new Timer(20,el);
+		el = new EventListener(this);
 		
 	}
 
@@ -204,10 +214,81 @@ public class HadiCezmi {
     	runningMode=false;
     	t.stop();
     }
+
+	public int getCezmi1Left() {
+		return cezmi1Left;
+	}
+
+	public void setCezmi1Left(int cezmi1Left) {
+		this.cezmi1Left = cezmi1Left;
+	}
+
+	public int getCezmi1Right() {
+		return cezmi1Right;
+	}
+
+	public void setCezmi1Right(int cezmi1Right) {
+		this.cezmi1Right = cezmi1Right;
+	}
+
+	public int getCezmi2Left() {
+		return cezmi2Left;
+	}
+
+	public void setCezmi2Left(int cezmi2Left) {
+		this.cezmi2Left = cezmi2Left;
+	}
+
+	public int getCezmi2Right() {
+		return cezmi2Right;
+	}
+
+	public void setCezmi2Right(int cezmi2Right) {
+		this.cezmi2Right = cezmi2Right;
+	}
+	
+	
+	public int getTokatLeftKey() {
+		return tokatLeftKey;
+	}
+
+	public void setTokatLeftKey(int tokatLeftKey) {
+		this.tokatLeftKey = tokatLeftKey;
+	}
+
+	public int getTokatRightKey() {
+		return tokatRightKey;
+	}
+
+	public void setTokatRightKey(int tokatRightKey) {
+		this.tokatRightKey = tokatRightKey;
+	}
+
+	public void moveCezmi(int cezmiNum, String dir){
+		
+		board.moveCezmi(cezmiNum, dir);
+		
+	}
+	
+	public void rotateTokat(String dir){
+		
+		board.rotateTokat(dir);
+		
+	}
+    
+    
 }  
     
     
-    class eventListener implements KeyListener,ActionListener{
+    class EventListener implements KeyListener,ActionListener{
+    	
+    	private HadiCezmi hadiCezmi;
+    	
+    	public EventListener(HadiCezmi hadiCezmi){
+    		
+    		this.hadiCezmi = hadiCezmi;
+    		
+    	}
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
@@ -224,6 +305,33 @@ public class HadiCezmi {
 		@Override
 		public void keyPressed(KeyEvent e) {
 			// TODO Auto-generated method stub
+			int keynum = e.getKeyCode();
+			
+			if(keynum == hadiCezmi.getCezmi1Left()){
+				
+				hadiCezmi.moveCezmi(1, "left");
+				
+			}else if(keynum == hadiCezmi.getCezmi1Right()){
+				
+				hadiCezmi.moveCezmi(1, "right");
+				
+			}else if(keynum == hadiCezmi.getCezmi2Left()){
+				
+				hadiCezmi.moveCezmi(2, "left");
+				
+			}else if(keynum == hadiCezmi.getCezmi2Right()){
+				
+				hadiCezmi.moveCezmi(2, "right");
+				
+			}else if(keynum == hadiCezmi.getTokatLeftKey()){
+				
+				hadiCezmi.rotateTokat("left");
+				
+			}else if(keynum == hadiCezmi.getTokatRightKey()){
+				
+				hadiCezmi.rotateTokat("right");
+				
+			}
 			
 		}
 
