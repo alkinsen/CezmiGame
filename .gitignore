@@ -1,0 +1,15 @@
+#IntelliJ
+*.log
+.idea/*
+*.iml
+*.class
+.metadata
+bin/
+tmp/
+
+#Eclipse
+.settings/
+.loadpath
+.recommenders
+.project
+/.DS_Store
