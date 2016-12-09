@@ -98,7 +98,7 @@ public class Board {
   public void changeCezmiPosition(int i, int x, int y){
 	  if(i == 1){
 		  cezmi1.setX(x);
-		  cezmi2.setY(y);
+		  cezmi1.setY(y);
 	  } else if(i == 2) {
 		  cezmi2.setX(x);
 		  cezmi2.setY(y);  
@@ -116,10 +116,10 @@ public class Board {
 	  }
 	  else if(cezmiNumber == 2){
 		  if (direction == "left"){
-			  cezmi1.moveLeft();
+			  cezmi2.moveLeft();
 		  }
 		  else if (direction == "right"){
-			  cezmi1.moveRight();
+			  cezmi2.moveRight();
 		  }
 	  }
   }
