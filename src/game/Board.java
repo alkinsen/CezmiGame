@@ -17,15 +17,21 @@ public class Board {
 	private Cezmi cezmi2;
 	private GizmoFactory gizmoFactory;
 	private ArrayList<Gizmo> gizmoArrayList;
+	private int gravity;
+	private int friction;
+	private int level; 
 	
 	
-	public Board() {
+	public Board(int level) {
 		super();
 		ball = new Ball();
 		engel = new Engel();
-		cezmi1 = new Cezmi(110, 500);
-		cezmi2 = new Cezmi(350, 500);
+		cezmi1 = new Cezmi(110, 500, level);
+		cezmi2 = new Cezmi(350, 500, level);
 		gizmoFactory = GizmoFactory.getInstance();
+		gravity = 25;
+		friction = level;
+		this.level = level;	
 	}
 
 	public int getWidth() {
