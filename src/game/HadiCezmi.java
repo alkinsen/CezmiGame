@@ -45,8 +45,9 @@ public class HadiCezmi {
 		player1 = new Player(playerName1);
 		player2 = new Player(playerName2);
 		board = new Board(level);
-		t= new Timer(20,el);
 		el = new EventListener(this);
+		t= new Timer(20,el);
+		
 		
 	}
 
@@ -269,6 +270,10 @@ public class HadiCezmi {
 		board.rotateTokat(dir);
 		
 	}
+	
+	public void move(){
+		board.checkCollision();
+	}
     
     
 }  
@@ -285,6 +290,7 @@ public class HadiCezmi {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			// TODO Auto-generated method stub
+			hadiCezmi.move();
 			
 		}
 
