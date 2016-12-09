@@ -3,11 +3,14 @@ package game;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Rectangle;
+import java.util.List;
+import java.util.Observable;
+import java.util.Observer;
 
 /**
  * Created by ASEN14 on 28.11.2016.
  */
-public class Ball {
+public class Ball extends Observable{
 
 	private double x = (int)((Math.random() * 100.0) + 100.0);
 	private double y = (int)((Math.random() * 100.0) + 100.0);
@@ -77,8 +80,11 @@ public class Ball {
 	}
 	
 	public void move(){
-		x = x + vx;
-		y = y + vy;
+		x = x + 10;
+		y = y + 10;
+		setChanged();
+		notifyObservers(this);
+
 	}
 	
 	public void paint(Graphics g) {
@@ -107,6 +113,8 @@ public class Ball {
 		// width and height
 		return new Rectangle((int)(x-radius), (int)(y-radius), radius+radius, radius+radius);
 	}
+
+
 	
 
 	
