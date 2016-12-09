@@ -179,7 +179,7 @@ public class HadiCezmi {
     	}
     	}
     }
-    
+     
     public void doAction(String s){
     	switch(s){
     	case "play":
@@ -264,22 +264,16 @@ public class HadiCezmi {
 	}
 
 	public void moveCezmi(int cezmiNum, String dir){
-		
 		board.moveCezmi(cezmiNum, dir);
-		
 	}
 	
 	public void rotateTokat(String dir){
-		
 		board.rotateTokat(dir);
-		
 	}
 	
 	public void move(){
 		board.checkCollision();
-	}
-    
-    
+	}   
 }  
     
     
