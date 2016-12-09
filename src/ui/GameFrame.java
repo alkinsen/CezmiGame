@@ -1,5 +1,6 @@
 package ui;
-import game.Takoz;
+import game.*;
+import ui.domain.*;
 
 import javax.swing.*;
 import java.awt.*;
@@ -13,11 +14,33 @@ import java.awt.event.WindowEvent;
  * Created by ASEN14 on 28.11.2016.
  */
 public class GameFrame extends JFrame{
-
     GameFrameController gameFrameController;
+
+    //ADDED DUMMY OBJECTS FOR TESTING
+    Ball b = new Ball();
+    UiBall uib = new UiBall(b);
+    Cezmi c = new Cezmi(150,200,1);
+    UiCezmi uc1 = new UiCezmi(c);
+    SquareTakoz sq = new SquareTakoz(10,10);
+    UiSquareTakoz usq = new UiSquareTakoz(sq);
+    TriangleTakoz tq = new TriangleTakoz(50, 50);
+    UiTriangleTakoz utq = new UiTriangleTakoz(tq);
+    UiBoardPanel uiBoardPanel = new UiBoardPanel();
+    //ADDED DUMMY OBJECTS FOR TESTING
 
     public GameFrame() {
         super("Welcome to Cezmi Game");
+
+
+        //ADDED DUMMY OBJECT FOR TESTING
+        uiBoardPanel.addUiBall(uib);
+        uiBoardPanel.addUiCezmi1(uc1);
+        uiBoardPanel.addUiGizmo(usq);
+        uiBoardPanel.addUiGizmo(utq);
+        //ADDED DUMMY OBJECTS FOR TESTING
+
+
+
 
         //CONTROLLER PATTERN
         gameFrameController = new GameFrameController();
@@ -31,6 +54,7 @@ public class GameFrame extends JFrame{
 
         JPanel gizmoPanel = new JPanel(new GridLayout(0,2));
         JPanel board = new JPanel();
+
         JPanel toolbarPanel = new JPanel();
 
         //creating and adding buttons to top toolbar
@@ -43,16 +67,20 @@ public class GameFrame extends JFrame{
 
         //creating and adding buttons to gizmo panel
         JButton leftTokatButton = new JButton("Left Tokat");
-        btnPlay.addActionListener(new ActionListener() {
+        leftTokatButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                b.move();
+                c.moveRight();
                 gameFrameController.doAction("addLeftTokat");
             }
         });
         JButton rightTokatButton = new JButton("Right Tokat");
-        btnPlay.addActionListener(new ActionListener() {
+        rightTokatButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+
+                uiBoardPanel.repaint();
                 gameFrameController.doAction("addRightTokat");
             }
         });
@@ -76,7 +104,7 @@ public class GameFrame extends JFrame{
         gizmoPanel.add(squareTakozButton);
         gizmoPanel.add(triangleTakozButton);
 
-        JScrollPane boardPane = new JScrollPane(board);
+        JScrollPane boardPane = new JScrollPane(uiBoardPanel);
         JPanel contentPane = new JPanel();
         contentPane.setLayout(new BorderLayout());
         contentPane.setPreferredSize(new Dimension(800, 800));

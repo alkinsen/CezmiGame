@@ -1,11 +1,12 @@
 package game;
 
 import java.awt.Color;
+import java.util.Observable;
 
 /**
  * Created by ASEN14 on 28.11.2016.
  */
-public class Cezmi {
+public class Cezmi extends Observable{
 
 	private int radius;
 	private int x;
@@ -71,6 +72,8 @@ public class Cezmi {
 				x = x + vx;
 			}
 		}
+		setChanged();
+		notifyObservers(this);
 		
 	}
 	
@@ -86,6 +89,9 @@ public class Cezmi {
 			x = x - vx;
 			}
 		}
+		System.out.println("cezmi.moveright");
+		setChanged();
+		notifyObservers(this);
 	}
 	
 	public void moveUp(){
@@ -96,6 +102,8 @@ public class Cezmi {
 				}
 			}
 		}
+		setChanged();
+		notifyObservers(this);
 	}
 	public void moveDown(){
 		if(cezmilevel==2){
@@ -105,6 +113,8 @@ public class Cezmi {
 				}
 			}
 		}
+		setChanged();
+		notifyObservers(this);
 	}
 
 	

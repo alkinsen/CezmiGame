@@ -14,7 +14,9 @@ public class TriangleTakoz extends Takoz {
 		this.x = xLoc;
 		this.y = yLoc;
 		this.color = Color.darkGray;
-		
+		this.width = 25;
+		this.height = 25;
+
 	}
 	
 	//methods
