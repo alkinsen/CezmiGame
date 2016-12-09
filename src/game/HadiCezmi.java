@@ -79,11 +79,11 @@ public class HadiCezmi {
 		}
 		
 		if (cezmiList1.get(0).containsKey("cezmiNumber") && cezmiList1.get(0).containsKey("leftKey")){
-			cezmi1Left = cezmiList2.get(0).get("leftKey");
+			cezmi1Left = Integer.getInteger(cezmiList1.get(0).get("leftKey"));
 		}
 		
 		if (cezmiList1.get(0).containsKey("cezmiNumber") && cezmiList1.get(0).containsKey("rightKey")){
-			cezmi1Right = cezmiList1.get(0).get("rightKey");
+			cezmi1Right = Integer.getInteger(cezmiList1.get(0).get("rightKey"));
 		}
 
 		//creating cezmi2 from xml
@@ -102,11 +102,11 @@ public class HadiCezmi {
 	}
 		
 		if (cezmiList2.get(0).containsKey("cezmiNumber") && cezmiList2.get(0).containsKey("leftKey")){
-			cezmi2Left = cezmiList2.get(0).get("leftKey");
+			cezmi2Left = Integer.getInteger(cezmiList2.get(0).get("leftKey"));
 		}
 		
 		if (cezmiList2.get(0).containsKey("cezmiNumber") && cezmiList2.get(0).containsKey("rightKey")){
-			cezmi2Right = cezmiList2.get(0).get("rightKey");
+			cezmi2Right = Integer.getInteger(cezmiList2.get(0).get("rightKey"));
 		}
 		
 		//creating gizmo from xml
@@ -130,12 +130,6 @@ public class HadiCezmi {
 			if (levelList.get(0).containsKey("level")){
 				board.setLevel(Integer.parseInt(levelList.get(0).get("level")));
 			}
-		
-		
-		
-		
-		
-		
 	}
 	
     
@@ -285,9 +279,7 @@ public class HadiCezmi {
     	private HadiCezmi hadiCezmi;
     	
     	public EventListener(HadiCezmi hadiCezmi){
-    		
     		this.hadiCezmi = hadiCezmi;
-    		
     	}
 
 		@Override
