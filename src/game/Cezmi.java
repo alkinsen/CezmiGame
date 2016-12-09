@@ -14,6 +14,7 @@ public class Cezmi {
 	private int vy= 10;
 	private int vx= 10;
 	private int cezmilevel;
+
 	
 	public Cezmi(int xLoc, int yLoc, int level){
 		
@@ -105,6 +106,7 @@ public class Cezmi {
 			}
 		}
 	}
+
 	
 	
 	
