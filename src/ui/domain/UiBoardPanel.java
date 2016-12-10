@@ -1,7 +1,6 @@
 package ui.domain;
 
-import game.Ball;
-import game.Gizmo;
+import game.*;
 
 import javax.swing.*;
 import java.awt.*;
@@ -18,22 +17,35 @@ public class UiBoardPanel extends JPanel{
 
 
 
-    public UiBoardPanel(){
+    public UiBoardPanel(HadiCezmi hadiCezmi){
         super();
         uiGizmos = new ArrayList<UiGizmo>();
+        addUiCezmi1(hadiCezmi.getBoard().getCezmi1());
+        addUiCezmi2(hadiCezmi.getBoard().getCezmi2());
+        addUiBall(hadiCezmi.getBoard().getBall());
+        addUiGizmo(hadiCezmi.getBoard().getGizmoArrayList());
     }
 
-    public void addUiBall(UiBall uiBall){
-        this.uiBall = uiBall;
+    public void addUiBall(Ball ball){
+        this.uiBall = new UiBall(ball);
     }
-    public void addUiCezmi1(UiCezmi uicezmi1){
-        this.uiCezmi1 = uicezmi1;
+    public void addUiCezmi1(Cezmi cezmi1){
+        this.uiCezmi1 = new UiCezmi(cezmi1);
     }
-    public void addUiCezmi2(UiCezmi uicezmi2){
-        this.uiCezmi2 = uicezmi2;
+    public void addUiCezmi2(Cezmi cezmi2){
+        this.uiCezmi2 = new UiCezmi(cezmi2);
     }
-    public void addUiGizmo(UiGizmo uigizmo){
-        this.uiGizmos.add(uigizmo);
+
+    public void addUiGizmo(ArrayList<Gizmo> gizmos) {
+        for (Gizmo gizmo : gizmos) {
+            if (gizmo instanceof SquareTakoz) {
+                SquareTakoz squareTakoz = (SquareTakoz) gizmo;
+                this.uiGizmos.add(new UiSquareTakoz(squareTakoz));
+            } else if (gizmo instanceof TriangleTakoz) {
+                TriangleTakoz triangleTakoz = (TriangleTakoz) gizmo;
+                this.uiGizmos.add(new UiTriangleTakoz(triangleTakoz));
+            }
+        }
     }
 
 

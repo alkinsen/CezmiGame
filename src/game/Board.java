@@ -36,6 +36,26 @@ public class Board {
 		this.level = level;	
 	}
 
+	public Ball getBall() {
+		return ball;
+	}
+
+	public Engel getEngel() {
+		return engel;
+	}
+
+	public Cezmi getCezmi1() {
+		return cezmi1;
+	}
+
+	public Cezmi getCezmi2() {
+		return cezmi2;
+	}
+
+	public ArrayList<Gizmo> getGizmoArrayList() {
+		return gizmoArrayList;
+	}
+
 	public int getWidth() {
 		return width;
 	}
@@ -220,10 +240,6 @@ public class Board {
   
   
   public void checkCollision(){
-	  
-	  System.out.println(""+ball.getX()+"  "+ball.getY());
-	  
-	  	
 	  	
 	  	//ball related vectors 
 	  	Circle ballCircle = new Circle(ball.getX(),ball.getY(),ball.getRadius());
@@ -448,19 +464,5 @@ public class Board {
 	public void setLevel(int level) {
 		this.level = level;
 	}
-  
-  
-
-  
-  
-  
-  
-  
-  
-  
-  
-  
-	
-	
 	
 }

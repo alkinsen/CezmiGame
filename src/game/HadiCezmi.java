@@ -7,6 +7,7 @@ import java.awt.event.KeyListener;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Observable;
 
 import javax.swing.Timer;
 
@@ -16,13 +17,11 @@ import xml.XMLParser;
  * Created by ASEN14 on 28.11.2016.
  */
 public class HadiCezmi {
-    public static final int FRAME_WIDTH = 800;
-    public static final int FRAME_HEIGHT = 800;
+    public static final int FRAME_WIDTH = 600;
+    public static final int FRAME_HEIGHT = 600;
     public static final int BOARD_WIDTH = 500;
     public static final int BOARD_HEIGHT = 500;
     //GLOBAL VARIABLES SHOULD BE HERE
-	public static final int BOARD_WIDTH = 500;
-	public static final int BOARD_HEIGHT = 500;
 	
 	private Player player1;
 	private Player player2;
@@ -49,8 +48,7 @@ public class HadiCezmi {
 		board = new Board(level);
 		el = new EventListener(this);
 		t= new Timer(20,el);
-		
-		
+
 	}
 
 	public void readXML(File file){
@@ -96,11 +94,11 @@ public class HadiCezmi {
 		ArrayList<HashMap<String, String>> cezmiList2 = xmlParser.createCezmi2FromXml();
 		if (cezmiList2.get(0).containsKey("cezmiNumber") && cezmiList2.get(0).containsKey("x")){
 			if(cezmiList2.get(0).containsKey("y")){
-				board.changeCezmiPosition(Integer.parseInt(cezmiList2.get(0).get("cezmiNumber")), Integer.parseInt(cezmiList2.get(0).get("x")), Integer.parseInt(cezmiList2.get(0).get("y")));	
+				board.changeCezmiPosition(Integer.parseInt(cezmiList2.get(0).get("cezmiNumber")), Integer.parseInt(cezmiList2.get(0).get("x")), Integer.parseInt(cezmiList2.get(0).get("y")));
 			}
 			else{
 				board.changeCezmiPosition(Integer.parseInt(cezmiList2.get(0).get("cezmiNumber")), Integer.parseInt(cezmiList2.get(0).get("x")));
-			}	
+			}
 		}
 		
 		if (cezmiList2.get(0).containsKey("cezmiNumber") && cezmiList2.get(0).containsKey("score")){
@@ -216,7 +214,39 @@ public class HadiCezmi {
     	t.stop();
     }
 
-	public int getCezmi1Left() {
+    public boolean isRunningMode() {
+        return runningMode;
+    }
+
+    public void setRunningMode(boolean runningMode) {
+        this.runningMode = runningMode;
+    }
+
+    public Player getPlayer1() {
+        return player1;
+    }
+
+    public void setPlayer1(Player player1) {
+        this.player1 = player1;
+    }
+
+    public Player getPlayer2() {
+        return player2;
+    }
+
+    public void setPlayer2(Player player2) {
+        this.player2 = player2;
+    }
+
+    public Board getBoard() {
+        return board;
+    }
+
+    public void setBoard(Board board) {
+        this.board = board;
+    }
+
+    public int getCezmi1Left() {
 		return cezmi1Left;
 	}
 
@@ -304,8 +334,9 @@ public class HadiCezmi {
 		public void keyPressed(KeyEvent e) {
 			// TODO Auto-generated method stub
 			int keynum = e.getKeyCode();
-			
-			if(keynum == hadiCezmi.getCezmi1Left()){
+            System.out.println(keynum);
+
+            if(keynum == hadiCezmi.getCezmi1Left()){
 				
 				hadiCezmi.moveCezmi(1, "left");
 				

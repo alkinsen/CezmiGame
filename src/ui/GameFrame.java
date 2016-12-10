@@ -15,29 +15,26 @@ import java.awt.event.WindowEvent;
  */
 public class GameFrame extends JFrame{
     GameFrameController gameFrameController;
+    private HadiCezmi hadiCezmi;
+    private UiBoardPanel uiBoardPanel;
+
 
     //ADDED DUMMY OBJECTS FOR TESTING
-    Ball b = new Ball();
-    UiBall uib = new UiBall(b);
-    Cezmi c = new Cezmi(150,200,1);
-    UiCezmi uc1 = new UiCezmi(c);
-    SquareTakoz sq = new SquareTakoz(10,10);
-    UiSquareTakoz usq = new UiSquareTakoz(sq);
-    TriangleTakoz tq = new TriangleTakoz(50, 50);
-    UiTriangleTakoz utq = new UiTriangleTakoz(tq);
-    UiBoardPanel uiBoardPanel = new UiBoardPanel();
+//    Ball b = new Ball();
+//    UiBall uib = new UiBall(b);
+//    Cezmi c = new Cezmi(150,200,1);
+//    UiCezmi uc1 = new UiCezmi(c);
+//    SquareTakoz sq = new SquareTakoz(10,10);
+//    UiSquareTakoz usq = new UiSquareTakoz(sq);
+//    TriangleTakoz tq = new TriangleTakoz(50, 50);
+//    UiTriangleTakoz utq = new UiTriangleTakoz(tq);U
     //ADDED DUMMY OBJECTS FOR TESTING
 
-    public GameFrame() {
+    public GameFrame(HadiCezmi hadiCezmi) {
         super("Welcome to Cezmi Game");
 
-
-        //ADDED DUMMY OBJECT FOR TESTING
-        uiBoardPanel.addUiBall(uib);
-        uiBoardPanel.addUiCezmi1(uc1);
-        uiBoardPanel.addUiGizmo(usq);
-        uiBoardPanel.addUiGizmo(utq);
-        //ADDED DUMMY OBJECTS FOR TESTING
+        this.hadiCezmi = hadiCezmi;
+        this.uiBoardPanel = new UiBoardPanel(hadiCezmi);
 
 
 
@@ -66,20 +63,18 @@ public class GameFrame extends JFrame{
         toolbarPanel.add(btnEdit);
 
         //creating and adding buttons to gizmo panel
-        JButton leftTokatButton = new JButton("Left Tokat");
+        JButton leftTokatButton = new JButton("Test Play");
         leftTokatButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                b.move();
-                c.moveRight();
+                hadiCezmi.play();
                 gameFrameController.doAction("addLeftTokat");
             }
         });
-        JButton rightTokatButton = new JButton("Right Tokat");
+        JButton rightTokatButton = new JButton("Test Repaint");
         rightTokatButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
                 uiBoardPanel.repaint();
                 gameFrameController.doAction("addRightTokat");
             }
@@ -120,10 +115,4 @@ public class GameFrame extends JFrame{
         super.paint(g);
     }
 
-    //main to test this class
-    public static void main(String[] args) {
-        GameFrame gameFrame = new GameFrame();
-        gameFrame.pack();
-        gameFrame.setVisible(true);
-    }
 }
