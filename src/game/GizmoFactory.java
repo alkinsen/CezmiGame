@@ -1,5 +1,8 @@
 package game;
 
+import ui.domain.UiBoardPanel;
+import ui.domain.UiSquareTakoz;
+
 /**
  * Created by ASEN14 on 8.12.2016.
  */
@@ -27,7 +30,6 @@ public class GizmoFactory {
 			return new RightTokat(xLoc, yLoc);
 		case "Cezerye":
 			return new Cezerye(xLoc, yLoc);
-
 		default:
 			return null;
 		}

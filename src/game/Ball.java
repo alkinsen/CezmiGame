@@ -80,8 +80,8 @@ public class Ball extends Observable{
 	}
 	
 	public void move(){
-		x = x + 10;
-		y = y + 10;
+		x = x + vx;
+		y = y + vy;
 		setChanged();
 		notifyObservers(this);
 

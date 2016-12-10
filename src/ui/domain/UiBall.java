@@ -38,7 +38,6 @@ public class UiBall implements Observer {
 
     @Override
     public void update(Observable o, Object arg) {
-        System.out.println("update ball");
         Ball temp = (Ball) arg;
 
         this.x = (int)Math.round(temp.getX());

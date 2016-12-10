@@ -72,6 +72,7 @@ public class Cezmi extends Observable{
 				x = x + vx;
 			}
 		}
+		System.out.println("cezmi move left");
 		setChanged();
 		notifyObservers(this);
 		
