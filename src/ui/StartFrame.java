@@ -31,21 +31,22 @@ public class StartFrame extends JFrame {
         btnPlay.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                startFrameController.doAction("Play");
+            	StartFrame.this.setVisible(false);
+                startFrameController.doAction("Play", null);
             }
         });
         JButton btnLoad = new JButton("Load Game");
         btnLoad.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                startFrameController.doAction("Load");
+                startFrameController.doAction("Load", null);
             }
         });
         JButton btnEdit = new JButton("Edit Mode");
         btnEdit.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                startFrameController.doAction("Edit");
+                startFrameController.doAction("Edit", null);
             }
         });
         btnPanel.add(btnPlay);
