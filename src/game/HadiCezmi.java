@@ -31,11 +31,11 @@ public class HadiCezmi {
 	private boolean editMode=false;
 	private Timer t;
 	private EventListener el;
-	
-	private int cezmi1Left = 37;
-	private int cezmi1Right = 39;
-	private int cezmi2Left = 50;
-	private int cezmi2Right = 53;
+
+	private int cezmi1Left = 65;
+	private int cezmi1Right = 68;
+	private int cezmi2Left = 37;
+	private int cezmi2Right = 39;
 	
 	private int tokatLeftKey = 60;
 	private int tokatRightKey = 61;
@@ -47,7 +47,7 @@ public class HadiCezmi {
 		player2 = new Player(playerName2);
 		board = new Board(level);
 		el = new EventListener(this);
-		t= new Timer(20,el);
+		t= new Timer(10,el);
 
 	}
 
@@ -199,6 +199,7 @@ public class HadiCezmi {
     }
     public void play(){
     	runningMode=true;
+
     	t.start();
     	System.out.println("playing");
     	
@@ -307,13 +308,13 @@ public class HadiCezmi {
 	public void move(){
 		board.checkCollision();
 	}   
-}  
-    
-    
-    class EventListener implements KeyListener,ActionListener{
-    	
+}
+
+
+    class EventListener implements ActionListener{
+
     	private HadiCezmi hadiCezmi;
-    	
+
     	public EventListener(HadiCezmi hadiCezmi){
     		this.hadiCezmi = hadiCezmi;
     	}
@@ -322,57 +323,11 @@ public class HadiCezmi {
 		public void actionPerformed(ActionEvent e) {
 			// TODO Auto-generated method stub
 			hadiCezmi.move();
-			
+
 		}
 
-		@Override
-		public void keyTyped(KeyEvent e) {
-			// TODO Auto-generated method stub
-			
-		}
-
-		@Override
-		public void keyPressed(KeyEvent e) {
-			// TODO Auto-generated method stub
-			int keynum = e.getKeyCode();
-            System.out.println(keynum);
-
-            if(keynum == hadiCezmi.getCezmi1Left()){
-				
-				hadiCezmi.moveCezmi(1, "left");
-				
-			}else if(keynum == hadiCezmi.getCezmi1Right()){
-				
-				hadiCezmi.moveCezmi(1, "right");
-				
-			}else if(keynum == hadiCezmi.getCezmi2Left()){
-				
-				hadiCezmi.moveCezmi(2, "left");
-				
-			}else if(keynum == hadiCezmi.getCezmi2Right()){
-				
-				hadiCezmi.moveCezmi(2, "right");
-				
-			}else if(keynum == hadiCezmi.getTokatLeftKey()){
-				
-				hadiCezmi.rotateTokat("left");
-				
-			}else if(keynum == hadiCezmi.getTokatRightKey()){
-				
-				hadiCezmi.rotateTokat("right");
-				
-			}
-			
-		}
-
-		@Override
-		public void keyReleased(KeyEvent e) {
-			// TODO Auto-generated method stub
-			
-		}
-    	
     }
-	
+
 
 
 
