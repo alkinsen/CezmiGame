@@ -47,15 +47,9 @@ public class XMLParser {
 
 					Element eElement = (Element) nNode;
 					ballInfo.put("type", "ball");
-
-					if(eElement.getAttribute("x") != ""){
-						ballInfo.put("x", eElement.getAttribute("x"));
-					}
-
-					if(eElement.getAttribute("y") != ""){
-						ballInfo.put("y", eElement.getAttribute("y"));
-					}
-
+			
+					ballInfo.put("x", eElement.getAttribute("x"));
+					ballInfo.put("y", eElement.getAttribute("y"));
 					ballInfo.put("vx", eElement.getAttribute("xVelocity"));
 					ballInfo.put("vy", eElement.getAttribute("yVelocity"));
 
@@ -84,13 +78,9 @@ public class XMLParser {
 					Element eElement = (Element) nNode;
 					cezmiInfo.put("type", "Cezmi");
 
-					if(eElement.getAttribute("x") != ""){
-						cezmiInfo.put("x", eElement.getAttribute("x"));
-					}
+					cezmiInfo.put("x", eElement.getAttribute("x"));
 
-					if(eElement.getAttribute("y") != ""){
-						cezmiInfo.put("y", eElement.getAttribute("y"));
-					}				
+					cezmiInfo.put("y", eElement.getAttribute("y"));
 
 					cezmiInfo.put("score", eElement.getAttribute("score"));
 
@@ -119,13 +109,9 @@ public class XMLParser {
 					Element eElement = (Element) nNode;
 					cezmiInfo.put("type", "Cezmi");
 
-					if(eElement.getAttribute("x") != ""){
-						cezmiInfo.put("x", eElement.getAttribute("x"));
-					}
+					cezmiInfo.put("x", eElement.getAttribute("x"));
 
-					if(eElement.getAttribute("y") != ""){
-						cezmiInfo.put("y", eElement.getAttribute("y"));
-					}				
+					cezmiInfo.put("y", eElement.getAttribute("y"));
 
 					cezmiInfo.put("score", eElement.getAttribute("score"));
 
@@ -152,18 +138,27 @@ public class XMLParser {
 				if (nNode.getNodeType() == Node.ELEMENT_NODE) {
 
 					Element eElement = (Element) nNode;
-					cezeryeInfo.put("type", "cezerye");
+					cezeryeInfo.put("type", "Cezerye");
 
 					if(eElement.getAttribute("x") != ""){
-						cezeryeInfo.put("x", eElement.getAttribute("x"));	
-					}	
+						cezeryeInfo.put("x", eElement.getAttribute("x"));
+					}
+					else{
+						cezeryeInfo.put("x", "1");
+					}
 
 					if(eElement.getAttribute("y") != ""){
 						cezeryeInfo.put("y", eElement.getAttribute("y"));
+					}
+					else{
+						cezeryeInfo.put("y", "1");
 					}	
 
 					if(eElement.getAttribute("time") != ""){
 						cezeryeInfo.put("time", eElement.getAttribute("time"));
+					}
+					else{
+						cezeryeInfo.put("time", "0.0");
 					}
 
 					cezeryeList.add(cezeryeInfo);
@@ -192,7 +187,7 @@ public class XMLParser {
 
 					HashMap<String, String> gizmoInfo = new HashMap<String, String>();
 
-					gizmoInfo.put("type", "gizmo");
+					gizmoInfo.put("type", "SquareTakoz");
 					gizmoInfo.put("x", eElement.getAttribute("x"));
 					gizmoInfo.put("y", eElement.getAttribute("y"));
 
@@ -210,7 +205,7 @@ public class XMLParser {
 
 					HashMap<String, String> gizmoInfo = new HashMap<String, String>();
 
-					gizmoInfo.put("type", "gizmo");
+					gizmoInfo.put("type", "TriangleTakoz");
 					gizmoInfo.put("x", eElement1.getAttribute("x"));
 					gizmoInfo.put("y", eElement1.getAttribute("y"));
 					gizmoInfo.put("orientation", eElement1.getAttribute("orientation"));
@@ -229,7 +224,7 @@ public class XMLParser {
 
 					HashMap<String, String> gizmoInfo = new HashMap<String, String>();
 
-					gizmoInfo.put("type", "gizmo");
+					gizmoInfo.put("type", "Firildak");
 					gizmoInfo.put("x", eElement2.getAttribute("x"));
 					gizmoInfo.put("y", eElement2.getAttribute("y"));
 					gizmoInfo.put("angle", eElement2.getAttribute("angle"));
@@ -248,7 +243,7 @@ public class XMLParser {
 
 					HashMap<String, String> gizmoInfo = new HashMap<String, String>();
 
-					gizmoInfo.put("type", "gizmo");
+					gizmoInfo.put("type", "LeftTokat");
 					gizmoInfo.put("x", eElement3.getAttribute("x"));
 					gizmoInfo.put("y", eElement3.getAttribute("y"));
 					gizmoInfo.put("orientation", eElement3.getAttribute("orientation"));
@@ -267,7 +262,7 @@ public class XMLParser {
 
 					HashMap<String, String> gizmoInfo = new HashMap<String, String>();
 
-					gizmoInfo.put("type", "gizmo");
+					gizmoInfo.put("type", "RightTokat");
 					gizmoInfo.put("x", eElement4.getAttribute("x"));
 					gizmoInfo.put("y", eElement4.getAttribute("y"));
 					gizmoInfo.put("orientation", eElement4.getAttribute("orientation"));
@@ -281,67 +276,89 @@ public class XMLParser {
 		} 
 		return gizmoList;
 	}
-	
+
 	public ArrayList<HashMap<String, String>> createKeysFromXml() {
 		ArrayList<HashMap<String, String>> keysList = new ArrayList<>();
-
+		HashMap<String, String> keysInfo = new HashMap<String, String>();
 		try {
-			NodeList nList = doc.getElementsByTagName("key1");
+			NodeList nList = doc.getElementsByTagName("key1left");
 			for (int temp = 0; temp < nList.getLength(); temp++) {
 				Node nNode = nList.item(temp);
 
 				if (nNode.getNodeType() == Node.ELEMENT_NODE) {
 
-					Element eElement = (Element) nNode;
-					
-					HashMap<String, String> keysInfo = new HashMap<String, String>();
-					
+					Element eElement = (Element) nNode;	
+
 					keysInfo.put("type", "keys");
 
 					if(eElement.getAttribute("key") != ""){
-						keysInfo.put("key1", eElement.getAttribute("key"));	
+						keysInfo.put("key1left", eElement.getAttribute("key"));	
 					}
-					if(eElement.getAttribute("key2") != ""){
-						keysInfo.put("key2", eElement.getAttribute("key2"));	
-					}	
 
 					keysList.add(keysInfo);
 				}  
 
 			}
-			
-			NodeList nList1 = doc.getElementsByTagName("key2");
+
+			NodeList nList1 = doc.getElementsByTagName("key1right");
 			for (int temp1 = 0; temp1 < nList1.getLength(); temp1++) {
 				Node nNode1 = nList1.item(temp1);
 
 				if (nNode1.getNodeType() == Node.ELEMENT_NODE) {
 
 					Element eElement = (Element) nNode1;
-					
-					HashMap<String, String> keysInfo = new HashMap<String, String>();
-					
-					keysInfo.put("type", "keys");
-					
-					if(eElement.getAttribute("key") != ""){
-						keysInfo.put("key1", eElement.getAttribute("key"));	
-					}	
 
-					if(eElement.getAttribute("key2") != ""){
-						keysInfo.put("key2", eElement.getAttribute("key2"));	
+					if(eElement.getAttribute("key") != ""){
+						keysInfo.put("key1right", eElement.getAttribute("key"));	
+					}
+
+					keysList.add(keysInfo);
+				}  
+
+			}
+
+			NodeList nList2 = doc.getElementsByTagName("key2left");
+			for (int temp2 = 0; temp2 < nList2.getLength(); temp2++) {
+				Node nNode2 = nList2.item(temp2);
+
+				if (nNode2.getNodeType() == Node.ELEMENT_NODE) {
+
+					Element eElement = (Element) nNode2;
+
+					if(eElement.getAttribute("key") != ""){
+						keysInfo.put("key2left", eElement.getAttribute("key"));	
 					}	
 
 					keysList.add(keysInfo);
 				}
 			}
+
+			NodeList nList3 = doc.getElementsByTagName("key2right");
+			for (int temp3 = 0; temp3 < nList3.getLength(); temp3++) {
+				Node nNode3 = nList3.item(temp3);
+
+				if (nNode3.getNodeType() == Node.ELEMENT_NODE) {
+
+					Element eElement = (Element) nNode3;
+
+					if(eElement.getAttribute("key") != ""){
+						keysInfo.put("key2right", eElement.getAttribute("key"));	
+					}	
+
+					keysList.add(keysInfo);
+				}
+			}
+
 		}catch(Exception e){
 			System.out.println(e.toString());
 		} 
 		return keysList;
 	}
-	
+
 	public ArrayList<HashMap<String, String>> createBoardFromXml() {
 		ArrayList<HashMap<String, String>> boardList = new ArrayList<>();
-
+		HashMap<String, String> boardInfo = new HashMap<String, String>();
+		
 		try {
 			NodeList nList = doc.getElementsByTagName("board");
 			for (int temp = 0; temp < nList.getLength(); temp++) {
@@ -350,11 +367,7 @@ public class XMLParser {
 				if (nNode.getNodeType() == Node.ELEMENT_NODE) {
 
 					Element eElement = (Element) nNode;
-					
-					HashMap<String, String> boardInfo = new HashMap<String, String>();
-					
-					boardInfo.put("type", "friction1");
-					
+
 					if(eElement.getAttribute("friction1") != ""){
 						boardInfo.put("friction1", eElement.getAttribute("friction1"));
 					}
@@ -366,7 +379,7 @@ public class XMLParser {
 				}  
 
 			}
-			
+
 			NodeList nList1 = doc.getElementsByTagName("board");
 			for (int temp1 = 0; temp1 < nList1.getLength(); temp1++) {
 				Node nNode1 = nList1.item(temp1);
@@ -374,11 +387,7 @@ public class XMLParser {
 				if (nNode1.getNodeType() == Node.ELEMENT_NODE) {
 
 					Element eElement = (Element) nNode1;
-					
-					HashMap<String, String> boardInfo = new HashMap<String, String>();
-					
-					boardInfo.put("type", "friction2");
-					
+
 					if(eElement.getAttribute("friction2") != ""){
 						boardInfo.put("friction2", eElement.getAttribute("friction2"));
 					}
@@ -390,20 +399,16 @@ public class XMLParser {
 				}  
 
 			}
-			
+
 			NodeList nList2 = doc.getElementsByTagName("board");
-			
+
 			for (int temp2 = 0; temp2 < nList2.getLength(); temp2++) {
 				Node nNode2 = nList2.item(temp2);
-				
+
 				if (nNode2.getNodeType() == Node.ELEMENT_NODE) {
 
 					Element eElement = (Element) nNode2;
-					
-					HashMap<String, String> boardInfo = new HashMap<String, String>();
-					
-					boardInfo.put("type", "gravity");
-					
+
 					if(eElement.getAttribute("gravity") != ""){
 						boardInfo.put("gravity", eElement.getAttribute("gravity"));
 					}
@@ -414,7 +419,7 @@ public class XMLParser {
 				}  
 
 			}
-			
+
 			NodeList nList3 = doc.getElementsByTagName("board");
 			for (int temp3 = 0; temp3 < nList3.getLength(); temp3++) {
 				Node nNode3 = nList3.item(temp3);
@@ -422,12 +427,9 @@ public class XMLParser {
 				if (nNode3.getNodeType() == Node.ELEMENT_NODE) {
 
 					Element eElement = (Element) nNode3;
-					
-					HashMap<String, String> boardInfo = new HashMap<String, String>();
-					
-					boardInfo.put("type", "level");
+
 					boardInfo.put("level", eElement.getAttribute("level"));
-					
+
 					boardList.add(boardInfo);
 				}  
 
