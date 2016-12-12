@@ -14,7 +14,8 @@ public class test {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		HadiCezmi hadi = new HadiCezmi(1, "doruk", "yilmazcan");
-		Board board = new Board(1);
+		//UI Test
+		/*Board board = new Board(1);
 		board.addGizmo("SquareTakoz", 50, 50);
 		board.addGizmo("SquareTakoz", 300, 310);
 		board.addGizmo("SquareTakoz", 350, 40);

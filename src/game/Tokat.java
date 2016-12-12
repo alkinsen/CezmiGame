@@ -19,6 +19,11 @@ public abstract class Tokat extends Gizmo {
 	public void setState(String state) {
 		this.state = state;
 	}
+
+	@Override
+	public String toString() {
+		return "Tokat [state=" + state + ", x=" + x + ", y=" + y + ", orientation=" + orientation + "]";
+	}
 	
 	
 	

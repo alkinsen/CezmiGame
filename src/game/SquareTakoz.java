@@ -23,4 +23,11 @@ public class SquareTakoz extends Takoz  {
 	public void rotate(){
 
 	}
+
+	@Override
+	public String toString() {
+		return "SquareTakoz [x=" + x + ", y=" + y + ", orientation=" + orientation + "]";
+	}
+	
+	
 }

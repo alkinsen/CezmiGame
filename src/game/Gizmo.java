@@ -71,5 +71,7 @@ public abstract class Gizmo extends Observable {
 			this.orientation = orientation;
 		}
 		
+		
+		
 	
 }
