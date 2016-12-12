@@ -22,4 +22,11 @@ public class Cezerye extends Gizmo {
 
 	}
 
+	@Override
+	public String toString() {
+		return "Cezerye [x=" + x + ", y=" + y + "]";
+	}
+	
+	
+
 }

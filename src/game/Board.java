@@ -117,7 +117,7 @@ public class Board {
 	  ball.setVy(vy);
   }
   
-  public void changeCezmiPosition(int i, int x){
+  public void changeCezmiPosition(int i, double x){
 	  if(i == 1){
 		  cezmi1.setX(x);
 	  } else if(i == 2) {
@@ -125,7 +125,7 @@ public class Board {
 	  }
   }
   
-  public void changeCezmiPosition(int i, int x, int y){
+  public void changeCezmiPosition(int i, double x, double y){
 	  if(i == 1){
 		  cezmi1.setX(x);
 		  cezmi1.setY(y);
@@ -156,7 +156,8 @@ public class Board {
   
   public void addGizmo(String type, int x, int y){
 	  boolean valid = true;
-	  for(Gizmo element: gizmoArrayList){
+	  for(int i=0; i<gizmoArrayList.size(); i++){
+		  Gizmo element = gizmoArrayList.get(i);
 		  if (element.getX() == x && element.getY() == y){
 			  valid = false;
 		  }
@@ -169,7 +170,8 @@ public class Board {
   
   public void addGizmo(String type, int x, int y, int orientation){
 	  boolean valid = true;
-	  for(Gizmo element: gizmoArrayList){
+	  for(int i=0; i<gizmoArrayList.size(); i++){
+		  Gizmo element = gizmoArrayList.get(i);
 		  if (element.getX() == x && element.getY() == y){
 			  valid = false;
 		  }
@@ -464,5 +466,43 @@ public class Board {
 	public void setLevel(int level) {
 		this.level = level;
 	}
+
+	public int getGravity() {
+		return gravity;
+	}
+
+	public void setGravity(int gravity) {
+		this.gravity = gravity;
+	}
+
+	public int getFriction() {
+		return friction;
+	}
+
+	public void setFriction(int friction) {
+		this.friction = friction;
+	}
+
+	public void setBall(Ball ball) {
+		this.ball = ball;
+	}
+
+	public void setEngel(Engel engel) {
+		this.engel = engel;
+	}
+
+	public void setCezmi1(Cezmi cezmi1) {
+		this.cezmi1 = cezmi1;
+	}
+
+	public void setCezmi2(Cezmi cezmi2) {
+		this.cezmi2 = cezmi2;
+	}
+
+	public void setGizmoArrayList(ArrayList<Gizmo> gizmoArrayList) {
+		this.gizmoArrayList = gizmoArrayList;
+	}
+	
+	
 	
 }

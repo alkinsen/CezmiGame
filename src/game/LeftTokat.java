@@ -20,4 +20,5 @@ public class LeftTokat extends Tokat {
 	public void rotate(){
 
 	}
+	
 }

@@ -23,4 +23,11 @@ public class TriangleTakoz extends Takoz {
 	public void rotate(){
 
 	}
+
+	@Override
+	public String toString() {
+		return "TriangleTakoz [x=" + x + ", y=" + y + ", orientation=" + orientation + "]";
+	}
+	
+	
 }

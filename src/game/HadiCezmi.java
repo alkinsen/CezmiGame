@@ -56,10 +56,8 @@ public class HadiCezmi {
 
 		//creating ball from xml
 		ArrayList<HashMap<String, String>> ballList = xmlParser.createBallFromXml();
-		System.out.println(ballList.get(0).toString());
 		
 		if (ballList.get(0).containsKey("x")  &&  ballList.get(0).containsKey("y")){
-			System.out.println("giriyor mu?");
 			board.changeBallPosition(Double.parseDouble(ballList.get(0).get("x")), Double.parseDouble(ballList.get(0).get("y")));
 		}
 		
@@ -69,71 +67,74 @@ public class HadiCezmi {
 		
 		//creating cezmi1 from xml
 		ArrayList<HashMap<String, String>> cezmiList1 = xmlParser.createCezmi1FromXml();
-		if (cezmiList1.get(0).containsKey("cezmiNumber") && cezmiList1.get(0).containsKey("x")){
+		if (cezmiList1.get(0).containsKey("x")){
 			if(cezmiList1.get(0).containsKey("y")){
-				board.changeCezmiPosition(Integer.parseInt(cezmiList1.get(0).get("cezmiNumber")), Integer.parseInt(cezmiList1.get(0).get("x")), Integer.parseInt(cezmiList1.get(0).get("y")));	
+				board.changeCezmiPosition(1, Double.parseDouble(cezmiList1.get(0).get("x")), Double.parseDouble(cezmiList1.get(0).get("y")));	
 			}
 			else{
-				board.changeCezmiPosition(Integer.parseInt(cezmiList1.get(0).get("cezmiNumber")), Integer.parseInt(cezmiList1.get(0).get("x")));
+				board.changeCezmiPosition(1, Double.parseDouble(cezmiList1.get(0).get("x")));
 			}	
 		}
 		
-		if (cezmiList1.get(0).containsKey("cezmiNumber") && cezmiList1.get(0).containsKey("score")){
-				player1.setName(cezmiList1.get(0).get("score"));
-		}
-		
-		if (cezmiList1.get(0).containsKey("cezmiNumber") && cezmiList1.get(0).containsKey("leftKey")){
-			cezmi1Left = Integer.getInteger(cezmiList1.get(0).get("leftKey"));
-		}
-		
-		if (cezmiList1.get(0).containsKey("cezmiNumber") && cezmiList1.get(0).containsKey("rightKey")){
-			cezmi1Right = Integer.getInteger(cezmiList1.get(0).get("rightKey"));
+		if (cezmiList1.get(0).containsKey("score")){
+				player1.setScore(Integer.parseInt(cezmiList1.get(0).get("score")));
 		}
 
 		//creating cezmi2 from xml
 		ArrayList<HashMap<String, String>> cezmiList2 = xmlParser.createCezmi2FromXml();
-		if (cezmiList2.get(0).containsKey("cezmiNumber") && cezmiList2.get(0).containsKey("x")){
+		if (cezmiList2.get(0).containsKey("x")){
 			if(cezmiList2.get(0).containsKey("y")){
-				board.changeCezmiPosition(Integer.parseInt(cezmiList2.get(0).get("cezmiNumber")), Integer.parseInt(cezmiList2.get(0).get("x")), Integer.parseInt(cezmiList2.get(0).get("y")));
+				board.changeCezmiPosition(2, Double.parseDouble(cezmiList2.get(0).get("x")), Double.parseDouble(cezmiList2.get(0).get("y")));
 			}
 			else{
-				board.changeCezmiPosition(Integer.parseInt(cezmiList2.get(0).get("cezmiNumber")), Integer.parseInt(cezmiList2.get(0).get("x")));
+				board.changeCezmiPosition(2, Double.parseDouble(cezmiList2.get(0).get("x")));
 			}
 		}
 		
-		if (cezmiList2.get(0).containsKey("cezmiNumber") && cezmiList2.get(0).containsKey("score")){
-			player2.setName(cezmiList2.get(0).get("score"));
+		if (cezmiList2.get(0).containsKey("score")){
+			player2.setScore(Integer.parseInt(cezmiList2.get(0).get("score")));
 	}
-		
-		if (cezmiList2.get(0).containsKey("cezmiNumber") && cezmiList2.get(0).containsKey("leftKey")){
-			cezmi2Left = Integer.getInteger(cezmiList2.get(0).get("leftKey"));
-		}
-		
-		if (cezmiList2.get(0).containsKey("cezmiNumber") && cezmiList2.get(0).containsKey("rightKey")){
-			cezmi2Right = Integer.getInteger(cezmiList2.get(0).get("rightKey"));
-		}
 		
 		//creating gizmo from xml
 		ArrayList<HashMap<String, String>> gizmoList = xmlParser.createGizmoFromXml();
 		for (int i=0; i< gizmoList.size(); i++){
 			if (gizmoList.get(i).containsKey("type") && gizmoList.get(i).containsKey("x") && gizmoList.get(i).containsKey("y")){
 				if(gizmoList.get(i).containsKey("orientation")){
-					board.addGizmo(gizmoList.get(i).get("type"), Integer.parseInt(gizmoList.get(0).get("x")), Integer.parseInt(gizmoList.get(0).get("y")), Integer.parseInt(gizmoList.get(0).get("orientation")));	
+					board.addGizmo(gizmoList.get(i).get("type"), Integer.parseInt(gizmoList.get(i).get("x")), Integer.parseInt(gizmoList.get(i).get("y")), Integer.parseInt(gizmoList.get(i).get("orientation")));	
 				}else {
-					board.addGizmo(gizmoList.get(i).get("type"), Integer.parseInt(gizmoList.get(0).get("x")), Integer.parseInt(gizmoList.get(0).get("y")));
+					board.addGizmo(gizmoList.get(i).get("type"), Integer.parseInt(gizmoList.get(i).get("x")), Integer.parseInt(gizmoList.get(i).get("y")));
 				}
 				
 			}
 			if(gizmoList.get(i).containsKey("orientation")){
-				
+				if (gizmoList.get(i).containsKey("type") && gizmoList.get(i).containsKey("x") && gizmoList.get(i).containsKey("y")){
+					if(gizmoList.get(i).containsKey("orientation")){
+						board.addGizmo(gizmoList.get(i).get("type"), Integer.parseInt(gizmoList.get(i).get("x")), Integer.parseInt(gizmoList.get(i).get("y")), Integer.parseInt(gizmoList.get(i).get("orientation")));	
+					}else {
+						board.addGizmo(gizmoList.get(i).get("type"), Integer.parseInt(gizmoList.get(i).get("x")), Integer.parseInt(gizmoList.get(i).get("y")));
+					}
 			}
+		}
 		}
 		
 		//creating level from xml
-		ArrayList<HashMap<String, String>> levelList = xmlParser.createLevelFromXml();
+		ArrayList<HashMap<String, String>> levelList = xmlParser.createBoardFromXml();
 			if (levelList.get(0).containsKey("level")){
 				board.setLevel(Integer.parseInt(levelList.get(0).get("level")));
-			} 
+			}
+		
+		//creating cezerye from xml
+		ArrayList<HashMap<String, String>> cezeryeList = xmlParser.createCezeryeFromXml();
+		for (int i=0; i< cezeryeList.size(); i++){
+			if (cezeryeList.get(i).containsKey("type") && cezeryeList.get(i).containsKey("x") && cezeryeList.get(i).containsKey("y")){
+				if(cezeryeList.get(i).containsKey("time")){
+					//TIMER EKLENECEK!!!
+					board.addGizmo(cezeryeList.get(i).get("type"), Integer.parseInt(cezeryeList.get(i).get("x")), Integer.parseInt(cezeryeList.get(i).get("y")));	
+				}else {
+					board.addGizmo(cezeryeList.get(i).get("type"), Integer.parseInt(cezeryeList.get(i).get("x")), Integer.parseInt(cezeryeList.get(i).get("y")));
+				}
+		}
+	}
 	}
 	
     
