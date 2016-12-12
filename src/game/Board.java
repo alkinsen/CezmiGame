@@ -276,9 +276,9 @@ public class Board {
         Circle boardTopLeftCircle = new Circle(boardTopLeftCorner.x(),boardTopLeftCorner.y(), 1);
         Vect boardTopRightCorner = new Vect(width,0);
         Circle boardTopRightCircle = new Circle(boardTopRightCorner.x(),boardTopRightCorner.y(), 1);
-        Vect boardBottomLeftCorner = new Vect(0,height);
+        Vect boardBottomLeftCorner = new Vect(0,height+20);
         Circle boardBottomLeftCircle = new Circle(boardBottomLeftCorner.x(),boardBottomLeftCorner.y(), 1);
-        Vect boardBottomRightCorner = new Vect(width,height);
+        Vect boardBottomRightCorner = new Vect(width,height+20);
         Circle boardBottomRightCircle = new Circle(boardBottomRightCorner.x(),boardBottomRightCorner.y(), 1);
 		
         LineSegment boardTopLine = new LineSegment(boardTopLeftCorner, boardTopRightCorner);
@@ -333,7 +333,7 @@ public class Board {
         
 		//cezmi1 collision
 		if(Geometry.timeUntilCircleCollision(cezmiCircle1, ballCircle, ballVelocity) == 0){
-
+			System.out.println("cezmi1");
 			Vect returnedVector = Geometry.reflectCircle(cezmiVector1, ballVector, ballVelocity);
 			ball.setVx(returnedVector.x());
 			ball.setVy(returnedVector.y());
@@ -342,6 +342,7 @@ public class Board {
 		
 		//cezmi2 collision
 		if(Geometry.timeUntilCircleCollision(cezmiCircle2, ballCircle, ballVelocity) == 0){
+			System.out.println("cezmi2");
 
 			Vect returnedVector = Geometry.reflectCircle(cezmiVector2, ballVector, ballVelocity);
 			ball.setVx(returnedVector.x());
