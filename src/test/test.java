@@ -17,7 +17,8 @@ public class test {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		HadiCezmi hadi = new HadiCezmi(1, "doruk", "yilmazcan");
-		Board board = new Board(1);
+		//UI Test
+		/*Board board = new Board(1);
 		board.addGizmo("SquareTakoz", 50, 50);
 		board.addGizmo("SquareTakoz", 300, 310);
 		board.addGizmo("SquareTakoz", 350, 40);
@@ -32,8 +33,17 @@ public class test {
 				gameFrame.repaint();
 			}
 		});
-		timer.start();
+		timer.start();*/
 
+		//XML test
+		hadi.readXML(new File("sample.xml"));
+		System.out.println(hadi.getPlayer1());
+		System.out.println(hadi.getPlayer2());
+		System.out.println(hadi.getBoard().getBall());
+		System.out.println(hadi.getBoard().getEngel());
+		System.out.println(hadi.getBoard().getCezmi1());
+		System.out.println(hadi.getBoard().getCezmi2());
+		System.out.println(hadi.getBoard().getGizmoArrayList());
 	}
 
 }

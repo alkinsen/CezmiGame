@@ -152,7 +152,7 @@ public class XMLParser {
 				if (nNode.getNodeType() == Node.ELEMENT_NODE) {
 
 					Element eElement = (Element) nNode;
-					cezeryeInfo.put("type", "cezerye");
+					cezeryeInfo.put("type", "Cezerye");
 
 					if(eElement.getAttribute("x") != ""){
 						cezeryeInfo.put("x", eElement.getAttribute("x"));	
@@ -192,7 +192,7 @@ public class XMLParser {
 
 					HashMap<String, String> gizmoInfo = new HashMap<String, String>();
 
-					gizmoInfo.put("type", "gizmo");
+					gizmoInfo.put("type", "SquareTakoz");
 					gizmoInfo.put("x", eElement.getAttribute("x"));
 					gizmoInfo.put("y", eElement.getAttribute("y"));
 
@@ -210,7 +210,7 @@ public class XMLParser {
 
 					HashMap<String, String> gizmoInfo = new HashMap<String, String>();
 
-					gizmoInfo.put("type", "gizmo");
+					gizmoInfo.put("type", "TriangleTakoz");
 					gizmoInfo.put("x", eElement1.getAttribute("x"));
 					gizmoInfo.put("y", eElement1.getAttribute("y"));
 					gizmoInfo.put("orientation", eElement1.getAttribute("orientation"));
@@ -229,7 +229,7 @@ public class XMLParser {
 
 					HashMap<String, String> gizmoInfo = new HashMap<String, String>();
 
-					gizmoInfo.put("type", "gizmo");
+					gizmoInfo.put("type", "Firildak");
 					gizmoInfo.put("x", eElement2.getAttribute("x"));
 					gizmoInfo.put("y", eElement2.getAttribute("y"));
 					gizmoInfo.put("angle", eElement2.getAttribute("angle"));
@@ -248,7 +248,7 @@ public class XMLParser {
 
 					HashMap<String, String> gizmoInfo = new HashMap<String, String>();
 
-					gizmoInfo.put("type", "gizmo");
+					gizmoInfo.put("type", "LeftTokat");
 					gizmoInfo.put("x", eElement3.getAttribute("x"));
 					gizmoInfo.put("y", eElement3.getAttribute("y"));
 					gizmoInfo.put("orientation", eElement3.getAttribute("orientation"));
@@ -267,7 +267,7 @@ public class XMLParser {
 
 					HashMap<String, String> gizmoInfo = new HashMap<String, String>();
 
-					gizmoInfo.put("type", "gizmo");
+					gizmoInfo.put("type", "RightTokat");
 					gizmoInfo.put("x", eElement4.getAttribute("x"));
 					gizmoInfo.put("y", eElement4.getAttribute("y"));
 					gizmoInfo.put("orientation", eElement4.getAttribute("orientation"));

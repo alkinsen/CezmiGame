@@ -86,6 +86,14 @@ public class Player extends Observable{
 			return false;
 		}
 	}
+
+	@Override
+	public String toString() {
+		return "Player [name=" + name + ", score=" + score + ", numOfEdit=" + numOfEdit + ", numOfGizmo=" + numOfGizmo
+				+ "]";
+	}
+	
+	
 	
 	
 }
