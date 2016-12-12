@@ -17,8 +17,8 @@ public class Board {
 	private Cezmi cezmi2;
 	private GizmoFactory gizmoFactory;
 	private ArrayList<Gizmo> gizmoArrayList;
-	private int gravity;
-	private int friction;
+	private double gravity;
+	private double friction;
 	private int level; 
 	
 
@@ -31,7 +31,7 @@ public class Board {
 		cezmi2 = new Cezmi(350, 500, level);
 		gizmoFactory = GizmoFactory.getInstance();
 		gizmoArrayList = new ArrayList<Gizmo>();
-		gravity = 25;
+		gravity = 20;
 		friction = level;
 		this.level = level;	
 	}
@@ -467,19 +467,19 @@ public class Board {
 		this.level = level;
 	}
 
-	public int getGravity() {
+	public double getGravity() {
 		return gravity;
 	}
 
-	public void setGravity(int gravity) {
-		this.gravity = gravity;
+	public void setGravity(double d) {
+		this.gravity = d;
 	}
 
-	public int getFriction() {
+	public double getFriction() {
 		return friction;
 	}
 
-	public void setFriction(int friction) {
+	public void setFriction(double friction) {
 		this.friction = friction;
 	}
 
@@ -501,6 +501,14 @@ public class Board {
 
 	public void setGizmoArrayList(ArrayList<Gizmo> gizmoArrayList) {
 		this.gizmoArrayList = gizmoArrayList;
+	}
+
+	@Override
+	public String toString() {
+		return "Board [\n width=" + width + "\n height=" + height + "\n color=" + color + "\n ball=" + ball + "\n engel="
+				+ engel + "\n cezmi1=" + cezmi1 + "\n cezmi2=" + cezmi2
+				+ "\n gizmoArrayList=" + gizmoArrayList + "\n gravity=" + gravity + "\n friction=" + friction + "\n level="
+				+ level + "]";
 	}
 	
 	

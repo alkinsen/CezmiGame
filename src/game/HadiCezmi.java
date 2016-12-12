@@ -58,7 +58,7 @@ public class HadiCezmi {
 		ArrayList<HashMap<String, String>> ballList = xmlParser.createBallFromXml();
 		
 		if (ballList.get(0).containsKey("x")  &&  ballList.get(0).containsKey("y")){
-			board.changeBallPosition(Double.parseDouble(ballList.get(0).get("x")), Double.parseDouble(ballList.get(0).get("y")));
+			board.changeBallPosition(Double.parseDouble(ballList.get(0).get("x"))*25, Double.parseDouble(ballList.get(0).get("y"))*25);
 		}
 		
 		if (ballList.get(0).containsKey("vx")  &&  ballList.get(0).containsKey("vy")){
@@ -69,10 +69,10 @@ public class HadiCezmi {
 		ArrayList<HashMap<String, String>> cezmiList1 = xmlParser.createCezmi1FromXml();
 		if (cezmiList1.get(0).containsKey("x")){
 			if(cezmiList1.get(0).containsKey("y")){
-				board.changeCezmiPosition(1, Double.parseDouble(cezmiList1.get(0).get("x")), Double.parseDouble(cezmiList1.get(0).get("y")));	
+				board.changeCezmiPosition(1, Double.parseDouble(cezmiList1.get(0).get("x"))*25, Double.parseDouble(cezmiList1.get(0).get("y"))*25);	
 			}
 			else{
-				board.changeCezmiPosition(1, Double.parseDouble(cezmiList1.get(0).get("x")));
+				board.changeCezmiPosition(1, Double.parseDouble(cezmiList1.get(0).get("x"))*25);
 			}	
 		}
 		
@@ -84,10 +84,10 @@ public class HadiCezmi {
 		ArrayList<HashMap<String, String>> cezmiList2 = xmlParser.createCezmi2FromXml();
 		if (cezmiList2.get(0).containsKey("x")){
 			if(cezmiList2.get(0).containsKey("y")){
-				board.changeCezmiPosition(2, Double.parseDouble(cezmiList2.get(0).get("x")), Double.parseDouble(cezmiList2.get(0).get("y")));
+				board.changeCezmiPosition(2, Double.parseDouble(cezmiList2.get(0).get("x"))*25, Double.parseDouble(cezmiList2.get(0).get("y"))*25);
 			}
 			else{
-				board.changeCezmiPosition(2, Double.parseDouble(cezmiList2.get(0).get("x")));
+				board.changeCezmiPosition(2, Double.parseDouble(cezmiList2.get(0).get("x"))*25);
 			}
 		}
 		
@@ -100,27 +100,33 @@ public class HadiCezmi {
 		for (int i=0; i< gizmoList.size(); i++){
 			if (gizmoList.get(i).containsKey("type") && gizmoList.get(i).containsKey("x") && gizmoList.get(i).containsKey("y")){
 				if(gizmoList.get(i).containsKey("orientation")){
-					board.addGizmo(gizmoList.get(i).get("type"), Integer.parseInt(gizmoList.get(i).get("x")), Integer.parseInt(gizmoList.get(i).get("y")), Integer.parseInt(gizmoList.get(i).get("orientation")));	
+					board.addGizmo(gizmoList.get(i).get("type"), Integer.parseInt(gizmoList.get(i).get("x"))*25, Integer.parseInt(gizmoList.get(i).get("y"))*25, Integer.parseInt(gizmoList.get(i).get("orientation")));	
 				}else {
-					board.addGizmo(gizmoList.get(i).get("type"), Integer.parseInt(gizmoList.get(i).get("x")), Integer.parseInt(gizmoList.get(i).get("y")));
+					board.addGizmo(gizmoList.get(i).get("type"), Integer.parseInt(gizmoList.get(i).get("x"))*25, Integer.parseInt(gizmoList.get(i).get("y"))*25);
 				}
 				
 			}
 			if(gizmoList.get(i).containsKey("orientation")){
 				if (gizmoList.get(i).containsKey("type") && gizmoList.get(i).containsKey("x") && gizmoList.get(i).containsKey("y")){
 					if(gizmoList.get(i).containsKey("orientation")){
-						board.addGizmo(gizmoList.get(i).get("type"), Integer.parseInt(gizmoList.get(i).get("x")), Integer.parseInt(gizmoList.get(i).get("y")), Integer.parseInt(gizmoList.get(i).get("orientation")));	
+						board.addGizmo(gizmoList.get(i).get("type"), Integer.parseInt(gizmoList.get(i).get("x"))*25, Integer.parseInt(gizmoList.get(i).get("y"))*25, Integer.parseInt(gizmoList.get(i).get("orientation")));	
 					}else {
-						board.addGizmo(gizmoList.get(i).get("type"), Integer.parseInt(gizmoList.get(i).get("x")), Integer.parseInt(gizmoList.get(i).get("y")));
+						board.addGizmo(gizmoList.get(i).get("type"), Integer.parseInt(gizmoList.get(i).get("x"))*25, Integer.parseInt(gizmoList.get(i).get("y"))*25);
 					}
 			}
 		}
 		}
 		
-		//creating level from xml
+		//creating level, friction and gravity from xml
 		ArrayList<HashMap<String, String>> levelList = xmlParser.createBoardFromXml();
 			if (levelList.get(0).containsKey("level")){
 				board.setLevel(Integer.parseInt(levelList.get(0).get("level")));
+			}
+			if (levelList.get(0).containsKey("gravity")){
+				board.setGravity(Double.parseDouble(levelList.get(0).get("gravity")));
+			}
+			if (levelList.get(0).containsKey("friction1")){
+				board.setFriction(Double.parseDouble(levelList.get(0).get("friction1")));
 			}
 		
 		//creating cezerye from xml
@@ -135,6 +141,9 @@ public class HadiCezmi {
 				}
 		}
 	}
+		//creating keys from xml
+		ArrayList<HashMap<String, String>> keyList = xmlParser.createCezeryeFromXml();
+		
 	}
 	
     
@@ -322,6 +331,7 @@ public class HadiCezmi {
 		public void actionPerformed(ActionEvent e) {
 			// TODO Auto-generated method stub
 			hadiCezmi.move();
+			//System.out.println(hadiCezmi.getBoard().getBall());
 			
 		}
 
@@ -334,6 +344,7 @@ public class HadiCezmi {
 		@Override
 		public void keyPressed(KeyEvent e) {
 			// TODO Auto-generated method stub
+			System.out.println(e);
 			int keynum = e.getKeyCode();
             System.out.println(keynum);
 
@@ -360,9 +371,8 @@ public class HadiCezmi {
 			}else if(keynum == hadiCezmi.getTokatRightKey()){
 				
 				hadiCezmi.rotateTokat("right");
-				
+		
 			}
-			
 		}
 
 		@Override
