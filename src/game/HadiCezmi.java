@@ -135,15 +135,15 @@ public class HadiCezmi {
 			if (cezeryeList.get(i).containsKey("type") && cezeryeList.get(i).containsKey("x") && cezeryeList.get(i).containsKey("y")){
 				if(cezeryeList.get(i).containsKey("time")){
 					//TIMER EKLENECEK!!!
-					board.addGizmo(cezeryeList.get(i).get("type"), Integer.parseInt(cezeryeList.get(i).get("x")), Integer.parseInt(cezeryeList.get(i).get("y")));	
+					board.addGizmo(cezeryeList.get(i).get("type"), Integer.parseInt(cezeryeList.get(i).get("x"))*25, Integer.parseInt(cezeryeList.get(i).get("y"))*25);	
 				}else {
-					board.addGizmo(cezeryeList.get(i).get("type"), Integer.parseInt(cezeryeList.get(i).get("x")), Integer.parseInt(cezeryeList.get(i).get("y")));
+					board.addGizmo(cezeryeList.get(i).get("type"), Integer.parseInt(cezeryeList.get(i).get("x"))*25, Integer.parseInt(cezeryeList.get(i).get("y"))*25);
 				}
 		}
 	}
 		//creating keys from xml
 		ArrayList<HashMap<String, String>> keyList = xmlParser.createCezeryeFromXml();
-		
+		//DOLDURULACAK
 	}
 	
     
