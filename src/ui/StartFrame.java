@@ -48,26 +48,29 @@ public class StartFrame extends JFrame {
         btnPlay.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+
+            	StartFrame.this.setVisible(false);
                 String[] args = new String[3];
                 //TODO check these values.
                 args[0] = levelTextField.getText();
                 args[1] = player1TextField.getText();
                 args[2] = player2TextField.getText();
                 startFrameController.doAction("Play", args);
+
             }
         });
         JButton btnLoad = new JButton("Load Game");
         btnLoad.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                startFrameController.doAction("Load");
+                startFrameController.doAction("Load", null);
             }
         });
         JButton btnEdit = new JButton("Edit Mode");
         btnEdit.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                startFrameController.doAction("Edit");
+                startFrameController.doAction("Edit", null);
             }
         });
         btnPanel.add(btnPlay);

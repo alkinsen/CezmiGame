@@ -14,6 +14,7 @@ public class UiBoardPanel extends JPanel{
     ArrayList<UiGizmo> uiGizmos;
     UiCezmi uiCezmi1;
     UiCezmi uiCezmi2;
+    UiEngel uiEngel;
 
 
 
@@ -24,6 +25,7 @@ public class UiBoardPanel extends JPanel{
         addUiCezmi2(hadiCezmi.getBoard().getCezmi2());
         addUiBall(hadiCezmi.getBoard().getBall());
         addUiGizmo(hadiCezmi.getBoard().getGizmoArrayList());
+        uiEngel = new UiEngel(hadiCezmi.getBoard().getEngel());
     }
 
     public void addUiBall(Ball ball){
@@ -58,6 +60,9 @@ public class UiBoardPanel extends JPanel{
             for(UiGizmo uiGizmo: uiGizmos){
                 uiGizmo.paint(g);
             }
+        }
+        if(uiEngel != null){
+        	uiEngel.paint(g);
         }
     }
 }
