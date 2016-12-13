@@ -14,6 +14,8 @@ public class LeftTokat extends Tokat {
 		this.y = yLoc;
 		this.color = Color.ORANGE;
 		this.state = "down";
+		this.width=10;
+		this.height=40;
 		
 	}
 	

@@ -46,7 +46,21 @@ public class UiBoardPanel extends JPanel{
             } else if (gizmo instanceof TriangleTakoz) {
                 TriangleTakoz triangleTakoz = (TriangleTakoz) gizmo;
                 this.uiGizmos.add(new UiTriangleTakoz(triangleTakoz));
+            } else if (gizmo instanceof LeftTokat) {
+            	LeftTokat leftTokat=(LeftTokat) gizmo;
+            	this.uiGizmos.add(new UiLeftTokat(leftTokat));
+            } else if (gizmo instanceof RightTokat) {
+            	RightTokat rightTokat= (RightTokat) gizmo;
+            	this.uiGizmos.add(new UiRightTokat(rightTokat));
+            } else if (gizmo instanceof Cezerye) {
+            	Cezerye cezerye= (Cezerye) gizmo;
+            	this.uiGizmos.add(new UiCezerye(cezerye));
+            } else if (gizmo instanceof Firildak) {
+            	Firildak firildak= (Firildak) gizmo;
+            	this.uiGizmos.add(new UiFirildak (firildak)); 
             }
+           
+           
         }
     }
 

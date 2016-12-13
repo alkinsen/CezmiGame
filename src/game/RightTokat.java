@@ -11,8 +11,10 @@ public class RightTokat extends Tokat {
 
 		this.x = xLoc;
 		this.y = yLoc;
-		this.color = Color.ORANGE;
+		this.color = Color.magenta;
 		this.state = "down";
+		this.width=10;
+		this.height=40;
 
 	}
 
