@@ -16,6 +16,7 @@ public class StartFrame extends JFrame {
 
     public StartFrame() {
         super("Welcome to Cezmi Game");
+
         startFrameController = new StartFrameController();
         addWindowListener(new WindowAdapter() {
             @Override
@@ -63,7 +64,12 @@ public class StartFrame extends JFrame {
         btnLoad.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                startFrameController.doAction("Load", null);
+                String[] args = new String[3];
+                //TODO check these values.
+                args[0] = levelTextField.getText();
+                args[1] = player1TextField.getText();
+                args[2] = player2TextField.getText();
+                startFrameController.doAction("Load", args);
             }
         });
         JButton btnEdit = new JButton("Edit Mode");

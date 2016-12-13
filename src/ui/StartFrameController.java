@@ -20,7 +20,7 @@ public class StartFrameController {
             	playGame(Integer.parseInt(args[0]), args[1], args[2]);
                 break;
             case "Load":
-            	loadGame();
+            	loadGame(Integer.parseInt(args[0]), args[1], args[2]);
             	break;
             case "Edit":
                 editGame();
@@ -30,7 +30,7 @@ public class StartFrameController {
         }
     }
     
-    public void playGame(int level, String playerName1, String playerName2 ){
+    public void playGame(int level, String playerName1, String playerName2){
     	HadiCezmi hadi = new HadiCezmi(level, playerName1, playerName2);
     	GameFrame gameFrame = new GameFrame(hadi);
     	gameFrame.pack();
@@ -38,13 +38,19 @@ public class StartFrameController {
     	
     }
     
-    public void loadGame(){
+    public void loadGame(int level, String playerName1, String playerName2){
     	JFileChooser fc = new JFileChooser();
 		fc.addChoosableFileFilter(new XMLFilter());
 		fc.setAcceptAllFileFilterUsed(false);
 		int returnVal = fc.showOpenDialog(fc);
 		if (returnVal == JFileChooser.APPROVE_OPTION) {
 			file = fc.getSelectedFile();
+			HadiCezmi hadi = new HadiCezmi(level, playerName1, playerName2);
+			hadi.readXML(file);
+	    	GameFrame gameFrame = new GameFrame(hadi);
+	    	gameFrame.pack();
+	    	gameFrame.setVisible(true);
+			
     }
 }
     public void editGame(){
