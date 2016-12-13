@@ -2,6 +2,7 @@ package ui;
 
 import java.io.File;
 import javax.swing.JFileChooser;
+import javax.swing.JFrame;
 
 import game.HadiCezmi;
 import xml.XMLFilter;
@@ -14,13 +15,13 @@ public class StartFrameController {
     public StartFrameController() {
     }
 
-    public void doAction(String action, String[] args) {
+    public void doAction(String action, JFrame frame) {
         switch (action) {
             case "Play":
-            	playGame(Integer.parseInt(args[0]), args[1], args[2]);
+            	playGame(frame);
                 break;
             case "Load":
-            	loadGame(Integer.parseInt(args[0]), args[1], args[2]);
+            	loadGame(frame);
             	break;
             case "Edit":
                 editGame();
@@ -30,27 +31,28 @@ public class StartFrameController {
         }
     }
     
-    public void playGame(int level, String playerName1, String playerName2){
-    	HadiCezmi hadi = new HadiCezmi(level, playerName1, playerName2);
+    public void playGame(JFrame frame){
+    	HadiCezmi hadi = new HadiCezmi(1, "Player 1", "Player 2");
     	GameFrame gameFrame = new GameFrame(hadi);
     	gameFrame.pack();
     	gameFrame.setVisible(true);
+    	frame.setVisible(false);
     	
     }
     
-    public void loadGame(int level, String playerName1, String playerName2){
+    public void loadGame(JFrame frame){
     	JFileChooser fc = new JFileChooser();
 		fc.addChoosableFileFilter(new XMLFilter());
 		fc.setAcceptAllFileFilterUsed(false);
 		int returnVal = fc.showOpenDialog(fc);
 		if (returnVal == JFileChooser.APPROVE_OPTION) {
 			file = fc.getSelectedFile();
-			HadiCezmi hadi = new HadiCezmi(level, playerName1, playerName2);
+			HadiCezmi hadi = new HadiCezmi(1, "Player 1", "Player 2");
 			hadi.readXML(file);
 	    	GameFrame gameFrame = new GameFrame(hadi);
 	    	gameFrame.pack();
 	    	gameFrame.setVisible(true);
-			
+			frame.setVisible(false);
     }
 }
     public void editGame(){
