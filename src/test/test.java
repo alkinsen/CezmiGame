@@ -15,7 +15,7 @@ public class test {
 
 	public static void main(String[] args) throws InterruptedException {
 		// TODO Auto-generated method stub
-		final HadiCezmi hadi = new HadiCezmi(1, "doruk", "yilmazcan");
+		final HadiCezmi hadi = new HadiCezmi(2, "doruk", "yilmazcan");
 		new StartFrame(hadi);
 		while (true){
 			if(hadi.isRunningMode()) {
