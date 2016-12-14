@@ -25,10 +25,20 @@ import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.border.LineBorder;
 import javax.xml.parsers.ParserConfigurationException;
 
+import org.w3c.dom.Attr;
+import org.w3c.dom.Element;
 import org.xml.sax.SAXException;
 
+import game.Cezmi;
+import game.Firildak;
+import game.Gizmo;
 import game.HadiCezmi;
+import game.LeftTokat;
+import game.RightTokat;
+import game.SquareTakoz;
 import game.Takoz;
+import game.Tokat;
+import game.TriangleTakoz;
 import ui.StartFrame.StartPane;
 
 /**
@@ -229,14 +239,47 @@ public class EditFrame {
 			}
 		}
 		
+		ArrayList<Gizmo> gizmos = hadi.getBoard().getGizmoArrayList();
+		for (Gizmo g : gizmos){
+			int x = g.getX() / 20;
+			int y = g.getY() / 20;
+			
+			if (g instanceof Firildak){
+				gridSquares[x][y].setBackground(Color.orange);
+				}
+			
+			else if (g instanceof SquareTakoz){
+				gridSquares[x][y].setBackground(Color.yellow);
+			}
+
+			else if (g instanceof TriangleTakoz){
+				gridSquares[x][y].setBackground(Color.red);
+			}
+			else if (g instanceof Tokat){
+				gridSquares[x][y].setBackground(Color.magenta);
+			}
+
+		}
 		
+		Cezmi cezmi1 = hadi.getBoard().getCezmi1();
+		int x1 = (int) cezmi1.getX() / 20;
+		int y1 = (int) cezmi1.getY() / 20;
+		gridSquares[x1][y1-1].setBackground(Color.green);
+		gridSquares[x1+1][y1-1].setBackground(Color.green);
+		
+		Cezmi cezmi2 = hadi.getBoard().getCezmi2();
+		int x2 = (int) cezmi2.getX() / 20;
+		int y2 = (int) cezmi2.getY() / 20;
+		gridSquares[x2][y2-1].setBackground(Color.green);
+		gridSquares[x2+1][y2-1].setBackground(Color.green);
+		}
 	}
 	
 	
 
 
 
-	public void clearEditMap(){
+	/*public void clearEditMap(){
 
 		for (int ii = 0; ii < gridSquares.length; ii++) {
 			for (int jj = 0; jj < gridSquares[ii].length; jj++) {

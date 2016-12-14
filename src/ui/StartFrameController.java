@@ -83,7 +83,7 @@ public class StartFrameController {
 
     	frame.setVisible(false); */
     	
-    	new EditFrame();
+    	new EditFrame(new HadiCezmi(1,"Player 1", "Player 2"));
     	
     	
 

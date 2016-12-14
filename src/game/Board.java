@@ -27,8 +27,8 @@ public class Board {
 		super();
 		ball = new Ball();
 		engel = new Engel();
-		cezmi1 = new Cezmi(110, 500, level);
-		cezmi2 = new Cezmi(350, 500, level);
+		cezmi1 = new Cezmi(125, 500, level);
+		cezmi2 = new Cezmi(375, 500, level);
 		gizmoFactory = GizmoFactory.getInstance();
 		gizmoArrayList = new ArrayList<Gizmo>();
 		gravity = 20;
