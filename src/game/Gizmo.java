@@ -3,6 +3,8 @@ package game;
 import java.awt.Color;
 import java.util.Observable;
 
+import physics.Vect;
+
 /**
  * Created by ASEN14 on 28.11.2016.
  */
@@ -15,6 +17,8 @@ public abstract class Gizmo extends Observable {
 		protected int height;
 		protected Color color;
 		protected int orientation;
+		protected Vect[] points;
+		protected Vect center;
 	
 		//methods
 		public abstract void rotate();
