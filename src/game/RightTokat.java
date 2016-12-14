@@ -7,19 +7,19 @@ import java.awt.Color;
  */
 public class RightTokat extends Tokat {
 
-	public RightTokat(int xLoc, int yLoc){
+    public RightTokat(int xLoc, int yLoc) {
 
-		this.x = xLoc;
-		this.y = yLoc;
-		this.color = Color.magenta;
-		this.state = "down";
-		this.width=10;
-		this.height=40;
+        this.x = xLoc;
+        this.y = yLoc;
+        this.color = Color.magenta;
+        this.state = "down";
+        this.width = 10;
+        this.height = 40;
 
-	}
+    }
 
 
-	public void rotate(){
+    public void rotate() {
 
-	}
+    }
 }
