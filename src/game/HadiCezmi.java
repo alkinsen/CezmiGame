@@ -29,8 +29,6 @@ public class HadiCezmi {
 	
 	private boolean runningMode=false;
 	private boolean editMode=false;
-	private Timer t;
-	private EventListener el;
 
 	private int cezmi1Left = 65;
 	private int cezmi1Right = 68;
@@ -46,9 +44,6 @@ public class HadiCezmi {
 		player1 = new Player(playerName1);
 		player2 = new Player(playerName2);
 		board = new Board(level);
-		el = new EventListener(this);
-		t= new Timer(1,el);
-
 	}
 
 	public void readXML(File file){
@@ -209,20 +204,19 @@ public class HadiCezmi {
     public void play(){
     	runningMode=true;
 
-    	t.start();
-    	System.out.println("playing");
+//    	t.start();
     	
     }
     
     public void pause(){
     	runningMode=false;
-    	t.stop();
+//    	t.stop();
     }
     
     public void editMode(){
     	editMode=true;
     	runningMode=false;
-    	t.stop();
+//    	t.stop();
     }
 
     public boolean isRunningMode() {
@@ -317,25 +311,8 @@ public class HadiCezmi {
 	public void move(){
 		board.checkCollision();
 	}   
+
 }
-
-
-    class EventListener implements ActionListener{
-
-    	private HadiCezmi hadiCezmi;
-
-    	public EventListener(HadiCezmi hadiCezmi){
-    		this.hadiCezmi = hadiCezmi;
-    	}
-
-		@Override
-		public void actionPerformed(ActionEvent e) {
-			// TODO Auto-generated method stub
-			hadiCezmi.move();
-
-		}
-
-    }
 
 
 
