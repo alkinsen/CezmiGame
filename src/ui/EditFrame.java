@@ -15,6 +15,7 @@ import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -47,9 +48,11 @@ import ui.StartFrame.StartPane;
 public class EditFrame {
 	JFrame frame;
 	HadiCezmi hadi;
+	boolean rotateMode;
 	
 	public EditFrame(HadiCezmi hadi){
 		    this.hadi = hadi;
+		    rotateMode = false;
 		    
 	        EventQueue.invokeLater(new Runnable() {
 	            @Override
@@ -67,13 +70,16 @@ public class EditFrame {
 	                
 	              //adding button toolbar
 	                JToolBar toolBar = new JToolBar();
+	                toolBar.setLayout(new GridLayout(1,5));
 	        		addButtons(toolBar);
+	        		toolBar.setFloatable(false);
 	                contentPane.add(toolBar, BorderLayout.NORTH);
 	                
 	              //adding index toolbar
 	                JToolBar indexToolBar = new JToolBar();
 	                indexToolBar.setLayout(new GridLayout(1,5));
 	        		addIndex(indexToolBar);
+	        		indexToolBar.setFloatable(false);
 	                contentPane.add(indexToolBar, BorderLayout.SOUTH);
 	               
 	              //adding edit pane 
@@ -96,6 +102,7 @@ public class EditFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				if(checkMap()){
+					
 					HadiCezmi hadi = new HadiCezmi(1, "Player 1", "Player 2");
 					File file = new File("xml");
 					hadi.readXML(file);
@@ -131,7 +138,7 @@ public class EditFrame {
         button.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                PrintWriter writer = null;
+                /*PrintWriter writer = null;
                 try {
                     if(checkMap()) {
                         
@@ -144,7 +151,7 @@ public class EditFrame {
                     e1.printStackTrace();
                 } catch (UnsupportedEncodingException e1) {
                     e1.printStackTrace();
-                }
+                }*/
             }});
         toolBar.add(button); 
         
@@ -157,6 +164,16 @@ public class EditFrame {
                 new StartFrame();
             }});
         toolBar.add(button);
+        
+        JCheckBox rotateBox = new JCheckBox("Rotate Mode");
+        rotateBox.setToolTipText("Enters rotate mode.");
+        rotateBox.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+            	if(rotateBox.isSelected()) rotateMode = true;
+            	else rotateMode = false;
+            }});
+        toolBar.add(rotateBox);
 }
 	
 	public void addIndex(JToolBar toolBar){
