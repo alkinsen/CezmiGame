@@ -5,7 +5,12 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.io.File;
+<<<<<<< HEAD
 import javax.swing.*;
+=======
+import javax.swing.JFileChooser;
+import javax.swing.JFrame;
+>>>>>>> master
 
 import game.HadiCezmi;
 import xml.XMLFilter;
@@ -18,13 +23,13 @@ public class StartFrameController {
     public StartFrameController() {
     }
 
-    public void doAction(String action, String[] args) {
+    public void doAction(String action, JFrame frame) {
         switch (action) {
             case "Play":
-            	playGame(Integer.parseInt(args[0]), args[1], args[2]);
+            	playGame(frame);
                 break;
             case "Load":
-            	loadGame();
+            	loadGame(frame);
             	break;
             case "Edit":
                 editGame();
@@ -34,57 +39,29 @@ public class StartFrameController {
         }
     }
     
-    public void playGame(int level, String playerName1, String playerName2 ){
-    	HadiCezmi hadi = new HadiCezmi(level, playerName1, playerName2);
+    public void playGame(JFrame frame){
+    	HadiCezmi hadi = new HadiCezmi(1, "Player 1", "Player 2");
     	GameFrame gameFrame = new GameFrame(hadi);
     	gameFrame.pack();
     	gameFrame.setVisible(true);
+    	frame.setVisible(false);
 
-        gameFrame.addKeyListener(new KeyListener() {
-            @Override
-            public void keyTyped(KeyEvent e) {}
-
-            @Override
-            public void keyPressed(KeyEvent e) {
-                int keynum = e.getKeyCode();
-                System.out.println(keynum);
-                if(keynum == hadi.getCezmi1Left()){
-                    hadi.moveCezmi(1, "left");
-                }else if(keynum == hadi.getCezmi1Right()){
-                    hadi.moveCezmi(1, "right");
-                }else if(keynum == hadi.getCezmi2Left()){
-                    hadi.moveCezmi(2, "left");
-                }else if(keynum == hadi.getCezmi2Right()){
-                    hadi.moveCezmi(2, "right");
-                }else if(keynum == hadi.getTokatLeftKey()){
-                    hadi.rotateTokat("left");
-                }else if(keynum == hadi.getTokatRightKey()){
-                    hadi.rotateTokat("right");
-                }
-            }
-
-            @Override
-            public void keyReleased(KeyEvent e) {}
-        });
-
-        final Timer timer = new Timer(10, new ActionListener() {
-            @Override
-            public void actionPerformed(final ActionEvent e) {
-                gameFrame.repaint();
-                gameFrame.requestFocus();
-            }
-        });
-        timer.start();
     }
 
     
-    public void loadGame(){
+    public void loadGame(JFrame frame){
     	JFileChooser fc = new JFileChooser();
 		fc.addChoosableFileFilter(new XMLFilter());
 		fc.setAcceptAllFileFilterUsed(false);
 		int returnVal = fc.showOpenDialog(fc);
 		if (returnVal == JFileChooser.APPROVE_OPTION) {
 			file = fc.getSelectedFile();
+			HadiCezmi hadi = new HadiCezmi(1, "Player 1", "Player 2");
+			hadi.readXML(file);
+	    	GameFrame gameFrame = new GameFrame(hadi);
+	    	gameFrame.pack();
+	    	gameFrame.setVisible(true);
+			frame.setVisible(false);
     }
 }
     public void editGame(){

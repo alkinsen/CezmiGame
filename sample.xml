@@ -2,8 +2,8 @@
  
 	<ball x="4.3" y="4.5" xVelocity="0" yVelocity="1.1" />
 	 
-	<cezmi1 x="5" score= "1" />
-	<cezmi2 x="15.1" score= "3" />
+	<cezmi1 x="5.3" y="500" score= "1" />
+	<cezmi2 x="15.1" y="500" score= "3" />
 
 	<cezeryes>
 		<cezerye x="4" y="5" time="0.5" />
@@ -18,8 +18,10 @@
 	</gizmos>
 
 	<keys>
-		<key1 key="a" />
-		<key2 key="k" />
+	  <key1left key="a" />
+	  <key1right key="s" />
+	  <key2left key="k" />
+	  <key2right key="l" />
 	</keys>
 
 
