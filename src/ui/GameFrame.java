@@ -1,4 +1,5 @@
 package ui;
+
 import game.*;
 import ui.domain.*;
 
@@ -10,7 +11,7 @@ import java.awt.event.*;
 /**
  * Created by ASEN14 on 28.11.2016.
  */
-public class GameFrame extends JFrame{
+public class GameFrame extends JFrame {
     GameFrameController gameFrameController;
     private HadiCezmi hadiCezmi;
     private UiBoardPanel uiBoardPanel;
@@ -34,7 +35,6 @@ public class GameFrame extends JFrame{
         this.uiBoardPanel = new UiBoardPanel(hadiCezmi);
 
 
-
         //CONTROLLER PATTERN
         gameFrameController = new GameFrameController();
 
@@ -45,7 +45,7 @@ public class GameFrame extends JFrame{
             }
         });
 
-        JPanel gizmoPanel = new JPanel(new GridLayout(0,2));
+        JPanel gizmoPanel = new JPanel(new GridLayout(0, 2));
         JPanel board = new JPanel();
 
         JPanel toolbarPanel = new JPanel();
@@ -64,8 +64,8 @@ public class GameFrame extends JFrame{
             @Override
             public void actionPerformed(ActionEvent e) {
                 hadiCezmi.play();
-                String[] arg=new String[1];
-                gameFrameController.doAction(hadiCezmi,"addLeftTokat",arg);
+                String[] arg = new String[1];
+                gameFrameController.doAction(hadiCezmi, "addLeftTokat", arg);
             }
         });
         JButton rightTokatButton = new JButton("Test Repaint");
@@ -73,25 +73,25 @@ public class GameFrame extends JFrame{
             @Override
             public void actionPerformed(ActionEvent e) {
                 uiBoardPanel.repaint();
-                String[] arg=new String[1];
-                
-                gameFrameController.doAction(hadiCezmi,"addRightTokat",arg);
+                String[] arg = new String[1];
+
+                gameFrameController.doAction(hadiCezmi, "addRightTokat", arg);
             }
         });
         JButton squareTakozButton = new JButton("Square Takoz");
         btnPlay.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-            	String[] arg=new String[1];
-                gameFrameController.doAction(hadiCezmi,"addSquareTakoz",arg);
+                String[] arg = new String[1];
+                gameFrameController.doAction(hadiCezmi, "addSquareTakoz", arg);
             }
         });
         JButton triangleTakozButton = new JButton("Triange Takoz");
         btnPlay.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-            	String[] arg=new String[1];
-                gameFrameController.doAction(hadiCezmi,"addTriangleTakoz",arg);
+                String[] arg = new String[1];
+                gameFrameController.doAction(hadiCezmi, "addTriangleTakoz", arg);
             }
         });
 
@@ -104,7 +104,7 @@ public class GameFrame extends JFrame{
         JScrollPane boardPane = new JScrollPane(uiBoardPanel);
         JPanel contentPane = new JPanel();
         contentPane.setLayout(new BorderLayout());
-        
+
         contentPane.add(toolbarPanel, BorderLayout.NORTH);
         contentPane.add(gizmoPanel, BorderLayout.WEST);
         contentPane.add(boardPane, BorderLayout.CENTER);
