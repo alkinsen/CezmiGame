@@ -70,7 +70,6 @@ public class Cezmi extends Observable {
         } else if (x >= 270+vx) {
             x = x - vx;
         }
-        System.out.println("cezmi move left =" + x);
         setChanged();
         notifyObservers(this);
 
@@ -82,7 +81,6 @@ public class Cezmi extends Observable {
         } else if ( x >= 270 && x <= 500 - vx) {
             x = x + vx;
         }
-        System.out.println("cezmi move right =" + x);
         setChanged();
         notifyObservers(this);
     }

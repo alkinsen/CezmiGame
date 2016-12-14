@@ -1,8 +1,14 @@
 package ui;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.io.File;
+import javax.swing.*;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
+
 
 import game.HadiCezmi;
 import xml.XMLFilter;
@@ -36,9 +42,47 @@ public class StartFrameController {
     	GameFrame gameFrame = new GameFrame(hadi);
     	gameFrame.pack();
     	gameFrame.setVisible(true);
+
+        gameFrame.addKeyListener(new KeyListener() {
+            @Override
+            public void keyTyped(KeyEvent e) {}
+
+            @Override
+            public void keyPressed(KeyEvent e) {
+                int keynum = e.getKeyCode();
+                System.out.println(keynum);
+                if(keynum == hadi.getCezmi1Left()){
+                    hadi.moveCezmi(1, "left");
+                }else if(keynum == hadi.getCezmi1Right()){
+                    hadi.moveCezmi(1, "right");
+                }else if(keynum == hadi.getCezmi2Left()){
+                    hadi.moveCezmi(2, "left");
+                }else if(keynum == hadi.getCezmi2Right()){
+                    hadi.moveCezmi(2, "right");
+                }else if(keynum == hadi.getTokatLeftKey()){
+                    hadi.rotateTokat("left");
+                }else if(keynum == hadi.getTokatRightKey()){
+                    hadi.rotateTokat("right");
+                }
+            }
+
+            @Override
+            public void keyReleased(KeyEvent e) {}
+        });
+
+        final Timer timer = new Timer(10, new ActionListener() {
+            @Override
+            public void actionPerformed(final ActionEvent e) {
+                gameFrame.repaint();
+                gameFrame.requestFocus();
+            }
+        });
+        timer.start();
+
     	frame.setVisible(false);
-    	
+
     }
+
     
     public void loadGame(JFrame frame){
     	JFileChooser fc = new JFileChooser();

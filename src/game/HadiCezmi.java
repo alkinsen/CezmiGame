@@ -47,7 +47,7 @@ public class HadiCezmi {
 		player2 = new Player(playerName2);
 		board = new Board(level);
 		el = new EventListener(this);
-		t= new Timer(10,el);
+		t= new Timer(1,el);
 
 	}
 
