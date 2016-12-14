@@ -8,15 +8,16 @@ import java.awt.Color;
 public abstract class Tokat extends Gizmo {
 
     //additional field
-    protected String state;
+    protected int state;
+
 
 
     //getter setter for additional field
-    public String getState() {
+    public int getState() {
         return state;
     }
 
-    public void setState(String state) {
+    public void setState(int state) {
         this.state = state;
     }
 

@@ -3,12 +3,16 @@ package ui.domain;
 import java.awt.*;
 import java.util.Observable;
 
+import game.Firildak;
 import game.LeftTokat;
 
 /**
  * Created by ASEN14 on 9.12.2016.
  */
 public class UiLeftTokat extends UiTokat {
+	
+	protected int[] xPoints;
+	protected int[] yPoints;
 	
 	
 	public UiLeftTokat (LeftTokat l){
@@ -20,6 +24,13 @@ public class UiLeftTokat extends UiTokat {
 		this.width=l.getWidth();
 		this.height=l.getHeight();
 		
+		xPoints = new int[4];
+        yPoints = new int[4];
+        for(int i=0; i<4; i++){
+        	xPoints[i] =(int) l.getPoints()[i].x();
+        	yPoints[i] =(int) l.getPoints()[i].y();
+        }
+		
 	}
 	
 	
@@ -28,7 +39,7 @@ public class UiLeftTokat extends UiTokat {
     	Rectangle clipRect = g.getClipBounds();
         if (clipRect.intersects(this.boundingBox())) {
             g.setColor(color);
-            g.fillRect(x, y, width, height);
+            g.fillPolygon(xPoints, yPoints, 4);
         }
     }
 
@@ -42,12 +53,14 @@ public class UiLeftTokat extends UiTokat {
     @Override
     public void update(Observable o, Object arg) {
     	
-    	System.out.println("lefttokat update");
-    	LeftTokat lt=(LeftTokat) arg;
-    	 this.x = (int)Math.round(lt.getX());
-         this.y = (int)Math.round(lt.getY());
-         this.color = lt.getColor();
-         this.state=lt.getState();
+    	System.out.println("updated left tokat");
+        LeftTokat temp = (LeftTokat) o;
+        
+        for(int i=0; i<4; i++){
+        	xPoints[i] =(int) temp.getPoints()[i].x();
+        	yPoints[i] =(int) temp.getPoints()[i].y();
+        }
+        this.color = temp.getColor();
 
     }
 }

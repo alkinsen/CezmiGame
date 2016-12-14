@@ -393,9 +393,9 @@ public class Board {
         for (int i = 0; i < gizmoArrayList.size(); i++) {
             Gizmo gizmo = gizmoArrayList.get(i);
 
-            if (gizmo instanceof SquareTakoz) {
+            if ((gizmo instanceof SquareTakoz) || (gizmo instanceof Tokat)) {
 
-                SquareTakoz temp = (SquareTakoz) gizmo;
+                Gizmo temp = (Gizmo) gizmo;
                 Vect p1 = temp.getPoints()[0];
                 Vect p2 = temp.getPoints()[1];
                 Vect p3 = temp.getPoints()[2];
@@ -509,8 +509,15 @@ public class Board {
             if (g instanceof Firildak) {
                 g.rotate();
             } else if (g instanceof TriangleTakoz) {
-                System.out.println("if i gecti");
                 //g.rotate();
+            } else if (g instanceof LeftTokat){
+            	LeftTokat sample = (LeftTokat) g;
+            	sample.rotate(true);
+            	
+            } else if (g instanceof RightTokat){
+            	RightTokat sample = (RightTokat) g;
+            	sample.rotate(true);
+            	
             }
         }
 

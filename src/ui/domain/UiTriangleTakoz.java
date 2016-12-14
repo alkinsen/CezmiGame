@@ -11,8 +11,8 @@ import java.util.Observer;
  */
 public class UiTriangleTakoz extends UiTakoz{
 	
-	int[] xPoints;
-	int[] yPoints;
+	protected int[] xPoints;
+	protected int[] yPoints;
 	
     public UiTriangleTakoz(TriangleTakoz triangleTakoz){
         triangleTakoz.addObserver(this);

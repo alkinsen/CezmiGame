@@ -83,6 +83,14 @@ public abstract class Gizmo extends Observable {
     public void setOrientation(int orientation) {
         this.orientation = orientation;
     }
+    
+    public Vect[] getPoints() {
+        return points;
+    }
+
+    public void setPoints(Vect[] points) {
+        this.points = points;
+    }
 
 
 }

@@ -28,8 +28,6 @@ import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
 import game.HadiCezmi;
-import javafx.scene.media.Media;
-import javafx.scene.media.MediaPlayer;
 
 public class StartFrame {
     public JFrame frame;
