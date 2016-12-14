@@ -95,10 +95,11 @@ public class GameFrame extends JFrame{
         gizmoPanel.add(squareTakozButton);
         gizmoPanel.add(triangleTakozButton);
 
+        uiBoardPanel.setPreferredSize(new Dimension(500, 500));
         JScrollPane boardPane = new JScrollPane(uiBoardPanel);
         JPanel contentPane = new JPanel();
         contentPane.setLayout(new BorderLayout());
-        contentPane.setPreferredSize(new Dimension(800, 800));
+        
         contentPane.add(toolbarPanel, BorderLayout.NORTH);
         contentPane.add(gizmoPanel, BorderLayout.WEST);
         contentPane.add(boardPane, BorderLayout.CENTER);
