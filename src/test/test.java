@@ -21,7 +21,6 @@ public class test {
 			if(hadi.isRunningMode()) {
 				hadi.move();
 			}
-			System.out.println(Thread.currentThread().getName());
 			Thread.sleep(5);
 		}
 	}

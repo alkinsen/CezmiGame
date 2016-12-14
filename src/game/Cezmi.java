@@ -68,7 +68,9 @@ public class Cezmi extends Observable {
         if(cezmiLevel == 2 && x <= vx && y > 0 ){
             x = 0;
             y = y - vy;
-        }else if (x <= 230 && x >= vx) {
+        }else if(cezmiLevel == 2 && x == 500 & y < 500){
+            y = y + vy;
+        } else if(x <= 230 && x >= vx) {
             x = x - vx;
         } else if (x >= 270+vx) {
             x = x - vx;
@@ -82,6 +84,8 @@ public class Cezmi extends Observable {
         if(cezmiLevel == 2 && x >= 500-vx && y > 0 ){
             x = 500;
             y = y - vy;
+        }else if(cezmiLevel == 2 && x == 0 & y < 500){
+            y = y + vy;
         }else if (x + vx <= 230 ) {
             x = x + vx;
         } else if ( x >= 270 && x <= 500 - vx) {
