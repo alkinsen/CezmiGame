@@ -5,12 +5,14 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.io.File;
-import javax.swing.*;
-import javax.swing.JFileChooser;
-import javax.swing.JFrame;
+import java.io.IOException;
 
+import javax.swing.*;
+
+import org.xml.sax.SAXException;
 
 import game.HadiCezmi;
+import xml.XMLChecker;
 import xml.XMLFilter;
 
 /**
@@ -38,7 +40,7 @@ public class StartFrameController {
     }
     
     public void playGame(JFrame frame){
-    	HadiCezmi hadi = new HadiCezmi(1, "Player 1", "Player 2");
+    	/*HadiCezmi hadi = new HadiCezmi(1, "Player 1", "Player 2");
     	GameFrame gameFrame = new GameFrame(hadi);
     	gameFrame.pack();
     	gameFrame.setVisible(true);
@@ -79,7 +81,11 @@ public class StartFrameController {
         });
         timer.start();
 
-    	frame.setVisible(false);
+    	frame.setVisible(false); */
+    	
+    	new EditFrame();
+    	
+    	
 
     }
 
@@ -91,13 +97,25 @@ public class StartFrameController {
 		int returnVal = fc.showOpenDialog(fc);
 		if (returnVal == JFileChooser.APPROVE_OPTION) {
 			file = fc.getSelectedFile();
-			HadiCezmi hadi = new HadiCezmi(1, "Player 1", "Player 2");
-			hadi.readXML(file);
-	    	GameFrame gameFrame = new GameFrame(hadi);
-	    	gameFrame.pack();
-	    	gameFrame.setVisible(true);
-			frame.setVisible(false);
-    }
+			XMLChecker xmlchecker = new XMLChecker(file);
+			try {
+				if(xmlchecker.check()){
+				HadiCezmi hadi = new HadiCezmi(1, "Player 1", "Player 2");
+				hadi.readXML(file);
+				GameFrame gameFrame = new GameFrame(hadi);
+				gameFrame.pack();
+				gameFrame.setVisible(true);
+				frame.setVisible(false);
+				}
+				else{
+					JOptionPane.showMessageDialog(frame, "NOT VALID XML");
+				}
+   
+			} catch (SAXException | IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
 }
     public void editGame(){
     	
