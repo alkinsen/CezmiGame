@@ -53,7 +53,7 @@ public class HadiCezmi {
         ArrayList<HashMap<String, String>> ballList = xmlParser.createBallFromXml();
 
         if (ballList.get(0).containsKey("x") && ballList.get(0).containsKey("y")) {
-            board.changeBallPosition(Double.parseDouble(ballList.get(0).get("x")) * 25, Double.parseDouble(ballList.get(0).get("y")) * 25);
+            board.changeBallPosition(Double.parseDouble(ballList.get(0).get("x")) , Double.parseDouble(ballList.get(0).get("y")) );
         }
 
         if (ballList.get(0).containsKey("vx") && ballList.get(0).containsKey("vy")) {
@@ -64,9 +64,9 @@ public class HadiCezmi {
         ArrayList<HashMap<String, String>> cezmiList1 = xmlParser.createCezmi1FromXml();
         if (cezmiList1.get(0).containsKey("x")) {
             if (cezmiList1.get(0).containsKey("y")) {
-                board.changeCezmiPosition(1, Double.parseDouble(cezmiList1.get(0).get("x")) * 25, Double.parseDouble(cezmiList1.get(0).get("y")) * 25);
+                board.changeCezmiPosition(1, Double.parseDouble(cezmiList1.get(0).get("x")) , Double.parseDouble(cezmiList1.get(0).get("y")));
             } else {
-                board.changeCezmiPosition(1, Double.parseDouble(cezmiList1.get(0).get("x")) * 25);
+                board.changeCezmiPosition(1, Double.parseDouble(cezmiList1.get(0).get("x")));
             }
         }
 
@@ -78,9 +78,9 @@ public class HadiCezmi {
         ArrayList<HashMap<String, String>> cezmiList2 = xmlParser.createCezmi2FromXml();
         if (cezmiList2.get(0).containsKey("x")) {
             if (cezmiList2.get(0).containsKey("y")) {
-                board.changeCezmiPosition(2, Double.parseDouble(cezmiList2.get(0).get("x")) * 25, Double.parseDouble(cezmiList2.get(0).get("y")) * 25);
+                board.changeCezmiPosition(2, Double.parseDouble(cezmiList2.get(0).get("x")), Double.parseDouble(cezmiList2.get(0).get("y")) );
             } else {
-                board.changeCezmiPosition(2, Double.parseDouble(cezmiList2.get(0).get("x")) * 25);
+                board.changeCezmiPosition(2, Double.parseDouble(cezmiList2.get(0).get("x")) );
             }
         }
 
@@ -311,7 +311,6 @@ public class HadiCezmi {
     }
 
 }
-
 
 
 
