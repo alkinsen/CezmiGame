@@ -26,6 +26,7 @@ public class UiBoardPanel extends JPanel{
         addUiBall(hadiCezmi.getBoard().getBall());
         addUiGizmo(hadiCezmi.getBoard().getGizmoArrayList());
         uiEngel = new UiEngel(hadiCezmi.getBoard().getEngel());
+        
     }
 
     public void addUiBall(Ball ball){
@@ -40,7 +41,7 @@ public class UiBoardPanel extends JPanel{
 
     public void addUiGizmo(ArrayList<Gizmo> gizmos) {
         for (Gizmo gizmo : gizmos) {
-            if (gizmo instanceof SquareTakoz) {
+            if ((gizmo instanceof SquareTakoz) && (!(gizmo instanceof Firildak))) {
                 SquareTakoz squareTakoz = (SquareTakoz) gizmo;
                 this.uiGizmos.add(new UiSquareTakoz(squareTakoz));
             } else if (gizmo instanceof TriangleTakoz) {

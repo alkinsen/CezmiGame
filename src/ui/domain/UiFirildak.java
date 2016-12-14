@@ -14,7 +14,7 @@ import java.util.Observer;
 public class UiFirildak extends UiSquareTakoz implements Observer {
 	protected int angularVelocity;
 
-    public UiFirildak(SquareTakoz sq) {
+    public UiFirildak(Firildak sq) {
         super(sq);
         sq.addObserver(this);
         
@@ -32,6 +32,8 @@ public class UiFirildak extends UiSquareTakoz implements Observer {
     private Rectangle boundingBox(){
         return new Rectangle(x, y, width+1, width+1);
     }
+    
+    
 
     @Override
     public void update(Observable o, Object arg) {
