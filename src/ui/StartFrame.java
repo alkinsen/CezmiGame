@@ -32,13 +32,12 @@ import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 
 public class StartFrame {
-	public JFrame frame;
+    public JFrame frame;
     public HadiCezmi hadiCezmi;
 
     public StartFrame(HadiCezmi hadiCezmi) {
         this.hadiCezmi = hadiCezmi;
-    	
-    	
+
         EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
@@ -54,15 +53,13 @@ public class StartFrame {
                 frame.pack();
                 frame.setLocationRelativeTo(null);
                 frame.setVisible(true);
-                
-               
             }
         });
     }
 
     public class StartPane extends JPanel {
-    	private StartFrameController startFrameController;
-    	private JFrame frame;
+        private StartFrameController startFrameController;
+        private JFrame frame;
         private List<String> menuItems;
         private String selectMenuItem;
         private String focusedItem;
@@ -71,8 +68,8 @@ public class StartFrame {
         private Map<String, Rectangle> menuBounds;
 
         public StartPane(JFrame frame) {
-        	this.frame = frame;
-        	startFrameController = new StartFrameController();
+            this.frame = frame;
+            startFrameController = new StartFrameController();
             setBackground(Color.BLACK);
             painter = new SimpleMenuItemPainter();
             menuItems = new ArrayList<>(25);
@@ -95,16 +92,15 @@ public class StartFrame {
                     if (newItem != null && !newItem.equals(selectMenuItem)) {
                         //selectMenuItem = newItem;
                         //repaint();
-                        if(newItem.equals("Play Game")){
+                        if (newItem.equals("Play Game")) {
                             startFrameController.doAction("Play", hadiCezmi);
                             frame.setVisible(false);
-                        }
-                        else if(newItem.equals("Load Game")){
+                        } else if (newItem.equals("Load Game")) {
                             startFrameController.doAction("Load", hadiCezmi);
                             frame.setVisible(false);
                         }
                     }
-                    
+
                 }
 
                 @Override
@@ -147,9 +143,9 @@ public class StartFrame {
                 menuBounds = new HashMap<>(menuItems.size());
                 int width = 0;
                 int height = 0;
-                
+
                 for (String text : menuItems) {
-                    Dimension dim = new Dimension((int)painter.getPreferredSize(g2d, text).getWidth()*2, (int)painter.getPreferredSize(g2d, text).getHeight()*2) ;
+                    Dimension dim = new Dimension((int) painter.getPreferredSize(g2d, text).getWidth() * 2, (int) painter.getPreferredSize(g2d, text).getHeight() * 2);
                     width = Math.max(width, dim.width);
                     height = Math.max(height, dim.height);
                 }
@@ -173,11 +169,10 @@ public class StartFrame {
                 boolean isFocused = text.equals(focusedItem);
                 painter.paint(g2d, text, bounds, isSelected, isFocused);
             }
-            
-            
+
+
             g2d.dispose();
         }
-
 
 
     }
@@ -199,22 +194,21 @@ public class StartFrame {
         @Override
         public void paint(Graphics2D g2d, String text, Rectangle bounds, boolean isSelected, boolean isFocused) {
             FontMetrics fm = g2d.getFontMetrics();
-            if(text != "A PLUS"){
-            if (isSelected) {
-                paintBackground(g2d, bounds, Color.BLUE, Color.WHITE);
-            } else if (isFocused) {
-                paintBackground(g2d, bounds, Color.MAGENTA, Color.BLACK);
+            if (text != "A PLUS") {
+                if (isSelected) {
+                    paintBackground(g2d, bounds, Color.BLUE, Color.WHITE);
+                } else if (isFocused) {
+                    paintBackground(g2d, bounds, Color.MAGENTA, Color.BLACK);
+                } else {
+                    paintBackground(g2d, bounds, Color.DARK_GRAY, Color.LIGHT_GRAY);
+                }
+                int x = bounds.x + ((bounds.width - fm.stringWidth(text)) / 2);
+                int y = bounds.y + ((bounds.height - fm.getHeight()) / 2) + fm.getAscent();
+                g2d.setColor(isSelected ? Color.WHITE : Color.LIGHT_GRAY);
+                g2d.drawString(text, x, y);
             } else {
-                paintBackground(g2d, bounds, Color.DARK_GRAY, Color.LIGHT_GRAY);
-            }
-            int x = bounds.x + ((bounds.width - fm.stringWidth(text)) / 2);
-            int y = bounds.y + ((bounds.height - fm.getHeight()) / 2) + fm.getAscent();
-            g2d.setColor(isSelected ? Color.WHITE : Color.LIGHT_GRAY);
-            g2d.drawString(text, x, y);
-            }
-            else{
-            	paintBackground(g2d, bounds, Color.RED, Color.RED);
-            	int x = bounds.x + ((bounds.width - fm.stringWidth(text)) / 2);
+                paintBackground(g2d, bounds, Color.RED, Color.RED);
+                int x = bounds.x + ((bounds.width - fm.stringWidth(text)) / 2);
                 int y = bounds.y + ((bounds.height - fm.getHeight()) / 2) + fm.getAscent();
                 g2d.setColor(isSelected ? Color.WHITE : Color.LIGHT_GRAY);
                 g2d.drawString(text, x, y);
@@ -236,7 +230,7 @@ public class StartFrame {
     
     
     /*public StartFrame() {
-    	
+
     	public static void main(String[] args) {
             new StartFrame();
         }

@@ -26,7 +26,5 @@ public class Cezerye extends Gizmo {
 	public String toString() {
 		return "Cezerye [x=" + x + ", y=" + y + "]";
 	}
-	
-	
 
 }

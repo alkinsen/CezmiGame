@@ -108,6 +108,4 @@ public class Cezmi extends Observable {
         setChanged();
         notifyObservers(this);
     }
-
-
 }
