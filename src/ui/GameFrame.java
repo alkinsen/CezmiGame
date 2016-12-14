@@ -64,7 +64,8 @@ public class GameFrame extends JFrame{
             @Override
             public void actionPerformed(ActionEvent e) {
                 hadiCezmi.play();
-                gameFrameController.doAction("addLeftTokat");
+                String[] arg=new String[1];
+                gameFrameController.doAction(hadiCezmi,"addLeftTokat",arg);
             }
         });
         JButton rightTokatButton = new JButton("Test Repaint");
@@ -72,21 +73,25 @@ public class GameFrame extends JFrame{
             @Override
             public void actionPerformed(ActionEvent e) {
                 uiBoardPanel.repaint();
-                gameFrameController.doAction("addRightTokat");
+                String[] arg=new String[1];
+                
+                gameFrameController.doAction(hadiCezmi,"addRightTokat",arg);
             }
         });
         JButton squareTakozButton = new JButton("Square Takoz");
         btnPlay.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                gameFrameController.doAction("addSquareTakoz");
+            	String[] arg=new String[1];
+                gameFrameController.doAction(hadiCezmi,"addSquareTakoz",arg);
             }
         });
         JButton triangleTakozButton = new JButton("Triange Takoz");
         btnPlay.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                gameFrameController.doAction("addTriangleTakoz");
+            	String[] arg=new String[1];
+                gameFrameController.doAction(hadiCezmi,"addTriangleTakoz",arg);
             }
         });
 

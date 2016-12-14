@@ -1,5 +1,6 @@
 package game;
 
+import java.awt.Color;
 import physics.*;
 
 /**
@@ -12,6 +13,7 @@ public class Firildak extends SquareTakoz {
 	public Firildak(int xLoc, int yLoc) {
 		super(xLoc, yLoc);
 		// TODO Auto-generated constructor stub
+		color=Color.red;
 		
 		//initialize the corners
 		points = new Vect[4];
