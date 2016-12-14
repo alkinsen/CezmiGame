@@ -19,18 +19,19 @@ import xml.XMLFilter;
  * Created by ASEN14 on 8.12.2016.
  */
 public class StartFrameController {
-	File file;
+    File file;
+
     public StartFrameController() {
     }
 
-    public void doAction(String action, JFrame frame) {
+    public void doAction(String action, HadiCezmi hadiCezmi) {
         switch (action) {
             case "Play":
-            	playGame(frame);
+                playGame(hadiCezmi);
                 break;
             case "Load":
-            	loadGame(frame);
-            	break;
+                loadGame(hadiCezmi);
+                break;
             case "Edit":
                 editGame();
                 break;
@@ -38,86 +39,69 @@ public class StartFrameController {
                 break;
         }
     }
-    
-    public void playGame(JFrame frame){
-    	/*HadiCezmi hadi = new HadiCezmi(1, "Player 1", "Player 2");
-    	GameFrame gameFrame = new GameFrame(hadi);
-    	gameFrame.pack();
-    	gameFrame.setVisible(true);
+
+    public void playGame(HadiCezmi hadiCezmi) {
+        HadiCezmi hadi = hadiCezmi;
+        GameFrame gameFrame = new GameFrame(hadi);
+        gameFrame.pack();
+        gameFrame.setVisible(true);
 
         gameFrame.addKeyListener(new KeyListener() {
             @Override
-            public void keyTyped(KeyEvent e) {}
+            public void keyTyped(KeyEvent e) {
+            }
 
             @Override
             public void keyPressed(KeyEvent e) {
                 int keynum = e.getKeyCode();
                 System.out.println(keynum);
-                if(keynum == hadi.getCezmi1Left()){
+                if (keynum == hadi.getCezmi1Left()) {
                     hadi.moveCezmi(1, "left");
-                }else if(keynum == hadi.getCezmi1Right()){
+                } else if (keynum == hadi.getCezmi1Right()) {
                     hadi.moveCezmi(1, "right");
-                }else if(keynum == hadi.getCezmi2Left()){
+                } else if (keynum == hadi.getCezmi2Left()) {
                     hadi.moveCezmi(2, "left");
-                }else if(keynum == hadi.getCezmi2Right()){
+                } else if (keynum == hadi.getCezmi2Right()) {
                     hadi.moveCezmi(2, "right");
-                }else if(keynum == hadi.getTokatLeftKey()){
+                } else if (keynum == hadi.getTokatLeftKey()) {
                     hadi.rotateTokat("left");
-                }else if(keynum == hadi.getTokatRightKey()){
+                } else if (keynum == hadi.getTokatRightKey()) {
                     hadi.rotateTokat("right");
                 }
             }
 
             @Override
-            public void keyReleased(KeyEvent e) {}
+            public void keyReleased(KeyEvent e) {
+            }
         });
 
         final Timer timer = new Timer(10, new ActionListener() {
             @Override
             public void actionPerformed(final ActionEvent e) {
+                System.out.println(Thread.currentThread().getName());
                 gameFrame.repaint();
                 gameFrame.requestFocus();
             }
         });
         timer.start();
-
-    	frame.setVisible(false); */
-    	
-    	new EditFrame(new HadiCezmi(1,"Player 1", "Player 2"));
-    	
-    	
-
     }
 
+    public void loadGame(HadiCezmi hadiCezmi) {
+        JFileChooser fc = new JFileChooser();
+        fc.addChoosableFileFilter(new XMLFilter());
+        fc.setAcceptAllFileFilterUsed(false);
+        int returnVal = fc.showOpenDialog(fc);
+        if (returnVal == JFileChooser.APPROVE_OPTION) {
+            file = fc.getSelectedFile();
+            HadiCezmi hadi = hadiCezmi;
+            hadi.readXML(file);
+            GameFrame gameFrame = new GameFrame(hadi);
+            gameFrame.pack();
+            gameFrame.setVisible(true);
+        }
+    }
+
+    public void editGame() {
     
-    public void loadGame(JFrame frame){
-    	JFileChooser fc = new JFileChooser();
-		fc.addChoosableFileFilter(new XMLFilter());
-		fc.setAcceptAllFileFilterUsed(false);
-		int returnVal = fc.showOpenDialog(fc);
-		if (returnVal == JFileChooser.APPROVE_OPTION) {
-			file = fc.getSelectedFile();
-			XMLChecker xmlchecker = new XMLChecker(file);
-			try {
-				if(xmlchecker.check()){
-				HadiCezmi hadi = new HadiCezmi(1, "Player 1", "Player 2");
-				hadi.readXML(file);
-				GameFrame gameFrame = new GameFrame(hadi);
-				gameFrame.pack();
-				gameFrame.setVisible(true);
-				frame.setVisible(false);
-				}
-				else{
-					JOptionPane.showMessageDialog(frame, "NOT VALID XML");
-				}
-   
-			} catch (SAXException | IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
-}
-    public void editGame(){
-    	
     }
 }

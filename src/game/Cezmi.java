@@ -14,7 +14,7 @@ public class Cezmi extends Observable {
     private Color color;
     private int vy = 10;
     private int vx = 10;
-    private int cezmilevel;
+    private int cezmiLevel;
 
 
     public Cezmi(int xLoc, int yLoc, int level) {
@@ -23,7 +23,7 @@ public class Cezmi extends Observable {
         y = yLoc;
         radius = 20;
         color = Color.RED;
-        cezmilevel = level;
+        cezmiLevel = level;
 
     }
 
@@ -65,18 +65,28 @@ public class Cezmi extends Observable {
     }
 
     public void moveLeft() {
-        if (x <= 230 && x >= vx) {
+        if(cezmiLevel == 2 && x <= vx && y > 0 ){
+            x = 0;
+            y = y - vy;
+        }else if(cezmiLevel == 2 && x == 500 & y < 500){
+            y = y + vy;
+        } else if(x <= 230 && x >= vx) {
             x = x - vx;
         } else if (x >= 270+vx) {
             x = x - vx;
         }
         setChanged();
         notifyObservers(this);
-
+    
     }
 
     public void moveRight() {
-        if (x + vx <= 230 ) {
+        if(cezmiLevel == 2 && x >= 500-vx && y > 0 ){
+            x = 500;
+            y = y - vy;
+        }else if(cezmiLevel == 2 && x == 0 & y < 500){
+            y = y + vy;
+        }else if (x + vx <= 230 ) {
             x = x + vx;
         } else if ( x >= 270 && x <= 500 - vx) {
             x = x + vx;
@@ -85,29 +95,27 @@ public class Cezmi extends Observable {
         notifyObservers(this);
     }
 
-    public void moveUp() {
-        if (cezmilevel == 2) {
-            if (x == 0 || x == 500) {
-                if (!(y <= 0) && !(y >= 500)) {
-                    y = y - vy;
-                }
-            }
-        }
-        setChanged();
-        notifyObservers(this);
-    }
-
-    public void moveDown() {
-        if (cezmilevel == 2) {
-            if (x == 0 || x == 500) {
-                if (!(y <= 0) && !(y >= 500)) {
-                    y = y + vy;
-                }
-            }
-        }
-        setChanged();
-        notifyObservers(this);
-    }
-
-
+//    public void moveUp() {
+//        if (cezmiLevel == 2) {
+//            if (x == 0 || x == 500) {
+//                if (!(y <= 0) && !(y >= 500)) {
+//                    y = y - vy;
+//                }
+//            }
+//        }
+//        setChanged();
+//        notifyObservers(this);
+//    }
+//
+//    public void moveDown() {
+//        if (cezmiLevel == 2) {
+//            if (x == 0 || x == 500) {
+//                if (!(y <= 0) && !(y >= 500)) {
+//                    y = y + vy;
+//                }
+//            }
+//        }
+//        setChanged();
+//        notifyObservers(this);
+//    }
 }
