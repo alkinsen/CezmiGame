@@ -42,7 +42,7 @@ public class StartFrame {
             @Override
             public void run() {
                 try {
-                    UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+                    UIManager.setLookAndFeel(UIManager.getCrossPlatformLookAndFeelClassName());
                 } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException ex) {
                     ex.printStackTrace();
                 }
@@ -230,10 +230,6 @@ public class StartFrame {
     
     
     /*public StartFrame() {
-
-    	public static void main(String[] args) {
-            new StartFrame();
-        }
     	
         super("Welcome to Cezmi Game");
         startFrameController = new StartFrameController();
@@ -315,4 +311,3 @@ public class StartFrame {
         startFrame.pack();
         startFrame.setVisible(true);
     }*/
-
