@@ -27,18 +27,16 @@ import javax.swing.KeyStroke;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
+import game.HadiCezmi;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 
 public class StartFrame {
 	public JFrame frame;
-	
-    public static void main(String[] args) {
-        new StartFrame();
-        
-    }
+    public HadiCezmi hadiCezmi;
 
-    public StartFrame() {
+    public StartFrame(HadiCezmi hadiCezmi) {
+        this.hadiCezmi = hadiCezmi;
     	
     	
         EventQueue.invokeLater(new Runnable() {
@@ -98,10 +96,12 @@ public class StartFrame {
                         //selectMenuItem = newItem;
                         //repaint();
                         if(newItem.equals("Play Game")){
-                        	 startFrameController.doAction("Play", frame);
+                            startFrameController.doAction("Play", hadiCezmi);
+                            frame.setVisible(false);
                         }
                         else if(newItem.equals("Load Game")){
-                        	 startFrameController.doAction("Load", frame);
+                            startFrameController.doAction("Load", hadiCezmi);
+                            frame.setVisible(false);
                         }
                     }
                     

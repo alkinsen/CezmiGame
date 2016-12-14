@@ -72,7 +72,7 @@ public class Cezmi extends Observable {
         }
         setChanged();
         notifyObservers(this);
-
+    
     }
 
     public void moveRight() {
