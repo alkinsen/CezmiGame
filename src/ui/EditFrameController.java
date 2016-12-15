@@ -1,5 +1,4 @@
 package ui;
-
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -12,8 +11,8 @@ import game.HadiCezmi;
 import xml.XMLBuilder;
 
 public class EditFrameController extends StartFrameController {
-	
-	public EditFrameController() {
+
+    public EditFrameController() {
 
     }
 
@@ -53,9 +52,9 @@ public class EditFrameController extends StartFrameController {
             	
                 break;
             case "save":
-            	//a
+                //a
                 break;
-            
+
             default:
                 //default action
                 break;
