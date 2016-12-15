@@ -175,6 +175,14 @@ public abstract class Gizmo extends Observable {
     	//@effects: orientation is changed.
         this.orientation = orientation;
     }
+    
+    public Vect[] getPoints() {
+        return points;
+    }
+
+    public void setPoints(Vect[] points) {
+        this.points = points;
+    }
 
 
 }
