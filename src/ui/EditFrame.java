@@ -24,6 +24,7 @@ import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.border.LineBorder;
 import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.TransformerException;
 
 import org.w3c.dom.Attr;
 import org.w3c.dom.Element;
@@ -40,6 +41,7 @@ import game.Takoz;
 import game.Tokat;
 import game.TriangleTakoz;
 import ui.StartFrame.StartPane;
+import xml.XMLBuilder;
 
 /**
  * Created by ASEN14 on 28.11.2016.
@@ -47,9 +49,10 @@ import ui.StartFrame.StartPane;
 public class EditFrame {
 	JFrame frame;
 	HadiCezmi hadi;
-	
+	EditPane editPane;
 	public EditFrame(HadiCezmi hadi){
 		    this.hadi = hadi;
+		    this.editPane = new EditPane(hadi);
 		    
 	        EventQueue.invokeLater(new Runnable() {
 	            @Override
@@ -77,7 +80,7 @@ public class EditFrame {
 	                contentPane.add(indexToolBar, BorderLayout.SOUTH);
 	               
 	              //adding edit pane 
-	                contentPane.add(new EditPane(hadi), BorderLayout.CENTER);
+	                contentPane.add(editPane, BorderLayout.CENTER);
 	                
 	                frame.setContentPane(contentPane);
 	                frame.pack();
@@ -95,14 +98,18 @@ public class EditFrame {
 		button.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
+//				if(checkMap()){
+//					HadiCezmi hadi = new HadiCezmi(1, "Player 1", "Player 2");
+//					File file = new File("xml");
+//					hadi.readXML(file);
+//					new GameFrame(hadi);
+//				}else{
+//					String message = "The map is faulty. Please check the cezmi placement. There has to be 2 green squares next to each other on the bottom row.";
+//					JOptionPane.showMessageDialog(null, message,"Map Status",JOptionPane.WARNING_MESSAGE);
+//				}
 				if(checkMap()){
-					HadiCezmi hadi = new HadiCezmi(1, "Player 1", "Player 2");
-					File file = new File("xml");
-					hadi.readXML(file);
-					new GameFrame(hadi);
-				}else{
-					String message = "The map is faulty. Please check the cezmi placement. There has to be 2 green squares next to each other on the bottom row.";
-					JOptionPane.showMessageDialog(null, message,"Map Status",JOptionPane.WARNING_MESSAGE);
+					EditFrameController efc=editPane.getEditFrameController();
+					efc.doAction(hadi, "play", editPane.getGridSquares());
 				}
 				
 			}
@@ -115,13 +122,16 @@ public class EditFrame {
 		button.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				String message;
-				if(checkMap()){
-					message = "The map is complete.";
-				}else{
-					message = "The map is faulty. Please check the cezmi placement. There has to be 2 green squares next to each other on the bottom row.";
-				}
-				JOptionPane.showMessageDialog(null, message,"Map Status",JOptionPane.WARNING_MESSAGE);
+//				String message;
+//				if(checkMap()){
+//					message = "The map is complete.";
+//				}else{
+//					message = "The map is faulty. Please check the cezmi placement. There has to be 2 green squares next to each other on the bottom row.";
+//				}
+//				JOptionPane.showMessageDialog(null, message,"Map Status",JOptionPane.WARNING_MESSAGE);
+				
+				
+				
 			}
 		});
 		toolBar.add(button);
@@ -131,20 +141,34 @@ public class EditFrame {
         button.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                PrintWriter writer = null;
-                try {
-                    if(checkMap()) {
-                        
-                    }else{
-                        String message = "The map is faulty. Please check the cezmi placement. There has to be 2 green squares next to each other on the bottom row.";
-                        JOptionPane.showMessageDialog(null, message,"Map Status",JOptionPane.WARNING_MESSAGE);
-                    }
-                    writer.close();
-                } catch (FileNotFoundException e1) {
-                    e1.printStackTrace();
-                } catch (UnsupportedEncodingException e1) {
-                    e1.printStackTrace();
-                }
+//                PrintWriter writer = null;
+//                try {
+//                    if(checkMap()) {
+//                        
+//                    }else{
+//                        String message = "The map is faulty. Please check the cezmi placement. There has to be 2 green squares next to each other on the bottom row.";
+//                        JOptionPane.showMessageDialog(null, message,"Map Status",JOptionPane.WARNING_MESSAGE);
+//                    }
+//                    writer.close();
+//                } catch (FileNotFoundException e1) {
+//                    e1.printStackTrace();
+//                } catch (UnsupportedEncodingException e1) {
+//                    e1.printStackTrace();
+//                }
+            	if(checkMap()){
+            		
+            		try {
+            			XMLBuilder xmlBuilder=new XMLBuilder(hadi);
+						xmlBuilder.writeToXML();
+					} catch (ParserConfigurationException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					} catch (TransformerException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+            	}
+            	
             }});
         toolBar.add(button); 
         
@@ -154,7 +178,7 @@ public class EditFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
             	frame.setVisible(false);
-                new StartFrame();
+                new StartFrame(hadi);
             }});
         toolBar.add(button);
 }
@@ -208,12 +232,96 @@ public class EditFrame {
 				if(mode == 2) status = 3;
 			}
 		}*/
-		return status == 2;
+		
+		
+		EditableJButton[][] e=editPane.getGridSquares();
+		int gizmo=0;
+		int tokat=0;
+		
+		for(int i=0;i<12;i++){
+			for(int j=0;j<12;j++){
+				Color c=e[i][j].getBackground();
+				if(c.equals(Color.magenta)){
+					tokat++;
+				} else if(c.equals(Color.yellow)){
+					gizmo++;
+				} else if(c.equals(Color.orange)){
+					gizmo++;
+				} else if (c.equals(Color.red)){
+					gizmo++;
+				} else {
+					
+				}
+				
+			}
+		}
+		if(gizmo+tokat!=4){
+			return false;
+		}
+		if(tokat>1){
+			return false;
+		}
+		gizmo=0;
+		tokat=0;
+		
+		for(int i=13;i<25;i++){
+			for(int j=13;j<25;j++){
+				Color c=e[i][j].getBackground();
+				if(c.equals(Color.magenta)){
+					tokat++;
+				} else if(c.equals(Color.yellow)){
+					gizmo++;
+				} else if(c.equals(Color.orange)){
+					gizmo++;
+				} else if (c.equals(Color.red)){
+					gizmo++;
+				} else {
+					
+				}
+				
+			}
+		}
+		if(gizmo+tokat!=4){
+			return false;
+		}
+		if(tokat>1){
+			return false;
+		}
+		int cezmi1=0;
+		int cezmi2=0;
+		int temp=0;
+		for(int i=0;i<12;i++){
+			Color c=e[i][25].getBackground();
+			if(c.equals(Color.green)){
+				cezmi1++;
+			}
+			if(temp==1){
+				cezmi1=2;
+				break;
+			}
+			temp=cezmi1;
+		}
+		temp=0;
+		for(int i=13;i<25;i++){
+			Color c=e[i][25].getBackground();
+			if(c.equals(Color.green)){
+				cezmi2++;
+			}
+			if(temp==1){
+				cezmi2=2;
+				break;
+			}
+			temp=cezmi2;
+		}
+		if(cezmi1!=2 || cezmi2!=2){
+			return false;
+		}
+		return true;
 	}
 
 	
 	public class EditPane extends JPanel {
-	private StartFrameController editFrameController;
+	private EditFrameController editFrameController;
 	
 	private final int FRAME_WIDTH = 500;
 	private final int FRAME_HEIGHT = 500;
@@ -273,6 +381,19 @@ public class EditFrame {
 		gridSquares[x2][y2-1].setBackground(Color.green);
 		gridSquares[x2+1][y2-1].setBackground(Color.green);
 		}
+
+	public EditableJButton[][] getGridSquares() {
+		return gridSquares;
+	}
+
+	public void setGridSquares(EditableJButton[][] gridSquares) {
+		this.gridSquares = gridSquares;
+	}
+	public EditFrameController getEditFrameController(){
+		return editFrameController;
+	}
+	
+	
 	}
 	
 	
