@@ -8,6 +8,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Observable;
+import java.util.Observer;
 
 import javax.swing.Timer;
 
@@ -16,7 +17,7 @@ import xml.XMLParser;
 /**
  * Created by ASEN14 on 28.11.2016.
  */
-public class HadiCezmi {
+public class HadiCezmi implements Observer{
     public static final int FRAME_WIDTH = 600;
     public static final int FRAME_HEIGHT = 600;
     public static final int BOARD_WIDTH = 500;
@@ -35,8 +36,11 @@ public class HadiCezmi {
     private int cezmi2Left = 37;
     private int cezmi2Right = 39;
 
-    private int tokatLeftKey = 60;
-    private int tokatRightKey = 61;
+    private int tokatLeftKey = 87;
+    private int tokatRightKey = 38;
+    
+    private boolean leftPressed = false;
+    private boolean rightPressed = false;
 
 
     public HadiCezmi(int level, String playerName1, String playerName2) {
@@ -44,6 +48,7 @@ public class HadiCezmi {
         player1 = new Player(playerName1);
         player2 = new Player(playerName2);
         board = new Board(level);
+        board.addObserver(this);
     }
 
     public void readXML(File file) {
@@ -306,9 +311,44 @@ public class HadiCezmi {
         board.rotateTokat(dir);
     }
 
-    public void move() {
-        board.checkCollision();
+    public boolean isLeftPressed() {
+		return leftPressed;
+	}
+
+	public void setLeftPressed(boolean leftPressed) {
+		this.leftPressed = leftPressed;
+	}
+
+	public boolean isRightPressed() {
+		return rightPressed;
+	}
+
+	public void setRightPressed(boolean rightPressed) {
+		this.rightPressed = rightPressed;
+	}
+
+	public void move() {
+    	
+    	
+        board.checkCollision(leftPressed,rightPressed);
     }
+
+	@Override
+	public void update(Observable o, Object arg) {
+		// TODO Auto-generated method stub
+		System.out.println("Observer updated");
+		System.out.println("Player1: "+player1.getScore()+ "--   Player2: "+player2.getScore());
+		String score = (String) arg;
+		if(score.equalsIgnoreCase("left")){
+			int num = player1.getScore();
+			player1.setScore(num+1);
+		}else{
+			int num = player2.getScore();
+			player2.setScore(num+1);
+		}
+		System.out.println("Player1: "+player1.getScore()+ "Player2: "+player2.getScore());
+		
+	}
 
 }
 

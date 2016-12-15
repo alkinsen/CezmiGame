@@ -21,7 +21,7 @@ import java.util.Observer;
  * Ui Classes have the same fields as original classes.
  */
 public abstract class UiTokat extends UiGizmo  {
-	protected String state;
+	protected int state;
 	
 
 }

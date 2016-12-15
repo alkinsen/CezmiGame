@@ -36,7 +36,7 @@ public abstract class Tokat extends Gizmo {
      * @return state of the Tokat
      */
     //getter setter for additional field
-    public String getState() {
+    public int getState() {
         return state;
     }
     

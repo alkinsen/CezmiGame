@@ -12,6 +12,9 @@ import java.util.Observable;
  */
 public class UiRightTokat extends UiTokat {
 	
+	protected int[] xPoints;
+	protected int[] yPoints;
+	
 	
 	public UiRightTokat(RightTokat r){
 		r.addObserver(this);
@@ -22,6 +25,13 @@ public class UiRightTokat extends UiTokat {
 		this.width=r.getWidth();
 		this.height=r.getHeight();
 		
+		xPoints = new int[4];
+        yPoints = new int[4];
+        for(int i=0; i<4; i++){
+        	xPoints[i] =(int) r.getPoints()[i].x();
+        	yPoints[i] =(int) r.getPoints()[i].y();
+        }
+		
 	}
 	
     @Override
@@ -29,7 +39,7 @@ public class UiRightTokat extends UiTokat {
     	Rectangle clipRect = g.getClipBounds();
         if (clipRect.intersects(this.boundingBox())) {
             g.setColor(color);
-            g.fillRect(x, y, width, height);
+            g.fillPolygon(xPoints, yPoints, 4);
         }
     }
 
@@ -42,13 +52,14 @@ public class UiRightTokat extends UiTokat {
 
     @Override
     public void update(Observable o, Object arg) {
-    	
-    	System.out.println("righttokat update");
-    	RightTokat rt=(RightTokat) arg;
-    	 this.x = (int)Math.round(rt.getX());
-         this.y = (int)Math.round(rt.getY());
-         this.color = rt.getColor();
-         this.state=rt.getState();
+    
+        RightTokat temp = (RightTokat) o;
+        
+        for(int i=0; i<4; i++){
+        	xPoints[i] =(int) temp.getPoints()[i].x();
+        	yPoints[i] =(int) temp.getPoints()[i].y();
+        }
+        this.color = temp.getColor();
 
     }
 }
