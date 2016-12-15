@@ -28,8 +28,7 @@ import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
 import game.HadiCezmi;
-import javafx.scene.media.Media;
-import javafx.scene.media.MediaPlayer;
+
 
 public class StartFrame {
     public JFrame frame;
@@ -67,7 +66,7 @@ public class StartFrame {
         private MenuItemPainter painter;
         private Map<String, Rectangle> menuBounds;
 
-        public StartPane(JFrame frame) {
+        public StartPane(final JFrame frame) {
             this.frame = frame;
             startFrameController = new StartFrameController();
             setBackground(Color.BLACK);
