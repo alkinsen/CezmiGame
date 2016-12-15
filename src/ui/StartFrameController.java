@@ -27,7 +27,7 @@ public class StartFrameController {
     public void doAction(String action, HadiCezmi hadiCezmi) {
         switch (action) {
             case "Play":
-                new EditFrame(hadiCezmi);
+                new GameFrame(hadiCezmi);
                 break;
             case "Load":
                 loadGame(hadiCezmi);
