@@ -29,6 +29,7 @@ import javax.swing.UnsupportedLookAndFeelException;
 
 import game.HadiCezmi;
 
+
 public class StartFrame {
     public JFrame frame;
     public HadiCezmi hadiCezmi;
@@ -65,7 +66,7 @@ public class StartFrame {
         private MenuItemPainter painter;
         private Map<String, Rectangle> menuBounds;
 
-        public StartPane(JFrame frame) {
+        public StartPane(final JFrame frame) {
             this.frame = frame;
             startFrameController = new StartFrameController();
             setBackground(Color.BLACK);
