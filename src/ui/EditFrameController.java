@@ -19,35 +19,37 @@ public class EditFrameController extends StartFrameController {
     public void doAction(HadiCezmi hadiCezmi, String action, EditableJButton[][] g) {
         switch (action) {
             case "play":
-                for (int i = 0; i < 25; i++) {
-                    for (int j = 0; j < 25; j++) {
-                        Color c = g[i][j].getBackground();
-
-                        if (c.equals(Color.yellow)) {
-                            hadiCezmi.getBoard().addGizmo("squareTakoz", i * 25, j * 25);
-                        } else if (c.equals(Color.magenta)) {
-                            hadiCezmi.getBoard().addGizmo("tokat", i * 25, j * 25);
-                        } else if (c.equals(Color.red)) {
-                            hadiCezmi.getBoard().addGizmo("triangularTakoz", i * 25, j * 25);
-                        } else if (c.equals(Color.orange)) {
-                            hadiCezmi.getBoard().addGizmo("firildak", i * 25, j * 25);
-                        }
-                    }
+            	for(int i=0;i<25;i++){
+            		for(int j=0; j<25;j++){
+            			Color c=g[i][j].getBackground();
+            			
+            			if(c.equals(Color.yellow)){
+            			hadiCezmi.getBoard().addGizmo("SquareTakoz", i*20, j*20);
+            			} else if (c.equals(Color.magenta)){
+            				hadiCezmi.getBoard().addGizmo("Tokat", i*20, j*20);
+            			}else if(c.equals(Color.red)){
+            				hadiCezmi.getBoard().addGizmo("TriangularTakoz", i*20, j*20);
+            			}else if(c.equals(Color.orange)){
+            				hadiCezmi.getBoard().addGizmo("Firildak", i*20, j*20);
+            			}
+            		}
+            	}
+            	for(int i=0;i<12;i++){   		
+            			Color c=g[i][24].getBackground();
+            			
+            			if(c.equals(Color.green)){
+            			hadiCezmi.getBoard().changeCezmiPosition(1, i*20);  
+            			}
+            	}
+            	for(int i=13;i<25;i++){   		
+                		Color c=g[i][24].getBackground();
+                		if(c.equals(Color.green)){
+                			hadiCezmi.getBoard().changeCezmiPosition(2, i*20);        
+                		}
                 }
-                for (int i = 0; i < 12; i++) {
-                    Color c = g[i][25].getBackground();
-
-                    if (c.equals(Color.green)) {
-                        hadiCezmi.getBoard().changeCezmiPosition(1, i * 25);
-                    }
-                }
-                for (int i = 13; i < 25; i++) {
-                    Color c = g[i][25].getBackground();
-                    if (c.equals(Color.green)) {
-                        hadiCezmi.getBoard().changeCezmiPosition(2, i * 25);
-                    }
-                }
-                hadiCezmi.play();
+            	
+            	play(hadiCezmi);
+            	
                 break;
             case "save":
                 //a
@@ -59,9 +61,8 @@ public class EditFrameController extends StartFrameController {
         }
 
     }
-
-    public void play(HadiCezmi hadiCezmi) {
-        GameFrame gameFrame = new GameFrame(hadiCezmi);
+    public void play(HadiCezmi hadiCezmi){
+    	GameFrame gameFrame = new GameFrame(hadiCezmi);
         gameFrame.pack();
         gameFrame.setVisible(true);
         gameFrame.addKeyListener(new KeyListener() {

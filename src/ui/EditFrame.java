@@ -86,7 +86,8 @@ public class EditFrame {
 				contentPane.add(indexToolBar, BorderLayout.SOUTH);
 
 				//adding edit pane
-				contentPane.add(new EditPane(hadi), BorderLayout.CENTER);
+				editPane = new EditPane(hadi);
+				contentPane.add(editPane, BorderLayout.CENTER);
 
 				frame.setContentPane(contentPane);
 				frame.pack();
@@ -115,8 +116,8 @@ public class EditFrame {
 //					JOptionPane.showMessageDialog(null, message,"Map Status",JOptionPane.WARNING_MESSAGE);
 //				}
 				if(checkMap()){
-					EditFrameController efc=editPane.getEditFrameController();
-					efc.doAction(hadi, "play", editPane.getGridSquares());
+					
+					editFrameController.doAction(hadi, "play", editPane.getGridSquares());
 
 				}
 
@@ -138,8 +139,8 @@ public class EditFrame {
 //					message = "The map is faulty. Please check the cezmi placement. There has to be 2 green squares next to each other on the bottom row.";
 //				}
 //				JOptionPane.showMessageDialog(null, message,"Map Status",JOptionPane.WARNING_MESSAGE);
-				
-				
+				System.out.println("girdi");
+				checkMap();
 				
 
 			}
@@ -241,31 +242,14 @@ public class EditFrame {
 
 	public boolean checkMap() {
 		int status = 0;
-		//0: no gizmo so far - fail
-		//1: there is one green - fail
-		//2: there is one green after the first one - success
-		//3: fail
-		/*int mode;
-
-		for(int i = 0; i < 19; i++){
-			mode = gridSquares[i][19].getMode();
-			if(status == 0) {
-				if (mode == 2) status = 1;
-			}else if(status == 1){
-				if(mode == 2) status = 2;
-				if(mode == 0) status = 3;
-			}else if(status == 2){
-				if(mode == 2) status = 3;
-			}
-		}*/
 		
-		
+	
 		EditableJButton[][] e=editPane.getGridSquares();
 		int gizmo=0;
 		int tokat=0;
 		
 		for(int i=0;i<12;i++){
-			for(int j=0;j<12;j++){
+			for(int j=0;j<25;j++){
 				Color c=e[i][j].getBackground();
 				if(c.equals(Color.magenta)){
 					tokat++;
@@ -282,16 +266,18 @@ public class EditFrame {
 			}
 		}
 		if(gizmo+tokat!=4){
+			System.out.println("f1");
 			return false;
 		}
 		if(tokat>1){
+			System.out.println("f2");
 			return false;
 		}
 		gizmo=0;
 		tokat=0;
 		
 		for(int i=13;i<25;i++){
-			for(int j=13;j<25;j++){
+			for(int j=1;j<25;j++){
 				Color c=e[i][j].getBackground();
 				if(c.equals(Color.magenta)){
 					tokat++;
@@ -308,9 +294,11 @@ public class EditFrame {
 			}
 		}
 		if(gizmo+tokat!=4){
+			System.out.println("f3");
 			return false;
 		}
 		if(tokat>1){
+			System.out.println("f4");
 			return false;
 		}
 		int cezmi1=0;
@@ -342,8 +330,10 @@ public class EditFrame {
 		}
 		}
 		if(cezmi1!=2 || cezmi2!=2){
+			System.out.println("f5");
 			return false;
 		}
+		System.out.println("t");
 		return true;
 	}
 }
