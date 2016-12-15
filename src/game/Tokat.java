@@ -25,7 +25,7 @@ import java.awt.Color;
 public abstract class Tokat extends Gizmo {
 
     //additional field
-    protected String state;
+    protected int state;
     
     /**
      * Method for getting the state of the Tokat.
@@ -48,7 +48,7 @@ public abstract class Tokat extends Gizmo {
      * @param state Tokat's new state.
      */
 
-    public void setState(String state) {
+    public void setState(int state) {
     	//@requires: state as "up" or "down".
     	// @modifies: state
     	//@effects: state is changed according to parameter.

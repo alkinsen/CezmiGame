@@ -74,15 +74,21 @@ public class GameFrame {
 			                } else if (keynum == hadi.getCezmi2Right()) {
 			                    hadi.moveCezmi(2, "right");
 			                } else if (keynum == hadi.getTokatLeftKey()) {
-			                    hadi.rotateTokat("left");
+			                    hadi.setLeftPressed(true);
 			                } else if (keynum == hadi.getTokatRightKey()) {
-			                    hadi.rotateTokat("right");
+			                    hadi.setRightPressed(true);
 			                }
 			            }
 
 			            @Override
 			            public void keyReleased(KeyEvent e) {
-			            }
+							int keynum = e.getKeyCode();
+							if (keynum == hadi.getTokatLeftKey()) {
+								hadi.setLeftPressed(false);
+							} else if (keynum == hadi.getTokatRightKey()) {
+								hadi.setRightPressed(false);
+							}
+			              }
 			        });
 
 			        final Timer timer = new Timer(10, new ActionListener() {
