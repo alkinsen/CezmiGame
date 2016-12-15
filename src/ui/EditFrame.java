@@ -291,27 +291,29 @@ public class EditFrame {
 		int cezmi2=0;
 		int temp=0;
 		for(int i=0;i<12;i++){
-			Color c=e[i][25].getBackground();
+			Color c=e[i][24].getBackground();
 			if(c.equals(Color.green)){
 				cezmi1++;
-			}
-			if(temp==1){
+			
+			if(temp==i-1){
 				cezmi1=2;
 				break;
-			}
-			temp=cezmi1;
+			} 
+			temp=i;
+		}
 		}
 		temp=0;
 		for(int i=13;i<25;i++){
-			Color c=e[i][25].getBackground();
+			Color c=e[i][24].getBackground();
 			if(c.equals(Color.green)){
 				cezmi2++;
-			}
-			if(temp==1){
+			
+			if(temp==i-1){
 				cezmi2=2;
 				break;
 			}
-			temp=cezmi2;
+			temp=i;
+		}
 		}
 		if(cezmi1!=2 || cezmi2!=2){
 			return false;
