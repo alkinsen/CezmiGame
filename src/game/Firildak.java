@@ -32,11 +32,10 @@ public class Firildak extends SquareTakoz {
 
     public void rotate() {
 
-        Angle angle = new Angle(2 * Math.PI / 100);
+        Angle angle = new Angle(2 * Math.PI / 120);
         for (int i = 0; i < points.length; i++) {
             points[i] = Geometry.rotateAround(points[i], center, angle);
         }
-        System.out.println("firildak girdi");
         setChanged();
         notifyObservers();
 

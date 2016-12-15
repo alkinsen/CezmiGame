@@ -53,7 +53,6 @@ public class UiLeftTokat extends UiTokat {
     @Override
     public void update(Observable o, Object arg) {
     	
-    	System.out.println("updated left tokat");
         LeftTokat temp = (LeftTokat) o;
         
         for(int i=0; i<4; i++){

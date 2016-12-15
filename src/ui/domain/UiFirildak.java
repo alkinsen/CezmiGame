@@ -48,7 +48,6 @@ public class UiFirildak extends UiSquareTakoz implements Observer {
     @Override
     public void update(Observable o, Object arg) {
     	
-    	System.out.println("updated firildak");
         Firildak temp = (Firildak) o;
         
         for(int i=0; i<4; i++){

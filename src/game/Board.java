@@ -4,10 +4,11 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.util.ArrayList;
+import java.util.Observable;
 
 import physics.*;
 
-public class Board {
+public class Board extends Observable{
     private int width = HadiCezmi.BOARD_WIDTH;
     private int height = HadiCezmi.BOARD_HEIGHT;
     private Color color = new Color(0, 0, 255);
@@ -235,7 +236,7 @@ public class Board {
     }
 
 
-    public void checkCollision() {
+    public void checkCollision(boolean leftPressed, boolean rightPressed) {
 
         //ball related vectors
         Circle ballCircle = new Circle(ball.getX(), ball.getY(), ball.getRadius());
@@ -270,9 +271,9 @@ public class Board {
         Circle boardTopLeftCircle = new Circle(boardTopLeftCorner.x(), boardTopLeftCorner.y(), 1);
         Vect boardTopRightCorner = new Vect(width, 0);
         Circle boardTopRightCircle = new Circle(boardTopRightCorner.x(), boardTopRightCorner.y(), 1);
-        Vect boardBottomLeftCorner = new Vect(0, height + 20);
+        Vect boardBottomLeftCorner = new Vect(0, height);
         Circle boardBottomLeftCircle = new Circle(boardBottomLeftCorner.x(), boardBottomLeftCorner.y(), 1);
-        Vect boardBottomRightCorner = new Vect(width, height + 20);
+        Vect boardBottomRightCorner = new Vect(width, height);
         Circle boardBottomRightCircle = new Circle(boardBottomRightCorner.x(), boardBottomRightCorner.y(), 1);
 
         LineSegment boardTopLine = new LineSegment(boardTopLeftCorner, boardTopRightCorner);
@@ -294,6 +295,13 @@ public class Board {
             Vect returnedVector = Geometry.reflectWall(engelBottomLine, ballVelocity);
             ball.setVx(returnedVector.x());
             ball.setVy(returnedVector.y());
+            String score = "left";
+            if(ball.getX()<engel.getX()){
+            	score= "right";
+            }
+            System.out.println("carpisma var");
+            setChanged();
+            notifyObservers(score);
         } else if (Geometry.timeUntilWallCollision(boardLeftLine, ballCircle, ballVelocity) <= 0.01) {
             Vect returnedVector = Geometry.reflectWall(engelLeftLine, ballVelocity);
             ball.setVx(returnedVector.x());
@@ -512,11 +520,11 @@ public class Board {
                 //g.rotate();
             } else if (g instanceof LeftTokat){
             	LeftTokat sample = (LeftTokat) g;
-            	sample.rotate(true);
+            	sample.rotate(leftPressed);
             	
             } else if (g instanceof RightTokat){
             	RightTokat sample = (RightTokat) g;
-            	sample.rotate(true);
+            	sample.rotate(rightPressed);
             	
             }
         }

@@ -48,14 +48,13 @@ public class LeftTokat extends Tokat {
 		Angle angle = new Angle(0);
 
 		if(isPressed && canGoUp){
-			angle = new Angle(-2 * Math.PI / 100);
+			angle = new Angle(-2 * Math.PI / 120);
 		}else if (!isPressed && canGoDown){
-			angle = new Angle(2 * Math.PI / 100);
+			angle = new Angle(2 * Math.PI / 120);
 		}
 		for (int i = 0; i < points.length; i++) {
 			points[i] = Geometry.rotateAround(points[i], center, angle);
 		}
-		System.out.println("left tokat girdi");
 		setChanged();
 		notifyObservers();
 
