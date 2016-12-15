@@ -3,11 +3,12 @@ package game;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Rectangle;
+import java.util.Observable;
 
 /**
  * Created by ASEN14 on 28.11.2016.
  */
-public class Engel {
+public class Engel extends Observable{
 	private int x = 247; // 247.5 olmalı
 	private int y = 440;
 	private int width = 5;
@@ -48,17 +49,8 @@ public class Engel {
 	}
 	
 	public void paint(Graphics g) {
-	    // modifies: the Graphics object <g>.
-	    // effects: paints a circle on <g> reflecting the current position
-	    // of the ball.
-
-	    // the "clip rectangle" is the area of the screen that needs to be
-	    // modified
 	    Rectangle clipRect = g.getClipBounds();
 
-	    // For this tiny program, testing whether we need to redraw is
-	    // kind of silly.  But when there are lots of objects all over the
-	    // screen this is a very important performance optimization
 	    if (clipRect.intersects(this.boundingBox())) {
 	      g.setColor(color);
 	      g.fillRect(x, y, width, height);
@@ -66,13 +58,23 @@ public class Engel {
 	  }
   
   public Rectangle boundingBox() {
-	    // effect: Returns the smallest rectangle that completely covers the
-	    //         current position of the ball.
-
-	    // a Rectangle is the x,y for the upper left corner and then the
-	    // width and height
 	    return new Rectangle(x, y, width, height);
-	  }
-	
-	
+  }
+
+	public Color getColor() {
+	return color;
+}
+
+	public void setColor(Color color) {
+	this.color = color;
+}
+
+	public void setWidth(int width) {
+	this.width = width;
+}
+
+	public void setHeight(int height) {
+	this.height = height;
+}
+
 }
