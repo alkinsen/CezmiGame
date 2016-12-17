@@ -90,7 +90,6 @@ public class StartFrameController {
 			final Timer timer = new Timer(10, new ActionListener() {
 				@Override
 				public void actionPerformed(final ActionEvent e) {
-					System.out.println(Thread.currentThread().getName());
 					gameFrame.repaint();
 					gameFrame.requestFocus();
 				}
