@@ -23,9 +23,11 @@ public class HadiCezmi implements Observer{
     public static final int BOARD_WIDTH = 500;
     public static final int BOARD_HEIGHT = 500;
 
+   
 
     private Player player1;
     private Player player2;
+    private int level;
     private Board board;
 
     private boolean runningMode = false;
@@ -45,6 +47,7 @@ public class HadiCezmi implements Observer{
 
     public HadiCezmi(int level, String playerName1, String playerName2) {
         super();
+        level = this.level;
         player1 = new Player(playerName1);
         player2 = new Player(playerName2);
         board = new Board(level);
@@ -187,39 +190,17 @@ public class HadiCezmi implements Observer{
         }
     }
 
-    public void doAction(String s) {
-        switch (s) {
-            case "play":
-                play();
-                break;
-            case "pause":
-                pause();
-                break;
-            case "editMode":
-                editMode();
-                break;
-            default:
-                break;
-        }
-
-    }
-
     public void play() {
         runningMode = true;
-
-//    	t.start();
-
     }
 
     public void pause() {
         runningMode = false;
-//    	t.stop();
     }
 
     public void editMode() {
         editMode = true;
         runningMode = false;
-//    	t.stop();
     }
 
     public boolean isRunningMode() {
@@ -230,7 +211,16 @@ public class HadiCezmi implements Observer{
         this.runningMode = runningMode;
     }
 
-    public Player getPlayer1() {
+    
+    public int getLevel() {
+		return level;
+	}
+
+	public void setLevel(int level) {
+		this.level = level;
+	}
+
+	public Player getPlayer1() {
         return player1;
     }
 

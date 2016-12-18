@@ -13,7 +13,7 @@ public class Engel extends Observable{
 	private int y = 440;
 	private int width = 5;
 	private int height = 60;
-	private Color color = new Color(0, 255, 0);
+	private Color color = Color.cyan;
 	
 	public Engel() {
 		super();

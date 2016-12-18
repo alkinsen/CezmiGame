@@ -16,8 +16,10 @@ import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
+import javax.swing.JComboBox;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JToolBar;
@@ -85,6 +87,7 @@ public class EditFrame {
 				addIndex(indexToolBar);
 				contentPane.add(indexToolBar, BorderLayout.SOUTH);
 
+				
 				//adding edit pane
 				editPane = new EditPane(hadi);
 				contentPane.add(editPane, BorderLayout.CENTER);
@@ -97,7 +100,8 @@ public class EditFrame {
 			}
 		});
 	}
-
+	
+	
 	public void addButtons(JToolBar toolBar) {
 		JButton button;
 		button = new JButton("Start Game");
@@ -116,7 +120,7 @@ public class EditFrame {
 //					JOptionPane.showMessageDialog(null, message,"Map Status",JOptionPane.WARNING_MESSAGE);
 //				}
 				if(checkMap()){
-					
+					frame.setVisible(false);
 					editFrameController.doAction(hadi, "play", editPane.getGridSquares());
 
 				}
@@ -190,7 +194,7 @@ public class EditFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
             	frame.setVisible(false);
-                new StartFrame(hadi);
+                new StartFrame(new HadiCezmi(1, "Player 1", "Player 2"));
             }});
         toolBar.add(button);
 
@@ -204,6 +208,8 @@ public class EditFrame {
 				else rotateMode = false;
 			}});
 		toolBar.add(rotateBox);
+		
+	
 	}
 
 
@@ -277,7 +283,7 @@ public class EditFrame {
 		tokat=0;
 		
 		for(int i=13;i<25;i++){
-			for(int j=1;j<25;j++){
+			for(int j=0;j<25;j++){
 				Color c=e[i][j].getBackground();
 				if(c.equals(Color.magenta)){
 					tokat++;
@@ -351,7 +357,7 @@ class EditPane extends JPanel {
 
 	public EditPane(HadiCezmi hadi) {
 		this.hadi = hadi;
-
+		setPreferredSize(new Dimension(500, 500));
 		setBackground(Color.BLACK);
 		setOpaque(true);
 		setLayout(new GridLayout(25, 25));

@@ -18,16 +18,15 @@ public class GameFrameController {
         switch (action) {
             case "Play":
             	hadiCezmi.play();
-            	//frame.repaint();
             	break;
-            case "Pause:":
+            case "Pause":
             	hadiCezmi.pause();
             	break;
             case "Back":
             	frame.setVisible(false);
-            	new StartFrame(hadiCezmi);
+            	new StartFrame(new HadiCezmi(1, "Player 1", "Player 2"));
             	break;
-            case "EditMode":
+            case "Edit":
             	frame.setVisible(false);
             	new EditFrame(hadiCezmi);
             	break;

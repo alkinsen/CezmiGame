@@ -17,9 +17,9 @@ public class TriangleTakoz extends Takoz {
 
         this.x = xLoc;
         this.y = yLoc;
-        this.color = Color.darkGray;
-        this.width = 25;
-        this.height = 25;
+        this.color = Color.red;
+        this.width = 20;
+        this.height = 20;
 
         //initialize the corners
         points = new Vect[3];

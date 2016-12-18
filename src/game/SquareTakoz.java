@@ -15,9 +15,9 @@ public class SquareTakoz extends Takoz {
 
         this.x = xLoc;
         this.y = yLoc;
-        this.color = Color.darkGray;
-        this.height = 25;
-        this.width = 25;
+        this.color = Color.yellow;
+        this.height = 20;
+        this.width = 20;
 
         //initialize the corners
         points = new Vect[4];
