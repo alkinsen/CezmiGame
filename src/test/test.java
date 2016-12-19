@@ -1,86 +1,27 @@
 package test;
 
+import java.awt.*;
 import java.awt.event.*;
 
 import game.*;
 
 import game.HadiCezmi;
 import ui.GameFrame;
+import ui.StartFrame;
 
 import javax.swing.*;
 
 public class test {
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws InterruptedException {
 		// TODO Auto-generated method stub
-		HadiCezmi hadi = new HadiCezmi(1, "doruk", "yilmazcan");
-		//UI Test
-		Board board = new Board(1);
-		board.addGizmo("SquareTakoz", 50, 50);
-		board.addGizmo("SquareTakoz", 300, 310);
-		board.addGizmo("SquareTakoz", 350, 40);
-		hadi.setBoard(board);
-		GameFrame gameFrame = new GameFrame(hadi);
-		gameFrame.pack();
-		gameFrame.setVisible(true);
-
-		gameFrame.addKeyListener(new KeyListener() {
-			@Override
-			public void keyTyped(KeyEvent e) {
-
+		final HadiCezmi hadi = new HadiCezmi(2, "doruk", "yilmazcan");
+		new StartFrame(hadi);
+		while (true){
+			if(hadi.isRunningMode()) {
+				hadi.move();
 			}
-
-			@Override
-			public void keyPressed(KeyEvent e) {
-				int keynum = e.getKeyCode();
-				System.out.println(keynum);
-
-				if(keynum == hadi.getCezmi1Left()){
-
-					hadi.moveCezmi(1, "left");
-
-				}else if(keynum == hadi.getCezmi1Right()){
-
-					hadi.moveCezmi(1, "right");
-
-				}else if(keynum == hadi.getCezmi2Left()){
-
-					hadi.moveCezmi(2, "left");
-
-				}else if(keynum == hadi.getCezmi2Right()){
-
-					hadi.moveCezmi(2, "right");
-
-				}else if(keynum == hadi.getTokatLeftKey()){
-
-					hadi.rotateTokat("left");
-
-				}else if(keynum == hadi.getTokatRightKey()){
-
-					hadi.rotateTokat("right");
-
-				}
-
-			}
-
-			@Override
-			public void keyReleased(KeyEvent e) {
-
-
-			}
-		});
-
-
-		final Timer timer = new Timer(10, new ActionListener() {
-			@Override
-			public void actionPerformed(final ActionEvent e) {
-				gameFrame.repaint();
-				gameFrame.requestFocus();
-			}
-		});
-		timer.start();
-
-
+			Thread.sleep(5);
+		}
 	}
-
 }

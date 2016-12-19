@@ -12,7 +12,7 @@ public class Cezerye extends Gizmo {
 
 		this.x = xLoc;
 		this.y = yLoc;
-		this.color = Color.darkGray;
+		this.color = Color.cyan;
 		this.height = 25;
 		this.width = 25;
 
@@ -26,7 +26,5 @@ public class Cezerye extends Gizmo {
 	public String toString() {
 		return "Cezerye [x=" + x + ", y=" + y + "]";
 	}
-	
-	
 
 }

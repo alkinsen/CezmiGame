@@ -20,12 +20,14 @@ public class UiBoardPanel extends JPanel{
 
     public UiBoardPanel(HadiCezmi hadiCezmi){
         super();
+        setBackground(Color.black);
         uiGizmos = new ArrayList<UiGizmo>();
         addUiCezmi1(hadiCezmi.getBoard().getCezmi1());
         addUiCezmi2(hadiCezmi.getBoard().getCezmi2());
         addUiBall(hadiCezmi.getBoard().getBall());
         addUiGizmo(hadiCezmi.getBoard().getGizmoArrayList());
         uiEngel = new UiEngel(hadiCezmi.getBoard().getEngel());
+        
     }
 
     public void addUiBall(Ball ball){
@@ -40,13 +42,27 @@ public class UiBoardPanel extends JPanel{
 
     public void addUiGizmo(ArrayList<Gizmo> gizmos) {
         for (Gizmo gizmo : gizmos) {
-            if (gizmo instanceof SquareTakoz) {
+            if ((gizmo instanceof SquareTakoz) && (!(gizmo instanceof Firildak))) {
                 SquareTakoz squareTakoz = (SquareTakoz) gizmo;
                 this.uiGizmos.add(new UiSquareTakoz(squareTakoz));
             } else if (gizmo instanceof TriangleTakoz) {
                 TriangleTakoz triangleTakoz = (TriangleTakoz) gizmo;
                 this.uiGizmos.add(new UiTriangleTakoz(triangleTakoz));
+            } else if (gizmo instanceof LeftTokat) {
+            	LeftTokat leftTokat=(LeftTokat) gizmo;
+            	this.uiGizmos.add(new UiLeftTokat(leftTokat));
+            } else if (gizmo instanceof RightTokat) {
+            	RightTokat rightTokat= (RightTokat) gizmo;
+            	this.uiGizmos.add(new UiRightTokat(rightTokat));
+            } else if (gizmo instanceof Cezerye) {
+            	Cezerye cezerye= (Cezerye) gizmo;
+            	this.uiGizmos.add(new UiCezerye(cezerye));
+            } else if (gizmo instanceof Firildak) {
+            	Firildak firildak= (Firildak) gizmo;
+            	this.uiGizmos.add(new UiFirildak (firildak)); 
             }
+           
+           
         }
     }
 

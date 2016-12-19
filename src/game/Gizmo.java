@@ -3,75 +3,186 @@ package game;
 import java.awt.Color;
 import java.util.Observable;
 
+import physics.Vect;
+
 /**
  * Created by ASEN14 on 28.11.2016.
  */
+
+/**
+ * 
+ * @author Pinar
+ * This abstract class is the super class of 
+ * all types of Gizmos.
+ * 
+ * Gizmo is an object on HadiCezmi Game.  
+ * 
+ * They are categorized according to their 
+ * shape or properties such as constant 
+ * rotation.
+ * 
+ * All shared fields are created here.
+ * 
+ * Indicates all types of shared methods.
+ */
 public abstract class Gizmo extends Observable {
-	
-	//These are the fields
-		protected int x;
-		protected int y;
-		protected int width;
-		protected int height;
-		protected Color color;
-		protected int orientation;
-	
-		//methods
-		public abstract void rotate();
-		
-			
-		//getters and setters
-		public int getX() {
-			return x;
-		}
-		public void setX(int x) {
-			this.x = x;
-			setChanged();
-			notifyObservers();
-		}
-		public int getY() {
-			return y;
-		}
-		public void setY(int y) {
-			this.y = y;
-			setChanged();
-			notifyObservers();
-		}
-		public int getWidth() {
-			return width;
-		}
-		public void setWidth(int width) {
-			this.width = width;
-			setChanged();
-			notifyObservers();
-		}
-		public int getHeight() {
-			return height;
-		}
-		public void setHeight(int height) {
-			this.height = height;
-			setChanged();
-			notifyObservers();
-		}
-		public Color getColor() {
-			return color;
-		}
-		public void setColor(Color color) {
-			this.color = color;
-			setChanged();
-			notifyObservers();
-		}
+
+    //These are the fields
+    protected int x;
+    protected int y;
+    protected int width;
+    protected int height;
+    protected Color color;
+    protected int orientation;
+    protected Vect[] points;
+    protected Vect center;
+
+    //methods
+    /**
+     * Rotates gizmos. 
+     * 
+     */
+    public abstract void rotate();
+    //@modifies: x and y Location of gizmos 
+    //@effects: changes the state of the Gizmos.
 
 
-		public int getOrientation() {
-			return orientation;
-		}
+    //getters and setters
+    /**
+     * Method for getting x Location of Gizmo
+     * @return x Location of the Gizmo
+     */
+    public int getX() {
+        return x;
+    }
+    /**
+     * Method for setting a location to a Gizmo
+     * @param x  x Location 
+     */
 
-		public void setOrientation(int orientation) {
-			this.orientation = orientation;
-		}
-		
-		
-		
-	
+    public void setX(int x) {
+    	//@requires: x is between 0 and 25
+    	//@modifies: x Location of a Gizmo
+    	//@effects: x Location is changed.
+    	
+        this.x = x;
+        setChanged();
+        notifyObservers();
+    }
+    /**
+     * Method for getting Y value of a Gizmo
+     * @return y Location of a Gizmo
+     */
+
+    public int getY() {
+        return y;
+    }
+    /**
+     * Method for setting a location to a Gizmo
+     * @param y  y Location 
+     */
+
+    public void setY(int y) {
+    	//@requires: y is between 0 and 25
+    	//@modifies: y Location of a Gizmo
+    	//@effects: y Location is changed.
+        this.y = y;
+        setChanged();
+        notifyObservers();
+    }
+    /**
+     * Method for getting the width of a Gizmo
+     * @return width of a Gizmo
+     */
+
+    public int getWidth() {
+        return width;
+    }
+    /**
+     * Method for setting a width to a Gizmo
+     * @param width new width
+     */
+
+    public void setWidth(int width) {
+    	//@modifies: width of a Gizmo
+    	//@effects: width is changed.
+    	
+        this.width = width;
+        setChanged();
+        notifyObservers();
+    }
+    /**
+     * Method for getting height of a Gizmo
+     * @return height of the Gizmo
+     */
+
+    public int getHeight() {
+        return height;
+    }
+    /**
+     * Method for setting a new height to a Gizmo 
+     * @param height new height
+     */
+
+    public void setHeight(int height) {
+    	//@modifies: height of a Gizmo
+    	//@effects: height is changed.
+        this.height = height;
+        setChanged();
+        notifyObservers();
+    }
+    /**
+     * Method for getting the color of a Gizmo 
+     * @return color of the Gizmo
+     */
+
+    public Color getColor() {
+        return color;
+    }
+    /**
+     * Method for setting a color to a Gizmo
+     * @param color new Color
+     */
+
+    public void setColor(Color color) {
+    	
+    	//@modifies: color of a Gizmo
+    	//@effects: color is changed.
+        this.color = color;
+        setChanged();
+        notifyObservers();
+    }
+    
+    /**
+     * Method for getting the orientation of a Gizmo
+     * orientation is used in rotation
+     * @return orientation of the Gizmo
+     */
+
+
+    public int getOrientation() {
+        return orientation;
+    }
+    /**
+     * Method for setting an orientation to a Gizmo
+     * Used in rotations
+     * @param orientation new orientation
+     */
+
+    public void setOrientation(int orientation) {
+   
+    	//@modifies: orientation of a Gizmo
+    	//@effects: orientation is changed.
+        this.orientation = orientation;
+    }
+    
+    public Vect[] getPoints() {
+        return points;
+    }
+
+    public void setPoints(Vect[] points) {
+        this.points = points;
+    }
+
+
 }
