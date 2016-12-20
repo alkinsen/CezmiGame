@@ -16,6 +16,7 @@ import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
+import javax.swing.JComboBox;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -141,6 +142,10 @@ public class EditFrame {
 //				JOptionPane.showMessageDialog(null, message,"Map Status",JOptionPane.WARNING_MESSAGE);
 				System.out.println("girdi");
 				checkMap();
+				if(!checkMap()){
+					String message= "Check your board again";
+					JOptionPane.showMessageDialog(null, message,"Map Status",JOptionPane.WARNING_MESSAGE);
+				}
 				
 
 			}
@@ -204,6 +209,26 @@ public class EditFrame {
 				else rotateMode = false;
 			}});
 		toolBar.add(rotateBox);
+		
+		JComboBox levelBox= new JComboBox();
+		levelBox.setEditable(false);
+		levelBox.addItem("Level 1");
+		levelBox.addItem("Level 2");
+		levelBox.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e) {
+				String level=levelBox.getSelectedItem().toString();
+				int levelNo=1;
+				if(level.equals("Level 1")){
+					levelNo=1;
+					
+				}else {
+					levelNo=2;
+				}
+				hadi.getBoard().setLevel(levelNo);
+				System.out.println(hadi.getBoard().getLevel());
+			}
+		});
+		toolBar.add(levelBox);
 	}
 
 
@@ -230,7 +255,7 @@ public class EditFrame {
 		JButton button4;
 		button4 = new JButton("Fırıldak");
 		button4.setToolTipText("Square Takoz is represented by ORANGE Color.");
-		button4.setBackground(Color.ORANGE);
+		button4.setBackground(Color.blue);
 		toolBar.add(button4);
 
 		JButton button5;
@@ -252,10 +277,24 @@ public class EditFrame {
 			for(int j=0;j<25;j++){
 				Color c=e[i][j].getBackground();
 				if(c.equals(Color.magenta)){
-					tokat++;
+					if(i==0){
+						System.out.println("lt");
+					}
+					if(i==24){
+						System.out.println("rt");
+					return false;
+					}else{
+					Color c1=e[i+1][j].getBackground();
+					if(c1.equals(Color.magenta)|| c1.equals(Color.yellow) || c1.equals(Color.blue) || c1.equals(Color.red)){
+						System.out.println("tokat dolu");
+						return false;
+					}else{
+						tokat++;
+					}
+					}
 				} else if(c.equals(Color.yellow)){
 					gizmo++;
-				} else if(c.equals(Color.orange)){
+				} else if(c.equals(Color.blue)){
 					gizmo++;
 				} else if (c.equals(Color.red)){
 					gizmo++;
@@ -280,10 +319,24 @@ public class EditFrame {
 			for(int j=1;j<25;j++){
 				Color c=e[i][j].getBackground();
 				if(c.equals(Color.magenta)){
-					tokat++;
+					if(i==0){
+						System.out.println("lt");
+					}
+					if(i==24){
+						System.out.println("rt");
+					return false;
+					}else{
+					Color c1=e[i+1][j].getBackground();
+					if(c1.equals(Color.magenta)|| c1.equals(Color.yellow) || c1.equals(Color.blue) || c1.equals(Color.red)){
+						System.out.println("tokat dolu");
+						return false;
+					}else{
+						tokat++;
+					}
+					}
 				} else if(c.equals(Color.yellow)){
 					gizmo++;
-				} else if(c.equals(Color.orange)){
+				} else if(c.equals(Color.blue)){
 					gizmo++;
 				} else if (c.equals(Color.red)){
 					gizmo++;
