@@ -62,6 +62,7 @@ public class EditFrameController extends StartFrameController {
 
     }
     public void play(HadiCezmi hadiCezmi){
+    	
     	new GameFrame(hadiCezmi);
     }
 }

@@ -13,8 +13,8 @@ public class Cezerye extends Gizmo {
 		this.x = xLoc;
 		this.y = yLoc;
 		this.color = Color.cyan;
-		this.height = 25;
-		this.width = 25;
+		this.height = 20;
+		this.width = 20;
 
 	}
 

@@ -26,7 +26,6 @@ public class GameFrame {
 		this.hadi = hadi;
         this.uiBoardPanel = new UiBoardPanel(hadi);
 
-		
 		EventQueue.invokeLater(new Runnable() {
 			@Override
 			public void run() {
@@ -41,11 +40,19 @@ public class GameFrame {
 				JPanel contentPane = new JPanel();
 				contentPane.setLayout(new BorderLayout());
 
+				
+				
+				
 				//adding button toolbar
 				JToolBar toolBar = new JToolBar();
+				toolBar.setLayout(new GridLayout(1,6));
+				toolBar.setOpaque(true);
+				toolBar.setFloatable(false);
 				addButtons(toolBar);
 				contentPane.add(toolBar, BorderLayout.NORTH);
+				
 		
+	
 				//adding edit pane
 				uiBoardPanel.setPreferredSize(new Dimension(500, 500));
 				
@@ -56,7 +63,7 @@ public class GameFrame {
 				frame.setLocationRelativeTo(null);
 				frame.setVisible(true);
 				
-				 frame.addKeyListener(new KeyListener() {
+				frame.addKeyListener(new KeyListener() {
 			            @Override
 			            public void keyTyped(KeyEvent e) {
 			            }
@@ -65,6 +72,7 @@ public class GameFrame {
 			            public void keyPressed(KeyEvent e) {
 			                int keynum = e.getKeyCode();
 			                System.out.println(keynum);
+			                if(hadi.isRunningMode()){
 			                if (keynum == hadi.getCezmi1Left()) {
 			                    hadi.moveCezmi(1, "left");
 			                } else if (keynum == hadi.getCezmi1Right()) {
@@ -78,15 +86,18 @@ public class GameFrame {
 			                } else if (keynum == hadi.getTokatRightKey()) {
 			                    hadi.setRightPressed(true);
 			                }
+			                }
 			            }
 
 			            @Override
 			            public void keyReleased(KeyEvent e) {
 							int keynum = e.getKeyCode();
+							if(hadi.isRunningMode()){
 							if (keynum == hadi.getTokatLeftKey()) {
 								hadi.setLeftPressed(false);
 							} else if (keynum == hadi.getTokatRightKey()) {
 								hadi.setRightPressed(false);
+							}
 							}
 			              }
 			        });
@@ -106,21 +117,31 @@ public class GameFrame {
 	
 	}
 	
+
+	
 	public void addButtons(JToolBar toolBar) {
+		JLabel score1 = new JLabel("Player 1: " + Integer.toString(hadi.getPlayer1().getScore()), SwingConstants.CENTER);
+		score1.setOpaque(true);
+		score1.setBackground(Color.green);
+		toolBar.add(score1);
+		
 		JButton button;
 		button = new JButton("Play");
 		button.setToolTipText("Play the game");
+		button.setOpaque(true);
+		//button.setBackground(Color.yellow);
 		button.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				gameFrameController.doAction("Play", hadi, frame);
-				//uiBoardPanel.repaint();
 			}
 		});
 		toolBar.add(button);
 		
 		button = new JButton("Pause");
 		button.setToolTipText("Pause the game");
+		button.setOpaque(true);
+		//button.setBackground(Color.red);
 		button.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -132,6 +153,8 @@ public class GameFrame {
 	
 		button = new JButton("Back");
 		button.setToolTipText("Return to main screen");
+		button.setOpaque(true);
+		//button.setBackground(Color.magenta);
 		button.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -143,6 +166,8 @@ public class GameFrame {
 		
 		button = new JButton("Edit Mode");
 		button.setToolTipText("Enter to edit mode");
+		button.setOpaque(true);
+		//button.setBackground(Color.blue);
 		button.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -152,7 +177,13 @@ public class GameFrame {
 		});
 		toolBar.add(button);
 		
+		JLabel score2 = new JLabel("Player 2: " + Integer.toString(hadi.getPlayer2().getScore()), SwingConstants.CENTER);
+		score2.setOpaque(true);
+		score2.setBackground(Color.green);
+		toolBar.add(score2);
 	}
+	
+	
 }
 
 class GamePane extends JPanel {

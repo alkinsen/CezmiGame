@@ -20,7 +20,7 @@ public class Ball extends Observable{
 	private double vy = 1;
 	private int radius = 6;
 	
-	private Color color = new Color(255, 0, 0);
+	private Color color = Color.white;
 	
 	public Ball() {
 		super();

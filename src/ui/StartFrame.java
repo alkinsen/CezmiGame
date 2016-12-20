@@ -92,11 +92,10 @@ public class StartFrame {
                         //selectMenuItem = newItem;
                         //repaint();
                         if (newItem.equals("Play Game")) {
-                            startFrameController.doAction("Play", hadiCezmi);
-                            frame.setVisible(false);
+                            startFrameController.doAction("Play", hadiCezmi, frame);
+                            
                         } else if (newItem.equals("Load Game")) {
-                            startFrameController.doAction("Load", hadiCezmi);
-                            frame.setVisible(false);
+                            startFrameController.doAction("Load", hadiCezmi, frame);
                         }
                     }
 
