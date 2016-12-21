@@ -46,8 +46,10 @@ public class StartFrameController {
 			file = fc.getSelectedFile();
 			HadiCezmi hadi = hadiCezmi;
 			hadi.readXML(file);
+
 			frame.setVisible(false);
 			new GameFrame(hadi);
+
 		}
 	}
 
