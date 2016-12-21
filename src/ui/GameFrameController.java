@@ -1,5 +1,7 @@
 package ui;
 
+import javax.swing.JFrame;
+
 import game.HadiCezmi;
 
 /**
@@ -11,8 +13,27 @@ public class GameFrameController {
     public GameFrameController() {
 
     }
+    
+    public void doAction(String action, HadiCezmi hadiCezmi, JFrame frame) {
+        switch (action) {
+            case "Play":
+            	hadiCezmi.play();
+            	break;
+            case "Pause":
+            	hadiCezmi.pause();
+            	break;
+            case "Back":
+            	frame.setVisible(false);
+            	new StartFrame(new HadiCezmi(1, "Player 1", "Player 2"));
+            	break;
+            case "Edit":
+            	frame.setVisible(false);
+            	new EditFrame(hadiCezmi);
+            	break;
+        }
+    }
 
-    public void doAction(HadiCezmi hadiCezmi, String action, String[] arg) {
+    /*public void doAction(HadiCezmi hadiCezmi, String action, String[] arg) {
         switch (action) {
             case "addLeftTokat":
                 hadiCezmi.doAction("addLeftTokat");
@@ -49,6 +70,6 @@ public class GameFrameController {
                 break;
         }
 
-    }
+    }*/
 
 }

@@ -18,12 +18,13 @@ public class EditableJButton extends JButton {
     //mode 3 = Tokat = magenta
     //mode 4 = Fırıldak = turuncu
     //mode 5 = cezmi = yeşil
+    
     public EditableJButton(int x, int y){
         this.x = x;
         this.y = y;
         this.setMargin(new Insets(0,0,0,0));
-        ImageIcon icon = new ImageIcon(new BufferedImage(UNIT_LENGTH, UNIT_LENGTH, BufferedImage.TYPE_INT_ARGB));
-        this.setIcon(icon);
+       // ImageIcon icon = new ImageIcon(new BufferedImage(UNIT_LENGTH, UNIT_LENGTH, BufferedImage.TYPE_INT_ARGB));
+       // this.setIcon(icon);
         this.setOpaque(true);
         this.setBackground(Color.black);
         if(x == 12 && y == 22) this.setBackground(Color.cyan);

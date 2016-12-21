@@ -20,6 +20,7 @@ public class UiBoardPanel extends JPanel{
 
     public UiBoardPanel(HadiCezmi hadiCezmi){
         super();
+        setBackground(Color.black);
         uiGizmos = new ArrayList<UiGizmo>();
         addUiCezmi1(hadiCezmi.getBoard().getCezmi1());
         addUiCezmi2(hadiCezmi.getBoard().getCezmi2());

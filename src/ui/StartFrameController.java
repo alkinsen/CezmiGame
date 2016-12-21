@@ -24,20 +24,20 @@ public class StartFrameController {
 	public StartFrameController() {
 	}
 
-	public void doAction(String action, HadiCezmi hadiCezmi) {
+	public void doAction(String action, HadiCezmi hadiCezmi, JFrame frame) {
 		switch (action) {
 		case "Play":
 			new EditFrame(hadiCezmi);
 			break;
 		case "Load":
-			loadGame(hadiCezmi);
+			loadGame(hadiCezmi, frame);
 			break;
 		default:
 			break;
 		}
 	}
 
-	public void loadGame(HadiCezmi hadiCezmi) {
+	public void loadGame(HadiCezmi hadiCezmi, JFrame frame) {
 		JFileChooser fc = new JFileChooser();
 		fc.addChoosableFileFilter(new XMLFilter());
 		fc.setAcceptAllFileFilterUsed(false);
@@ -46,59 +46,11 @@ public class StartFrameController {
 			file = fc.getSelectedFile();
 			HadiCezmi hadi = hadiCezmi;
 			hadi.readXML(file);
-			GameFrame gameFrame = new GameFrame(hadi);
-			gameFrame.pack();
-			gameFrame.setVisible(true);
-			gameFrame.addKeyListener(new KeyListener() {
-				@Override
-				public void keyTyped(KeyEvent e) {
-				}
 
-				@Override
-				public void keyPressed(KeyEvent e) {
-					int keynum = e.getKeyCode();
-					System.out.println(keynum);
-					if (keynum == hadi.getCezmi1Left()) {
-						hadi.moveCezmi(1, "left");
-					} else if (keynum == hadi.getCezmi1Right()) {
-						hadi.moveCezmi(1, "right");
-					} else if (keynum == hadi.getCezmi2Left()) {
-						hadi.moveCezmi(2, "left");
-					} else if (keynum == hadi.getCezmi2Right()) {
-						hadi.moveCezmi(2, "right");
-					} else if (keynum == hadi.getTokatLeftKey()) {
-						hadi.setLeftPressed(true);
-					} else if (keynum == hadi.getTokatRightKey()) {
-						hadi.setRightPressed(true);
-					}
-				}
+			frame.setVisible(false);
+			new GameFrame(hadi);
 
-				@Override
-				public void keyReleased(KeyEvent e) {
-					
-					int keynum = e.getKeyCode();
-
-					if (keynum == hadi.getTokatLeftKey()) {
-						hadi.setLeftPressed(false);
-					} else if (keynum == hadi.getTokatRightKey()) {
-						hadi.setRightPressed(false);
-					}
-
-				}
-			});
-
-			final Timer timer = new Timer(10, new ActionListener() {
-				@Override
-				public void actionPerformed(final ActionEvent e) {
-					gameFrame.repaint();
-					gameFrame.requestFocus();
-				}
-			});
-			timer.start();
 		}
 	}
 
-	public void editGame() {
-
-	}
 }

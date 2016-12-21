@@ -21,7 +21,7 @@ public class Ball extends Observable{
 	private int radius = 6;
 	private double acceleration= (double)25/(double)400;
 	
-	private Color color = new Color(255, 0, 0);
+	private Color color = Color.white;
 	
 	public Ball() {
 		super();
