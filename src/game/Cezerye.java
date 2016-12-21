@@ -15,7 +15,7 @@ public class Cezerye extends Gizmo {
 		this.color = Color.cyan;
 		this.height = 25;
 		this.width = 25;
-
+		this.time = 0.0;
 	}
 
 	public void rotate(){
@@ -24,7 +24,7 @@ public class Cezerye extends Gizmo {
 
 	@Override
 	public String toString() {
-		return "Cezerye [x=" + x + ", y=" + y + "]";
+		return "Cezerye [x=" + x + ", y=" + y + ", time=" + time + "]";
 	}
 
 }

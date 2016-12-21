@@ -122,13 +122,13 @@ public class XMLBuilder {
 		cezeryeAttr2.setValue(Double.toString(g2.getY()));
 		element3.setAttributeNode(cezeryeAttr2);
 		
-		/*Attr cezeryeAttr3 = doc.createAttribute("time");
-		cezeryeAttr3.setValue(Double.toString(g2.getTime()));
-		element3.setAttributeNode(cezeryeAttr3);*/
-		
 		Attr cezeryeAttr3 = doc.createAttribute("time");
-		cezeryeAttr3.setValue(Double.toString(0.5));
+		cezeryeAttr3.setValue(Double.toString(g2.getTime()));
 		element3.setAttributeNode(cezeryeAttr3);
+		
+		/*Attr cezeryeAttr3 = doc.createAttribute("time");
+		cezeryeAttr3.setValue(Double.toString(0.5));
+		element3.setAttributeNode(cezeryeAttr3);*/
 		}
 	}	
 	//	

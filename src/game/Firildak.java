@@ -41,6 +41,10 @@ public class Firildak extends SquareTakoz {
 
     }
 
+    public String toString() {
+        return "Firildak [x=" + x + ", y=" + y + ", angle=" + angle + "]";
+    }
+    
     public Vect[] getPoints() {
         return points;
     }
