@@ -29,6 +29,7 @@ public class HadiCezmi implements Observer{
     private Player player2;
     private int level;
     private Board board;
+    
 
     private boolean runningMode = false;
     private boolean editMode = false;
@@ -337,6 +338,8 @@ public class HadiCezmi implements Observer{
 		System.out.println("Player1: "+player1.getScore()+ "Player2: "+player2.getScore());
 		
 	}
+	
+	
 
 }
 

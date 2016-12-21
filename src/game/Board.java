@@ -22,6 +22,9 @@ public class Board extends Observable{
     private double gravity;
     private double friction;
     private int level;
+    private double mu = 0.025/(double)200;
+    private double mu2 = 0.025/(double)200;
+    private int delta_t;
 
 
     public Board(int level) {
@@ -34,8 +37,8 @@ public class Board extends Observable{
         gizmoFactory = GizmoFactory.getInstance();
         gizmoArrayList = new ArrayList<Gizmo>();
         gravity = 20;
-        friction = level;
         this.level = level;
+        delta_t = level;
     }
 
     public Ball getBall() {
@@ -247,11 +250,24 @@ public class Board extends Observable{
 
     }
 
+
     public void checkCollision( boolean leftPressed, boolean rightPressed){
         checkCollision(getBall(), getBall2(), leftPressed, rightPressed);
         checkCollision(getBall2(), getBall(), leftPressed, rightPressed);
     }
     public void checkCollision(Ball ball, Ball ball2, boolean leftPressed, boolean rightPressed) {
+
+    	//apply the friction
+    	Vect ballVel = new Vect(ball.getVx(),ball.getVy());
+    	System.out.println("ballVel: "+ballVel.length());
+    	friction = (double)1-mu*(double)delta_t-mu2*ballVel.length()*(double)delta_t;
+    	System.out.println("friction: "+friction);
+    	double velLength = ballVel.length()*friction;
+    	System.out.println("new ballVel: "+velLength);
+    	ballVel = new Vect(ballVel.angle(),velLength);
+    	changeBallVelocity(ballVel.x(),ballVel.y());
+    	
+
         //ball related vectors
         Circle ballCircle = new Circle(ball.getX(), ball.getY(), ball.getRadius());
         Vect ballVelocity = new Vect(ball.getVx(), ball.getVy());
