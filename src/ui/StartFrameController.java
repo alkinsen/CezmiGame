@@ -24,20 +24,20 @@ public class StartFrameController {
 	public StartFrameController() {
 	}
 
-	public void doAction(String action, HadiCezmi hadiCezmi) {
+	public void doAction(String action, HadiCezmi hadiCezmi, JFrame frame) {
 		switch (action) {
 		case "Play":
 			new EditFrame(hadiCezmi);
 			break;
 		case "Load":
-			loadGame(hadiCezmi);
+			loadGame(hadiCezmi, frame);
 			break;
 		default:
 			break;
 		}
 	}
 
-	public void loadGame(HadiCezmi hadiCezmi) {
+	public void loadGame(HadiCezmi hadiCezmi, JFrame frame) {
 		JFileChooser fc = new JFileChooser();
 		fc.addChoosableFileFilter(new XMLFilter());
 		fc.setAcceptAllFileFilterUsed(false);
@@ -46,11 +46,9 @@ public class StartFrameController {
 			file = fc.getSelectedFile();
 			HadiCezmi hadi = hadiCezmi;
 			hadi.readXML(file);
+			frame.setVisible(false);
 			new GameFrame(hadi);
 		}
 	}
 
-	public void editGame() {
-
-	}
 }

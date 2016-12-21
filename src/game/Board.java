@@ -60,6 +60,7 @@ public class Board extends Observable{
         return width;
     }
 
+
     public void setWidth(int width) {
         this.width = width;
     }
@@ -68,17 +69,22 @@ public class Board extends Observable{
         return height;
     }
 
+
     public void setHeight(int height) {
         this.height = height;
     }
+
 
     public Color getColor() {
         return color;
     }
 
+
     public void setColor(Color color) {
         this.color = color;
     }
+
+
 
     public void paint(Graphics g) {
         // modifies: the Graphics object <g>.
