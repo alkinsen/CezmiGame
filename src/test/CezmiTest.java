@@ -1,7 +1,8 @@
-package game;
+package test;
 
 import static org.junit.Assert.*;
 
+import game.Cezmi;
 import org.junit.Test;
 
 public class CezmiTest {

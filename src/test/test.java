@@ -22,9 +22,6 @@ public class test {
 				hadi.move();
 			}
 			Thread.sleep(5);
-		} 
-		
-		
-		
+		}
 	}
 }

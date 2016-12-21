@@ -48,7 +48,7 @@ public class HadiCezmi implements Observer{
 
     public HadiCezmi(int level, String playerName1, String playerName2) {
         super();
-        level = this.level;
+        this.level = level;
         player1 = new Player(playerName1);
         player2 = new Player(playerName2);
         board = new Board(level);
@@ -319,8 +319,6 @@ public class HadiCezmi implements Observer{
 	}
 
 	public void move() {
-    	
-    	
         board.checkCollision(leftPressed,rightPressed);
     }
 

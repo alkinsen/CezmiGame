@@ -33,7 +33,7 @@ public class EditFrameController extends StartFrameController {
             					hadiCezmi.getBoard().addGizmo("RightTokat", i*20, j*20);
             				}
             			}else if(c.equals(Color.red)){
-            				hadiCezmi.getBoard().addGizmo("TriangularTakoz", i*20, j*20);
+            				hadiCezmi.getBoard().addGizmo("TriangleTakoz", i*20, j*20);
             			}else if(c.equals(Color.blue)){
             				hadiCezmi.getBoard().addGizmo("Firildak", i*20, j*20);
             			}
