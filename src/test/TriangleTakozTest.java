@@ -1,10 +1,12 @@
-package game;
+package test;
 
 import static org.junit.Assert.*;
 
 import org.junit.Test;
 
+import game.TriangleTakoz;
 import physics.Vect;
+
 
 public class TriangleTakozTest {
 

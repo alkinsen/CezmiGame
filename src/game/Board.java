@@ -178,6 +178,20 @@ public class Board extends Observable{
             gizmoArrayList.add(g);
         }
     }
+    
+    /*public void addGizmo(String type, int x, int y, double time) {
+    	boolean valid = true;
+    	for (int i = 0; i < gizmoArrayList.size(); i++) {
+    		Gizmo element = gizmoArrayList.get(i);
+    		if (element.getX() == x && element.getY() == y) {
+    			valid = false;
+    		}
+    	}
+    	if (valid) {
+    		Gizmo g = gizmoFactory.getGizmo(type, x, y, time);
+    		gizmoArrayList.add(g);
+    	}
+    }*/
 
     public void rotateGizmo(int x, int y) {
         for (Gizmo element : gizmoArrayList) {

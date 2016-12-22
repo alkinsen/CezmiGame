@@ -36,7 +36,7 @@ public abstract class Gizmo extends Observable {
     protected Color color;
     protected int orientation;
     protected int angle;
-    protected Vect[] points;
+    public Vect[] points;
     protected Vect center;
 
     //methods
