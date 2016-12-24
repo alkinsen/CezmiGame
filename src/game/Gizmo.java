@@ -32,9 +32,11 @@ public abstract class Gizmo extends Observable {
     protected int y;
     protected int width;
     protected int height;
+    protected double time;
     protected Color color;
     protected int orientation;
-    protected Vect[] points;
+    protected int angle;
+    public Vect[] points;
     protected Vect center;
 
     //methods
@@ -89,6 +91,28 @@ public abstract class Gizmo extends Observable {
         this.y = y;
         setChanged();
         notifyObservers();
+    }
+    
+    /**
+     * Method for getting a time to a Gizmo
+     * @return time of a Gizmo
+     */
+    
+    public double getTime() {
+    	return time;
+    }
+    /**
+     * Method for setting a time to a Gizmo
+     * @param time time 
+     */
+    
+    public void setTime(double time) {
+    	//@requires: time is between 0 and 5
+    	//@modifies: time of a Gizmo
+    	//@effects: time is changed.
+    	this.time = time;
+    	setChanged();
+    	notifyObservers();
     }
     /**
      * Method for getting the width of a Gizmo
@@ -174,6 +198,22 @@ public abstract class Gizmo extends Observable {
     	//@modifies: orientation of a Gizmo
     	//@effects: orientation is changed.
         this.orientation = orientation;
+    }
+    
+    public int getAngle() {
+    	return angle;
+    }
+    /**
+     * Method for setting an angle to a Gizmo
+     * Used in rotations
+     * @param orientation new orientation
+     */
+    
+    public void setAngle(int angle) {
+    	
+    	//@modifies: angle of a Gizmo
+    	//@effects: angle is changed.
+    	this.angle = angle;
     }
     
     public Vect[] getPoints() {
