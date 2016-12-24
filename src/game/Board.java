@@ -13,6 +13,7 @@ public class Board extends Observable{
     private int height = HadiCezmi.BOARD_HEIGHT;
     private Color color = new Color(0, 0, 255);
     private Ball ball;
+    private Ball ball2;
     private Engel engel;
     private Cezmi cezmi1;
     private Cezmi cezmi2;
@@ -21,23 +22,31 @@ public class Board extends Observable{
     private double gravity;
     private double friction;
     private int level;
+    private double mu = 0.025/(double)200;
+    private double mu2 = 0.025/(double)200;
+    private int delta_t;
 
 
     public Board(int level) {
         super();
         ball = new Ball();
+        ball2 = new Ball();
         engel = new Engel();
         cezmi1 = new Cezmi(110, 500, level);
         cezmi2 = new Cezmi(350, 500, level);
         gizmoFactory = GizmoFactory.getInstance();
         gizmoArrayList = new ArrayList<Gizmo>();
         gravity = 20;
-        friction = level;
         this.level = level;
+        delta_t = level;
     }
 
     public Ball getBall() {
         return ball;
+    }
+
+    public Ball getBall2() {
+        return ball2;
     }
 
     public Engel getEngel() {
@@ -60,6 +69,7 @@ public class Board extends Observable{
         return width;
     }
 
+
     public void setWidth(int width) {
         this.width = width;
     }
@@ -68,17 +78,22 @@ public class Board extends Observable{
         return height;
     }
 
+
     public void setHeight(int height) {
         this.height = height;
     }
+
 
     public Color getColor() {
         return color;
     }
 
+
     public void setColor(Color color) {
         this.color = color;
     }
+
+
 
     public void paint(Graphics g) {
         // modifies: the Graphics object <g>.
@@ -250,12 +265,32 @@ public class Board extends Observable{
     }
 
 
-    public void checkCollision(boolean leftPressed, boolean rightPressed) {
+    public void checkCollision( boolean leftPressed, boolean rightPressed){
+        checkCollision(getBall(), getBall2(), leftPressed, rightPressed);
+        checkCollision(getBall2(), getBall(), leftPressed, rightPressed);
+    }
+    public void checkCollision(Ball ball, Ball ball2, boolean leftPressed, boolean rightPressed) {
+
+    	//apply the friction
+    	Vect ballVel = new Vect(ball.getVx(),ball.getVy());
+    	System.out.println("ballVel: "+ballVel.length());
+    	friction = (double)1-mu*(double)delta_t-mu2*ballVel.length()*(double)delta_t;
+    	System.out.println("friction: "+friction);
+    	double velLength = ballVel.length()*friction;
+    	System.out.println("new ballVel: "+velLength);
+    	ballVel = new Vect(ballVel.angle(),velLength);
+    	changeBallVelocity(ballVel.x(),ballVel.y());
+    	
 
         //ball related vectors
         Circle ballCircle = new Circle(ball.getX(), ball.getY(), ball.getRadius());
         Vect ballVelocity = new Vect(ball.getVx(), ball.getVy());
         Vect ballVector = new Vect(ball.getX(), ball.getX());
+
+        //ball related vectors
+        Circle ball2Circle = new Circle(ball2.getX(), ball2.getY(), ball2.getRadius());
+        Vect ball2Velocity = new Vect(ball2.getVx(), ball2.getVy());
+        Vect ball2Vector = new Vect(ball2.getX(), ball2.getX());
 
         //cezmi1 related vectors
         Circle cezmiCircle1 = new Circle(cezmi1.getX(), cezmi1.getY(), cezmi1.getRadius());
@@ -295,6 +330,17 @@ public class Board extends Observable{
         LineSegment boardBottomLine = new LineSegment(boardBottomLeftCorner, boardBottomRightCorner);
         LineSegment boardLeftLine = new LineSegment(boardTopLeftCorner, boardBottomLeftCorner);
 
+        //ball2 collision
+
+        if (getLevel() == 2 && Geometry.timeUntilCircleCollision(ballCircle, ball2Circle, ballVelocity) == 0) {
+            System.out.println("ball and ball2 collision");
+            Vect returnedVectorBall1 = Geometry.reflectCircle(ballVector, ball2Vector, ballVelocity);
+            Vect returnedVectorBall2 = Geometry.reflectCircle(ballVector, ball2Vector, ball2Velocity);
+            ball.setVx(returnedVectorBall1.x());
+            ball.setVy(returnedVectorBall1.y());
+            ball2.setVx(returnedVectorBall2.x());
+            ball2.setVy(returnedVectorBall2.y());
+        }
 
         //duvar collision
         if (Geometry.timeUntilWallCollision(boardTopLine, ballCircle, ballVelocity) <= 0.01) {
@@ -546,6 +592,7 @@ public class Board extends Observable{
         ball.move();
 
     }
+
 
     public int getLevel() {
         return level;

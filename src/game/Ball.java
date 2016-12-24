@@ -12,15 +12,16 @@ import java.util.Observer;
  */
 public class Ball extends Observable{
 
-	private double x = (int)((Math.random() * 100.0) + 100.0);
-	private double y = (int)((Math.random() * 100.0) + 100.0);
+	private double x = (int)250;
+	private double y = (int)0;
 	//private double vx = ((int)(Math.random() * 10.0))/20.0;
-	private double vx = 1;
+	private double vx = 0.00125;
 	//private double vy = ((int)(Math.random() * 10.0))/20.0;
-	private double vy = 1;
+	private double vy = 0;
 	private int radius = 6;
+	private double acceleration= (double)25/(double)400;
 	
-	private Color color = new Color(255, 0, 0);
+	private Color color = Color.white;
 	
 	public Ball() {
 		super();
@@ -80,8 +81,25 @@ public class Ball extends Observable{
 	}
 	
 	public void move(){
+		if(x<0 && vx<0){
+			x=0;
+			vx=-vx;
+		}else if(x>495 && vx>0){
+			x=494;
+			vx=-vx;
+		}
+		
+		if(y<0 && vy<0){
+			y=0;
+			vy=-vy;
+		}else if(y>495 && vy>0){
+			y=494;
+			vy=-vy;
+		}
+		
 		x = x + vx;
 		y = y + vy;
+		vy= vy+acceleration;
 		setChanged();
 		notifyObservers(this);
 

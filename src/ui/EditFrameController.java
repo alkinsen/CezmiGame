@@ -22,14 +22,19 @@ public class EditFrameController extends StartFrameController {
             	for(int i=0;i<25;i++){
             		for(int j=0; j<25;j++){
             			Color c=g[i][j].getBackground();
-            			
+            			System.out.println(i*20);
+            			System.out.println(j*20);
             			if(c.equals(Color.yellow)){
             			hadiCezmi.getBoard().addGizmo("SquareTakoz", i*20, j*20);
             			} else if (c.equals(Color.magenta)){
-            				hadiCezmi.getBoard().addGizmo("Tokat", i*20, j*20);
+            				if(i<12){
+            					hadiCezmi.getBoard().addGizmo("LeftTokat", i*20, j*20);
+            				} else if(i>12){
+            					hadiCezmi.getBoard().addGizmo("RightTokat", i*20, j*20);
+            				}
             			}else if(c.equals(Color.red)){
-            				hadiCezmi.getBoard().addGizmo("TriangularTakoz", i*20, j*20);
-            			}else if(c.equals(Color.orange)){
+            				hadiCezmi.getBoard().addGizmo("TriangleTakoz", i*20, j*20);
+            			}else if(c.equals(Color.blue)){
             				hadiCezmi.getBoard().addGizmo("Firildak", i*20, j*20);
             			}
             		}
@@ -62,6 +67,7 @@ public class EditFrameController extends StartFrameController {
 
     }
     public void play(HadiCezmi hadiCezmi){
+    	
     	new GameFrame(hadiCezmi);
     }
 }

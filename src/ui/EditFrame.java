@@ -16,8 +16,10 @@ import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
+import javax.swing.JComboBox;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JToolBar;
@@ -85,6 +87,7 @@ public class EditFrame {
 				addIndex(indexToolBar);
 				contentPane.add(indexToolBar, BorderLayout.SOUTH);
 
+				
 				//adding edit pane
 				editPane = new EditPane(hadi);
 				contentPane.add(editPane, BorderLayout.CENTER);
@@ -97,7 +100,8 @@ public class EditFrame {
 			}
 		});
 	}
-
+	
+	
 	public void addButtons(JToolBar toolBar) {
 		JButton button;
 		button = new JButton("Start Game");
@@ -116,7 +120,7 @@ public class EditFrame {
 //					JOptionPane.showMessageDialog(null, message,"Map Status",JOptionPane.WARNING_MESSAGE);
 //				}
 				if(checkMap()){
-					
+					frame.setVisible(false);
 					editFrameController.doAction(hadi, "play", editPane.getGridSquares());
 
 				}
@@ -141,6 +145,10 @@ public class EditFrame {
 //				JOptionPane.showMessageDialog(null, message,"Map Status",JOptionPane.WARNING_MESSAGE);
 				System.out.println("girdi");
 				checkMap();
+				if(!checkMap()){
+					String message= "Check your board again";
+					JOptionPane.showMessageDialog(null, message,"Map Status",JOptionPane.WARNING_MESSAGE);
+				}
 				
 
 			}
@@ -190,7 +198,7 @@ public class EditFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
             	frame.setVisible(false);
-                new StartFrame(hadi);
+                new StartFrame(new HadiCezmi(1, "Player 1", "Player 2"));
             }});
         toolBar.add(button);
 
@@ -204,6 +212,29 @@ public class EditFrame {
 				else rotateMode = false;
 			}});
 		toolBar.add(rotateBox);
+		
+
+		JComboBox levelBox= new JComboBox();
+		levelBox.setEditable(false);
+		levelBox.addItem("Level 1");
+		levelBox.addItem("Level 2");
+		levelBox.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e) {
+				String level=levelBox.getSelectedItem().toString();
+				int levelNo=1;
+				if(level.equals("Level 1")){
+					levelNo=1;
+					
+				}else {
+					levelNo=2;
+				}
+				hadi.setLevel(levelNo);
+				hadi.getBoard().setLevel(levelNo);
+				System.out.println(hadi.getBoard().getLevel());
+			}
+		});
+		toolBar.add(levelBox);
+
 	}
 
 
@@ -230,7 +261,7 @@ public class EditFrame {
 		JButton button4;
 		button4 = new JButton("Fırıldak");
 		button4.setToolTipText("Square Takoz is represented by ORANGE Color.");
-		button4.setBackground(Color.ORANGE);
+		button4.setBackground(Color.blue);
 		toolBar.add(button4);
 
 		JButton button5;
@@ -252,10 +283,19 @@ public class EditFrame {
 			for(int j=0;j<25;j++){
 				Color c=e[i][j].getBackground();
 				if(c.equals(Color.magenta)){
-					tokat++;
+					
+//						
+					Color c1=e[i+1][j].getBackground();
+					if(c1.equals(Color.magenta)|| c1.equals(Color.yellow) || c1.equals(Color.blue) || c1.equals(Color.red)){
+						System.out.println("tokat dolu");
+						return false;
+					}else{
+						tokat++;
+					}
+					
 				} else if(c.equals(Color.yellow)){
 					gizmo++;
-				} else if(c.equals(Color.orange)){
+				} else if(c.equals(Color.blue)){
 					gizmo++;
 				} else if (c.equals(Color.red)){
 					gizmo++;
@@ -277,13 +317,22 @@ public class EditFrame {
 		tokat=0;
 		
 		for(int i=13;i<25;i++){
-			for(int j=1;j<25;j++){
+			for(int j=0;j<25;j++){
 				Color c=e[i][j].getBackground();
 				if(c.equals(Color.magenta)){
-					tokat++;
+					
+					
+					Color c1=e[i-1][j].getBackground();
+					if(c1.equals(Color.magenta)|| c1.equals(Color.yellow) || c1.equals(Color.blue) || c1.equals(Color.red)){
+						System.out.println("tokat dolu");
+						return false;
+					}else{
+						tokat++;
+					}
+					
 				} else if(c.equals(Color.yellow)){
 					gizmo++;
-				} else if(c.equals(Color.orange)){
+				} else if(c.equals(Color.blue)){
 					gizmo++;
 				} else if (c.equals(Color.red)){
 					gizmo++;
@@ -351,7 +400,7 @@ class EditPane extends JPanel {
 
 	public EditPane(HadiCezmi hadi) {
 		this.hadi = hadi;
-
+		setPreferredSize(new Dimension(500, 500));
 		setBackground(Color.BLACK);
 		setOpaque(true);
 		setLayout(new GridLayout(25, 25));

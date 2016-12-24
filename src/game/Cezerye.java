@@ -13,9 +13,10 @@ public class Cezerye extends Gizmo {
 		this.x = xLoc;
 		this.y = yLoc;
 		this.color = Color.cyan;
-		this.height = 25;
-		this.width = 25;
-		this.time = 0.0;
+		this.height = 20;
+		this.width = 20;
+        this.time = 0.0;
+
 	}
 
 	public void rotate(){

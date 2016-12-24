@@ -22,7 +22,7 @@ public class Cezmi extends Observable {
         x = xLoc;
         y = yLoc;
         radius = 20;
-        color = Color.RED;
+        color = Color.green;
         cezmiLevel = level;
 
     }

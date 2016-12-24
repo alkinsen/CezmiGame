@@ -11,6 +11,7 @@ import java.util.ArrayList;
  */
 public class UiBoardPanel extends JPanel{
     UiBall uiBall;
+    UiBall uiBall2;
     ArrayList<UiGizmo> uiGizmos;
     UiCezmi uiCezmi1;
     UiCezmi uiCezmi2;
@@ -25,6 +26,7 @@ public class UiBoardPanel extends JPanel{
         addUiCezmi1(hadiCezmi.getBoard().getCezmi1());
         addUiCezmi2(hadiCezmi.getBoard().getCezmi2());
         addUiBall(hadiCezmi.getBoard().getBall());
+        if(hadiCezmi.getLevel() == 2) addUiBall2(hadiCezmi.getBoard().getBall2());
         addUiGizmo(hadiCezmi.getBoard().getGizmoArrayList());
         uiEngel = new UiEngel(hadiCezmi.getBoard().getEngel());
         
@@ -32,6 +34,9 @@ public class UiBoardPanel extends JPanel{
 
     public void addUiBall(Ball ball){
         this.uiBall = new UiBall(ball);
+    }
+    public void addUiBall2(Ball ball){
+        this.uiBall2 = new UiBall(ball);
     }
     public void addUiCezmi1(Cezmi cezmi1){
         this.uiCezmi1 = new UiCezmi(cezmi1);
@@ -70,6 +75,7 @@ public class UiBoardPanel extends JPanel{
     public void paint(Graphics g){
         super.paint(g);
         if(uiBall != null) uiBall.paint(g);
+        if(uiBall2 != null) uiBall2.paint(g);
         if(uiCezmi1 != null) uiCezmi1.paint(g);
         if(uiCezmi2 != null) uiCezmi2.paint(g);
         if(uiGizmos != null) {
