@@ -60,6 +60,10 @@ public class LeftTokat extends Tokat {
 
 
 	}
+	
+	public String toString() {
+        return "LeftTokat [x=" + x + ", y=" + y + ", orientation=" + orientation + "]";
+    }
 
 	public Vect[] getPoints() {
 		return points;

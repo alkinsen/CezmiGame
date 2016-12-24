@@ -70,17 +70,17 @@ public class HadiCezmi implements Observer{
         }
 
         //creating cezmi1 from xml
-        ArrayList<HashMap<String, String>> cezmiList1 = xmlParser.createCezmi1FromXml();
-        if (cezmiList1.get(0).containsKey("x")) {
-            if (cezmiList1.get(0).containsKey("y")) {
-                board.changeCezmiPosition(1, Double.parseDouble(cezmiList1.get(0).get("x")) , Double.parseDouble(cezmiList1.get(0).get("y")));
+        ArrayList<HashMap<String, String>> cezmiList = xmlParser.createCezmi1FromXml();
+        if (cezmiList.get(0).containsKey("x")) {
+            if (cezmiList.get(0).containsKey("y")) {
+                board.changeCezmiPosition(1, Double.parseDouble(cezmiList.get(0).get("x")) , Double.parseDouble(cezmiList.get(0).get("y")));
             } else {
-                board.changeCezmiPosition(1, Double.parseDouble(cezmiList1.get(0).get("x")));
+                board.changeCezmiPosition(1, Double.parseDouble(cezmiList.get(0).get("x")));
             }
         }
 
-        if (cezmiList1.get(0).containsKey("score")) {
-            player1.setScore(Integer.parseInt(cezmiList1.get(0).get("score")));
+        if (cezmiList.get(0).containsKey("score")) {
+            player1.setScore(Integer.parseInt(cezmiList.get(0).get("score")));
         }
 
         //creating cezmi2 from xml
@@ -93,7 +93,7 @@ public class HadiCezmi implements Observer{
             }
         }
 
-        if (cezmiList2.get(0).containsKey("score")) {
+        if (cezmiList.get(0).containsKey("score")) {
             player2.setScore(Integer.parseInt(cezmiList2.get(0).get("score")));
         }
 
@@ -117,6 +117,16 @@ public class HadiCezmi implements Observer{
                     }
                 }
             }
+            if (gizmoList.get(i).containsKey("angle")) {
+                if (gizmoList.get(i).containsKey("type") && gizmoList.get(i).containsKey("x") && gizmoList.get(i).containsKey("y")) {
+                    if (gizmoList.get(i).containsKey("angle")) {
+                        board.addGizmo(gizmoList.get(i).get("type"), Integer.parseInt(gizmoList.get(i).get("x")) * 25, Integer.parseInt(gizmoList.get(i).get("y")) * 25, Integer.parseInt(gizmoList.get(i).get("angle")));
+                    } else {
+                        board.addGizmo(gizmoList.get(i).get("type"), Integer.parseInt(gizmoList.get(i).get("x")) * 25, Integer.parseInt(gizmoList.get(i).get("y")) * 25);
+                    }
+                }
+            }
+            
         }
 
         //creating level, friction and gravity from xml

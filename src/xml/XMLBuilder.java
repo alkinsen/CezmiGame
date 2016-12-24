@@ -122,13 +122,10 @@ public class XMLBuilder {
 		cezeryeAttr2.setValue(Double.toString(g2.getY()));
 		element3.setAttributeNode(cezeryeAttr2);
 		
-		/*Attr cezeryeAttr3 = doc.createAttribute("time");
-		cezeryeAttr3.setValue(Double.toString(g2.getTime()));
-		element3.setAttributeNode(cezeryeAttr3);*/
-		
 		Attr cezeryeAttr3 = doc.createAttribute("time");
-		cezeryeAttr3.setValue(Double.toString(0.5));
+		cezeryeAttr3.setValue(Double.toString(g2.getTime()));
 		element3.setAttributeNode(cezeryeAttr3);
+	
 		}
 	}	
 	//	
@@ -151,14 +148,10 @@ public class XMLBuilder {
 			firildakAttr2.setValue(Integer.toString(g.getY()));
 			element6.setAttributeNode(firildakAttr2);
 			
-			/*Attr firildakAttr3 = doc.createAttribute("angle");
-			firildakAttr3.setValue(Double.toString(g.getAngle()));
-			element6.setAttributeNode(firildakAttr3);*/
-			
 			Attr firildakAttr3 = doc.createAttribute("angle");
-			firildakAttr3.setValue(Integer.toString(135));
+			firildakAttr3.setValue(Double.toString(g.getAngle()));
 			element6.setAttributeNode(firildakAttr3);
-			
+
 			}
 		
 		else if (g instanceof SquareTakoz){
@@ -195,10 +188,6 @@ public class XMLBuilder {
 		element5.setAttributeNode(triangleTakozAttr3);
 		
 		}
-		
-		//
-		
-
 		
 		//
 		
@@ -294,8 +283,6 @@ public class XMLBuilder {
 	Attr levelAttr = doc.createAttribute("level");
 	levelAttr.setValue(Integer.toString(hadiCezmi.getBoard().getLevel()));
 	rootElement.setAttributeNode(levelAttr);
-	
-	
 	
 	TransformerFactory transformerFactory = TransformerFactory.newInstance();
 	Transformer transformer = transformerFactory.newTransformer();
