@@ -41,7 +41,6 @@ public class UiEngel implements Observer{
 
 	    @Override
 	    public void update(Observable o, Object arg) {
-	        System.out.println("update engel");
 	        Engel temp = (Engel) arg;
 
 	        this.x = (int)Math.round(temp.getX());

@@ -28,6 +28,7 @@ public class StartFrameController {
 		switch (action) {
 		case "Play":
 			new EditFrame(hadiCezmi);
+			frame.setVisible(false);
 			break;
 		case "Load":
 			loadGame(hadiCezmi, frame);

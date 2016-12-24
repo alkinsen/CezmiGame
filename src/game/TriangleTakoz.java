@@ -40,7 +40,6 @@ public class TriangleTakoz extends Takoz {
         for (int i = 0; i < points.length; i++) {
             points[i] = Geometry.rotateAround(points[i], center, angle);
         }
-        System.out.println("triangle girdi");
         setChanged();
         notifyObservers();
 

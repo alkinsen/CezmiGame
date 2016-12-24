@@ -143,7 +143,6 @@ public class EditFrame {
 //					message = "The map is faulty. Please check the cezmi placement. There has to be 2 green squares next to each other on the bottom row.";
 //				}
 //				JOptionPane.showMessageDialog(null, message,"Map Status",JOptionPane.WARNING_MESSAGE);
-				System.out.println("girdi");
 				checkMap();
 				if(!checkMap()){
 					String message= "Check your board again";
@@ -197,8 +196,11 @@ public class EditFrame {
         button.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-            	frame.setVisible(false);
-                new StartFrame(new HadiCezmi(1, "Player 1", "Player 2"));
+				hadi.pause();
+				frame.setVisible(false);
+				frame.dispose();
+				hadi.reset();
+                new StartFrame(hadi);
             }});
         toolBar.add(button);
 
@@ -287,7 +289,6 @@ public class EditFrame {
 //						
 					Color c1=e[i+1][j].getBackground();
 					if(c1.equals(Color.magenta)|| c1.equals(Color.yellow) || c1.equals(Color.blue) || c1.equals(Color.red)){
-						System.out.println("tokat dolu");
 						return false;
 					}else{
 						tokat++;
@@ -306,11 +307,9 @@ public class EditFrame {
 			}
 		}
 		if(gizmo+tokat!=4){
-			System.out.println("f1");
 			return false;
 		}
 		if(tokat>1){
-			System.out.println("f2");
 			return false;
 		}
 		gizmo=0;
@@ -324,7 +323,6 @@ public class EditFrame {
 					
 					Color c1=e[i-1][j].getBackground();
 					if(c1.equals(Color.magenta)|| c1.equals(Color.yellow) || c1.equals(Color.blue) || c1.equals(Color.red)){
-						System.out.println("tokat dolu");
 						return false;
 					}else{
 						tokat++;
@@ -343,11 +341,9 @@ public class EditFrame {
 			}
 		}
 		if(gizmo+tokat!=4){
-			System.out.println("f3");
 			return false;
 		}
 		if(tokat>1){
-			System.out.println("f4");
 			return false;
 		}
 		int cezmi1=0;
@@ -379,10 +375,8 @@ public class EditFrame {
 		}
 		}
 		if(cezmi1!=2 || cezmi2!=2){
-			System.out.println("f5");
 			return false;
 		}
-		System.out.println("t");
 		return true;
 	}
 }
@@ -392,9 +386,6 @@ public class EditFrame {
 class EditPane extends JPanel {
 	private EditFrameController editFrameController;
 
-	private final int FRAME_WIDTH = 500;
-	private final int FRAME_HEIGHT = 500;
-	JPanel editBoard;
 	EditableJButton[][] gridSquares;
 	HadiCezmi hadi;
 

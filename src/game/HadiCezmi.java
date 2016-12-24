@@ -18,11 +18,9 @@ import xml.XMLParser;
  * Created by ASEN14 on 28.11.2016.
  */
 public class HadiCezmi implements Observer{
-    public static final int FRAME_WIDTH = 600;
-    public static final int FRAME_HEIGHT = 600;
-    public static final int BOARD_WIDTH = 500;
-    public static final int BOARD_HEIGHT = 500;
-
+    public static final int UNIT_LENGTH = 20;
+    public static final int BOARD_WIDTH = UNIT_LENGTH*25;
+    public static final int BOARD_HEIGHT = UNIT_LENGTH*25;
    
 
     private Player player1;
@@ -67,6 +65,15 @@ public class HadiCezmi implements Observer{
 
         if (ballList.get(0).containsKey("vx") && ballList.get(0).containsKey("vy")) {
             board.changeBallVelocity(Double.parseDouble(ballList.get(0).get("vx")), Double.parseDouble(ballList.get(0).get("vy")));
+        }
+        if(ballList.size() == 2){
+            if (ballList.get(1).containsKey("x") && ballList.get(1).containsKey("y")) {
+                board.changeBall2Position(Double.parseDouble(ballList.get(1).get("x")) , Double.parseDouble(ballList.get(1).get("y")) );
+            }
+
+            if (ballList.get(1).containsKey("vx") && ballList.get(1).containsKey("vy")) {
+                board.changeBall2Velocity(Double.parseDouble(ballList.get(1).get("vx")), Double.parseDouble(ballList.get(1).get("vy")));
+            }
         }
 
         //creating cezmi1 from xml
@@ -334,9 +341,6 @@ public class HadiCezmi implements Observer{
 
 	@Override
 	public void update(Observable o, Object arg) {
-		// TODO Auto-generated method stub
-		System.out.println("Observer updated");
-		System.out.println("Player1: "+player1.getScore()+ "--   Player2: "+player2.getScore());
 		String score = (String) arg;
 		if(score.equalsIgnoreCase("left")){
 			int num = player1.getScore();
@@ -348,6 +352,11 @@ public class HadiCezmi implements Observer{
 		System.out.println("Player1: "+player1.getScore()+ "Player2: "+player2.getScore());
 		
 	}
+
+	public void reset(){
+        board = new Board(level);
+        board.addObserver(this);
+    }
 	
 	
 

@@ -88,7 +88,7 @@ public class XMLParser {
 
 					if (getLevel() == 1){
 						if(tempNodeList.getLength() == 1){
-							if(ballDoubleX < 500 && ballDoubleX > 0 && ballDoubleY < 500 && ballDoubleY > 0 && ballDoubleVX >= 0 && ballDoubleVY >= 0){
+							if(ballDoubleX < 500 && ballDoubleX > 0 && ballDoubleY < 500 && ballDoubleY > 0 ){
 								ballInfo.put("x", eElement.getAttribute("x"));
 								ballInfo.put("y", eElement.getAttribute("y"));
 								ballInfo.put("vx", eElement.getAttribute("xVelocity"));
@@ -104,7 +104,7 @@ public class XMLParser {
 					}
 					else if(getLevel() ==2){
 						if(tempNodeList.getLength() == 2){
-							if(ballDoubleX < 500 && ballDoubleX > 0 && ballDoubleY < 500 && ballDoubleY > 0 && ballDoubleVX >= 0 && ballDoubleVY >= 0){
+							if(ballDoubleX < 500 && ballDoubleX > 0 && ballDoubleY < 500 && ballDoubleY > 0){
 								ballInfo.put("x", eElement.getAttribute("x"));
 								ballInfo.put("y", eElement.getAttribute("y"));
 								ballInfo.put("vx", eElement.getAttribute("xVelocity"));
@@ -466,7 +466,7 @@ public class XMLParser {
 
 						if(!eElement3.getAttribute("x").equals("")){
 
-							gizmoInfo.put("type", "leftTokat");
+							gizmoInfo.put("type", "LeftTokat");
 							String leftTokatX = eElement3.getAttribute("x");
 							int  leftTokatIntX = Integer.parseInt(leftTokatX);
 							String leftTokatY = eElement3.getAttribute("y");
@@ -503,7 +503,7 @@ public class XMLParser {
 						HashMap<String, String> gizmoInfo = new HashMap<String, String>();
 						if(!eElement4.getAttribute("x").equals("")){
 
-							gizmoInfo.put("type", "leftTokat");
+							gizmoInfo.put("type", "RightTokat");
 							String rightTokatX = eElement4.getAttribute("x");
 							int  rightTokatIntX = Integer.parseInt(rightTokatX);
 							String rightTokatY = eElement4.getAttribute("y");
