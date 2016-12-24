@@ -23,6 +23,8 @@ public class GameFrame {
     private GameFrameController gameFrameController;
     private UiBoardPanel uiBoardPanel;
     private JFrame frame;
+    JLabel score1;
+    JLabel score2;
 
     public GameFrame(HadiCezmi hadi) {
         this.gameFrameController = new GameFrameController();
@@ -69,8 +71,10 @@ public class GameFrame {
                     @Override
                     public void actionPerformed(final ActionEvent e) {
 //			                System.out.println(Thread.currentThread().getName());
+                        updateScore();
                         frame.repaint();
                         frame.requestFocus();
+
                     }
                 });
                 timer.start();
@@ -80,9 +84,13 @@ public class GameFrame {
 
     }
 
+    public void updateScore(){
+        score1.setText(hadi.getPlayer1().getName()+": "+Integer.toString(hadi.getPlayer1().getScore()));
+        score2.setText(hadi.getPlayer2().getName()+": "+Integer.toString(hadi.getPlayer2().getScore()));
 
+    }
     public void addButtons(JToolBar toolBar) {
-        JLabel score1 = new JLabel("Player 1: " + Integer.toString(hadi.getPlayer1().getScore()), SwingConstants.CENTER);
+        score1 = new JLabel(hadi.getPlayer1().getName()+": "+ Integer.toString(hadi.getPlayer1().getScore()), SwingConstants.CENTER);
         score1.setOpaque(true);
         score1.setBackground(Color.green);
         toolBar.add(score1);
@@ -139,7 +147,7 @@ public class GameFrame {
         });
         toolBar.add(button);
 
-        JLabel score2 = new JLabel("Player 2: " + Integer.toString(hadi.getPlayer2().getScore()), SwingConstants.CENTER);
+        score2 = new JLabel(hadi.getPlayer2().getName()+": "+ Integer.toString(hadi.getPlayer2().getScore()), SwingConstants.CENTER);
         score2.setOpaque(true);
         score2.setBackground(Color.green);
         toolBar.add(score2);

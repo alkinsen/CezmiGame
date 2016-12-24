@@ -9,7 +9,7 @@ import java.util.ArrayList;
 /**
  * Created by ASEN14 on 9.12.2016.
  */
-public class UiBoardPanel extends JPanel{
+public class UiBoardPanel extends JPanel {
     UiBall uiBall;
     UiBall uiBall2;
     ArrayList<UiGizmo> uiGizmos;

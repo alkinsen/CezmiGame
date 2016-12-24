@@ -23,11 +23,15 @@ public class GameFrameController {
             	hadiCezmi.pause();
             	break;
             case "Back":
+                hadiCezmi.pause();
             	frame.setVisible(false);
-            	new StartFrame(new HadiCezmi(1, "Player 1", "Player 2"));
+                frame.dispose();
+                hadiCezmi.reset();
+            	new StartFrame(hadiCezmi);
             	break;
             case "Edit":
             	frame.setVisible(false);
+                hadiCezmi.reset();
             	new EditFrame(hadiCezmi);
             	break;
         }

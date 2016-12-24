@@ -1,5 +1,7 @@
 package game;
 
+import ui.GameFrame;
+
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Rectangle;
@@ -12,14 +14,14 @@ import java.util.Observer;
  */
 public class Ball extends Observable{
 
-	private double x = (int)250;
+	private double x = (int) HadiCezmi.UNIT_LENGTH*15;
 	private double y = (int)0;
 	//private double vx = ((int)(Math.random() * 10.0))/20.0;
-	private double vx = 0.00125;
+	private double vx = 1;
 	//private double vy = ((int)(Math.random() * 10.0))/20.0;
 	private double vy = 0;
-	private int radius = 6;
-	private double acceleration= (double)25/(double)400;
+	private int radius = (HadiCezmi.UNIT_LENGTH*6)/20;
+	private double acceleration= 0.003;
 	
 	private Color color = Color.white;
 	
@@ -104,22 +106,5 @@ public class Ball extends Observable{
 		notifyObservers(this);
 
 	}
-	
-	public void paint(Graphics g) {
-		Rectangle clipRect = g.getClipBounds();
-
-		if (clipRect.intersects(this.boundingBox())) {
-			g.setColor(color);
-			g.fillOval((int)(x-radius), (int)(y-radius), radius+radius, radius+radius);
-		}
-	}
-	
-	public Rectangle boundingBox() {
-		return new Rectangle((int)(x-radius), (int)(y-radius), radius+radius, radius+radius);
-	}
-
-
-	
-
 	
 }
