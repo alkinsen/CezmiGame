@@ -97,7 +97,7 @@ public class EditableJButton extends JButton {
         if(mode == 1) setBackground(Color.yellow);
         if(mode == 2) setBackground(Color.red);
         if(mode == 3) setBackground(Color.magenta);
-        if(mode == 4) setBackground(Color.orange);
+        if(mode == 4) setBackground(Color.blue);
         if(mode == 5) setBackground(Color.green);
         repaint();
 

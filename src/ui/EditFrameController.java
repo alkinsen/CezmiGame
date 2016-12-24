@@ -4,9 +4,11 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.util.ArrayList;
 
 import javax.swing.Timer;
 
+import game.Gizmo;
 import game.HadiCezmi;
 import xml.XMLBuilder;
 
@@ -19,8 +21,11 @@ public class EditFrameController extends StartFrameController {
     public void doAction(HadiCezmi hadiCezmi, String action, EditableJButton[][] g) {
         switch (action) {
             case "play":
+            	ArrayList<Gizmo> newGizmoArrayList = new ArrayList <Gizmo>();
+            	hadiCezmi.getBoard().setGizmoArrayList(newGizmoArrayList);
             	for(int i=0;i<25;i++){
             		for(int j=0; j<25;j++){
+            			
             			Color c=g[i][j].getBackground();
             			System.out.println(i*20);
             			System.out.println(j*20);
@@ -33,7 +38,7 @@ public class EditFrameController extends StartFrameController {
             					hadiCezmi.getBoard().addGizmo("RightTokat", i*20, j*20);
             				}
             			}else if(c.equals(Color.red)){
-            				hadiCezmi.getBoard().addGizmo("TriangularTakoz", i*20, j*20);
+            				hadiCezmi.getBoard().addGizmo("TriangleTakoz", i*20, j*20);
             			}else if(c.equals(Color.blue)){
             				hadiCezmi.getBoard().addGizmo("Firildak", i*20, j*20);
             			}
