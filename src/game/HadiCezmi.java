@@ -18,11 +18,9 @@ import xml.XMLParser;
  * Created by ASEN14 on 28.11.2016.
  */
 public class HadiCezmi implements Observer{
-    public static final int FRAME_WIDTH = 600;
-    public static final int FRAME_HEIGHT = 600;
-    public static final int BOARD_WIDTH = 500;
-    public static final int BOARD_HEIGHT = 500;
-
+    public static final int UNIT_LENGTH = 20;
+    public static final int BOARD_WIDTH = UNIT_LENGTH*25;
+    public static final int BOARD_HEIGHT = UNIT_LENGTH*25;
    
 
     private Player player1;
@@ -48,7 +46,7 @@ public class HadiCezmi implements Observer{
 
     public HadiCezmi(int level, String playerName1, String playerName2) {
         super();
-        level = this.level;
+        this.level = level;
         player1 = new Player(playerName1);
         player2 = new Player(playerName2);
         board = new Board(level);
@@ -68,19 +66,28 @@ public class HadiCezmi implements Observer{
         if (ballList.get(0).containsKey("vx") && ballList.get(0).containsKey("vy")) {
             board.changeBallVelocity(Double.parseDouble(ballList.get(0).get("vx")), Double.parseDouble(ballList.get(0).get("vy")));
         }
+        if(ballList.size() == 2){
+            if (ballList.get(1).containsKey("x") && ballList.get(1).containsKey("y")) {
+                board.changeBall2Position(Double.parseDouble(ballList.get(1).get("x")) , Double.parseDouble(ballList.get(1).get("y")) );
+            }
 
-        //creating cezmi1 from xml
-        ArrayList<HashMap<String, String>> cezmiList1 = xmlParser.createCezmi1FromXml();
-        if (cezmiList1.get(0).containsKey("x")) {
-            if (cezmiList1.get(0).containsKey("y")) {
-                board.changeCezmiPosition(1, Double.parseDouble(cezmiList1.get(0).get("x")) , Double.parseDouble(cezmiList1.get(0).get("y")));
-            } else {
-                board.changeCezmiPosition(1, Double.parseDouble(cezmiList1.get(0).get("x")));
+            if (ballList.get(1).containsKey("vx") && ballList.get(1).containsKey("vy")) {
+                board.changeBall2Velocity(Double.parseDouble(ballList.get(1).get("vx")), Double.parseDouble(ballList.get(1).get("vy")));
             }
         }
 
-        if (cezmiList1.get(0).containsKey("score")) {
-            player1.setScore(Integer.parseInt(cezmiList1.get(0).get("score")));
+        //creating cezmi1 from xml
+        ArrayList<HashMap<String, String>> cezmiList = xmlParser.createCezmi1FromXml();
+        if (cezmiList.get(0).containsKey("x")) {
+            if (cezmiList.get(0).containsKey("y")) {
+                board.changeCezmiPosition(1, Double.parseDouble(cezmiList.get(0).get("x")) , Double.parseDouble(cezmiList.get(0).get("y")));
+            } else {
+                board.changeCezmiPosition(1, Double.parseDouble(cezmiList.get(0).get("x")));
+            }
+        }
+
+        if (cezmiList.get(0).containsKey("score")) {
+            player1.setScore(Integer.parseInt(cezmiList.get(0).get("score")));
         }
 
         //creating cezmi2 from xml
@@ -93,7 +100,7 @@ public class HadiCezmi implements Observer{
             }
         }
 
-        if (cezmiList2.get(0).containsKey("score")) {
+        if (cezmiList.get(0).containsKey("score")) {
             player2.setScore(Integer.parseInt(cezmiList2.get(0).get("score")));
         }
 
@@ -117,6 +124,16 @@ public class HadiCezmi implements Observer{
                     }
                 }
             }
+            if (gizmoList.get(i).containsKey("angle")) {
+                if (gizmoList.get(i).containsKey("type") && gizmoList.get(i).containsKey("x") && gizmoList.get(i).containsKey("y")) {
+                    if (gizmoList.get(i).containsKey("angle")) {
+                        board.addGizmo(gizmoList.get(i).get("type"), Integer.parseInt(gizmoList.get(i).get("x")) * 25, Integer.parseInt(gizmoList.get(i).get("y")) * 25, Integer.parseInt(gizmoList.get(i).get("angle")));
+                    } else {
+                        board.addGizmo(gizmoList.get(i).get("type"), Integer.parseInt(gizmoList.get(i).get("x")) * 25, Integer.parseInt(gizmoList.get(i).get("y")) * 25);
+                    }
+                }
+            }
+            
         }
 
         //creating level, friction and gravity from xml
@@ -319,16 +336,11 @@ public class HadiCezmi implements Observer{
 	}
 
 	public void move() {
-    	
-    	
         board.checkCollision(leftPressed,rightPressed);
     }
 
 	@Override
 	public void update(Observable o, Object arg) {
-		// TODO Auto-generated method stub
-		System.out.println("Observer updated");
-		System.out.println("Player1: "+player1.getScore()+ "--   Player2: "+player2.getScore());
 		String score = (String) arg;
 		if(score.equalsIgnoreCase("left")){
 			int num = player1.getScore();
@@ -340,6 +352,11 @@ public class HadiCezmi implements Observer{
 		System.out.println("Player1: "+player1.getScore()+ "Player2: "+player2.getScore());
 		
 	}
+
+	public void reset(){
+        board = new Board(level);
+        board.addObserver(this);
+    }
 	
 	
 

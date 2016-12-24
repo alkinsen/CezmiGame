@@ -22,10 +22,9 @@ public class UiPlayer implements Observer {
 		
 		
 	}
+
     @Override
-    
     public void update(Observable o, Object arg) {
-    	System.out.println("player update");
     	Player pp=(Player) arg;
     	
     	this.name=pp.getName();

@@ -153,6 +153,7 @@ public class EditFrame {
 //					message = "The map is faulty. Please check the cezmi placement. There has to be 2 green squares next to each other on the bottom row.";
 //				}
 //				JOptionPane.showMessageDialog(null, message,"Map Status",JOptionPane.WARNING_MESSAGE);
+
 				System.out.println("girdi");
 				message = checkMap();
 				if(!(checkMap().equalsIgnoreCase("Success"))){
@@ -160,6 +161,7 @@ public class EditFrame {
 					JOptionPane.showMessageDialog(null, message,"Map Status",JOptionPane.WARNING_MESSAGE);
 				}
 				else {
+
 					JOptionPane.showMessageDialog(null, message,"Map Status",JOptionPane.WARNING_MESSAGE);
 				}
 
@@ -209,8 +211,11 @@ public class EditFrame {
         button.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-            	frame.setVisible(false);
-                new StartFrame(new HadiCezmi(1, "Player 1", "Player 2"));
+				hadi.pause();
+				frame.setVisible(false);
+				frame.dispose();
+				hadi.reset();
+                new StartFrame(hadi);
             }});
         toolBar.add(button);
 
@@ -299,10 +304,12 @@ public class EditFrame {
 //						
 					Color c1=e[i+1][j].getBackground();
 					if(c1.equals(Color.magenta)|| c1.equals(Color.yellow) || c1.equals(Color.blue) || c1.equals(Color.red)){
+
 						System.out.println("tokat dolu");
 						message= "There is a Gizmo next to a Tokat. Check again.";
 						return message;
 //						return false;
+
 					}else{
 						tokat++;
 					}
@@ -320,6 +327,7 @@ public class EditFrame {
 			}
 		}
 		if(gizmo+tokat!=4){
+
 			System.out.println("f1");
 			message= "Gizmo number is not 4. Check again. ";
 			return message;
@@ -330,6 +338,7 @@ public class EditFrame {
 			message= "There are more than one Tokat at one of the sides. Check again.";
 			return message;
 //			return false;
+
 		}
 		gizmo=0;
 		tokat=0;
@@ -342,10 +351,12 @@ public class EditFrame {
 					
 					Color c1=e[i-1][j].getBackground();
 					if(c1.equals(Color.magenta)|| c1.equals(Color.yellow) || c1.equals(Color.blue) || c1.equals(Color.red)){
+
 						System.out.println("tokat dolu");
 						message= "There is a Gizmo next to a Tokat. Check again.";
 						return message;
 //						return false;
+
 					}else{
 						tokat++;
 					}
@@ -363,6 +374,7 @@ public class EditFrame {
 			}
 		}
 		if(gizmo+tokat!=4){
+
 			System.out.println("f3");
 			message= "Gizmo number is not 4. Check again. ";
 			return message;
@@ -373,6 +385,7 @@ public class EditFrame {
 			message= "There are more than one Tokat at one of the sides. Check again.";
 			return message;
 //			return false;
+
 		}
 		int cezmi1=0;
 		int cezmi2=0;
@@ -410,6 +423,7 @@ public class EditFrame {
 		}
 		}
 		if(cezmi1!=2 || cezmi2!=2){
+
 			System.out.println("f5");
 			message= "Cezmi is not placed in a valid way. Check again.";
 			return message;
@@ -418,6 +432,8 @@ public class EditFrame {
 		System.out.println("t");
 		return message;
 //		return true;
+
+
 	}
 }
 
@@ -426,9 +442,6 @@ public class EditFrame {
 class EditPane extends JPanel {
 	private EditFrameController editFrameController;
 
-	private final int FRAME_WIDTH = 500;
-	private final int FRAME_HEIGHT = 500;
-	JPanel editBoard;
 	EditableJButton[][] gridSquares;
 	HadiCezmi hadi;
 

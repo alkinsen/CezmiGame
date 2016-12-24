@@ -28,6 +28,7 @@ public class StartFrameController {
 		switch (action) {
 		case "Play":
 			new EditFrame(hadiCezmi);
+			frame.setVisible(false);
 			break;
 		case "Load":
 			loadGame(hadiCezmi, frame);
@@ -46,8 +47,10 @@ public class StartFrameController {
 			file = fc.getSelectedFile();
 			HadiCezmi hadi = hadiCezmi;
 			hadi.readXML(file);
+
 			frame.setVisible(false);
 			new GameFrame(hadi);
+
 		}
 	}
 
