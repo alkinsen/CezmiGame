@@ -109,7 +109,8 @@ public class EditFrame {
 		button.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-
+				
+				String message;
 //				if(checkMap()){
 //					HadiCezmi hadi = new HadiCezmi(1, "Player 1", "Player 2");
 //					File file = new File("xml");
@@ -119,10 +120,19 @@ public class EditFrame {
 //					String message = "The map is faulty. Please check the cezmi placement. There has to be 2 green squares next to each other on the bottom row.";
 //					JOptionPane.showMessageDialog(null, message,"Map Status",JOptionPane.WARNING_MESSAGE);
 //				}
-				if(checkMap()){
+				message = checkMap();
+//				if(checkMap()){
+//					frame.setVisible(false);
+//					editFrameController.doAction(hadi, "play", editPane.getGridSquares());
+//
+//				}
+				if(message.equalsIgnoreCase("Success")){
 					frame.setVisible(false);
 					editFrameController.doAction(hadi, "play", editPane.getGridSquares());
-
+					
+				}
+				else {
+					JOptionPane.showMessageDialog(null, message,"Map Status",JOptionPane.WARNING_MESSAGE);
 				}
 
 			}
@@ -136,19 +146,24 @@ public class EditFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 
-//				String message;
+				String message;
 //				if(checkMap()){
 //					message = "The map is complete.";
 //				}else{
 //					message = "The map is faulty. Please check the cezmi placement. There has to be 2 green squares next to each other on the bottom row.";
 //				}
 //				JOptionPane.showMessageDialog(null, message,"Map Status",JOptionPane.WARNING_MESSAGE);
-				checkMap();
-				if(!checkMap()){
-					String message= "Check your board again";
+
+				System.out.println("girdi");
+				message = checkMap();
+				if(!(checkMap().equalsIgnoreCase("Success"))){
+//					String message= "Check your board again";
 					JOptionPane.showMessageDialog(null, message,"Map Status",JOptionPane.WARNING_MESSAGE);
 				}
-				
+				else {
+
+					JOptionPane.showMessageDialog(null, message,"Map Status",JOptionPane.WARNING_MESSAGE);
+				}
 
 			}
 		});
@@ -174,7 +189,7 @@ public class EditFrame {
 //                } catch (UnsupportedEncodingException e1) {
 //                    e1.printStackTrace();
 //                }
-            	if(checkMap()){
+            	if(checkMap().equalsIgnoreCase("Success")){
             		
             		try {
             			XMLBuilder xmlBuilder=new XMLBuilder(hadi);
@@ -262,7 +277,7 @@ public class EditFrame {
 
 		JButton button4;
 		button4 = new JButton("Fırıldak");
-		button4.setToolTipText("Square Takoz is represented by ORANGE Color.");
+		button4.setToolTipText("Square Takoz is represented by BLUE Color.");
 		button4.setBackground(Color.blue);
 		toolBar.add(button4);
 
@@ -273,9 +288,9 @@ public class EditFrame {
 		toolBar.add(button5);
 	}
 
-	public boolean checkMap() {
+	public String checkMap() {
 		int status = 0;
-		
+		String message="Success";
 	
 		EditableJButton[][] e=editPane.getGridSquares();
 		int gizmo=0;
@@ -289,7 +304,12 @@ public class EditFrame {
 //						
 					Color c1=e[i+1][j].getBackground();
 					if(c1.equals(Color.magenta)|| c1.equals(Color.yellow) || c1.equals(Color.blue) || c1.equals(Color.red)){
-						return false;
+
+						System.out.println("tokat dolu");
+						message= "There is a Gizmo next to a Tokat. Check again.";
+						return message;
+//						return false;
+
 					}else{
 						tokat++;
 					}
@@ -307,10 +327,18 @@ public class EditFrame {
 			}
 		}
 		if(gizmo+tokat!=4){
-			return false;
+
+			System.out.println("f1");
+			message= "Gizmo number is not 4. Check again. ";
+			return message;
+//			return false;
 		}
 		if(tokat>1){
-			return false;
+			System.out.println("f2");
+			message= "There are more than one Tokat at one of the sides. Check again.";
+			return message;
+//			return false;
+
 		}
 		gizmo=0;
 		tokat=0;
@@ -323,7 +351,12 @@ public class EditFrame {
 					
 					Color c1=e[i-1][j].getBackground();
 					if(c1.equals(Color.magenta)|| c1.equals(Color.yellow) || c1.equals(Color.blue) || c1.equals(Color.red)){
-						return false;
+
+						System.out.println("tokat dolu");
+						message= "There is a Gizmo next to a Tokat. Check again.";
+						return message;
+//						return false;
+
 					}else{
 						tokat++;
 					}
@@ -341,10 +374,18 @@ public class EditFrame {
 			}
 		}
 		if(gizmo+tokat!=4){
-			return false;
+
+			System.out.println("f3");
+			message= "Gizmo number is not 4. Check again. ";
+			return message;
+//			return false;
 		}
 		if(tokat>1){
-			return false;
+			System.out.println("f4");
+			message= "There are more than one Tokat at one of the sides. Check again.";
+			return message;
+//			return false;
+
 		}
 		int cezmi1=0;
 		int cezmi2=0;
@@ -353,31 +394,46 @@ public class EditFrame {
 			Color c=e[i][24].getBackground();
 			if(c.equals(Color.green)){
 				cezmi1++;
+				
 			
 			if(temp==i-1){
 				cezmi1=2;
 				break;
 			} 
 			temp=i;
-		}
+			}else{
+			temp=0;
+			}
+			
 		}
 		temp=0;
 		for(int i=13;i<25;i++){
 			Color c=e[i][24].getBackground();
 			if(c.equals(Color.green)){
 				cezmi2++;
+				
 			
 			if(temp==i-1){
 				cezmi2=2;
 				break;
 			}
 			temp=i;
+		}else{
+			temp=0;
 		}
 		}
 		if(cezmi1!=2 || cezmi2!=2){
-			return false;
+
+			System.out.println("f5");
+			message= "Cezmi is not placed in a valid way. Check again.";
+			return message;
+//			return false;
 		}
-		return true;
+		System.out.println("t");
+		return message;
+//		return true;
+
+
 	}
 }
 
@@ -412,7 +468,7 @@ class EditPane extends JPanel {
 			int y = g.getY() / 20;
 
 			if (g instanceof Firildak) {
-				gridSquares[x][y].setBackground(Color.orange);
+				gridSquares[x][y].setBackground(Color.blue);
 			} else if (g instanceof SquareTakoz) {
 				gridSquares[x][y].setBackground(Color.yellow);
 			} else if (g instanceof TriangleTakoz) {

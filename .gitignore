@@ -13,3 +13,4 @@ tmp/
 .recommenders
 .project
 /.DS_Store
+.classpath
