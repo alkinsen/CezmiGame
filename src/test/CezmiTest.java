@@ -9,6 +9,12 @@ public class CezmiTest {
 
 	@Test
 	public void testMoveLeft() {
+		
+		//MoveLeft test is to check the equality of the expected 
+		//location of a Cezmi created by us, after moving left. We 
+		//get the location of the Cezmi after moving left, and check 
+		//by assertEquals method, with the value resulted by adding 
+		//the initial location of the cezmi minus vx (and vy if in level 2.)
 		Cezmi testCezmi = new Cezmi (150,500,1);
 		
 		//moving left randomly level 1
@@ -79,6 +85,13 @@ public class CezmiTest {
 
 	@Test
 	public void testMoveRight() {
+		
+		//MoveRight test is to check the equality of the expected 
+		//location of a Cezmi created by us, after moving right. We 
+		//get the location of the Cezmi after moving right, and check 
+		//by assertEquals method, with the value resulted by adding 
+		//the initial location of the cezmi plus vx (and vy if in level 2.)
+		
 		Cezmi testCezmi = new Cezmi (150,500,1);
 		
 		//moving right randomly level 1
