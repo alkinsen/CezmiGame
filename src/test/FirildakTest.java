@@ -11,6 +11,13 @@ public class FirildakTest {
 
 	@Test
 	public void testRotate() {
+		//In here we test the rotation method of Firildak in some
+		//different locations. We perform rotate method 30 times 
+		//to achieve 90 degrees return of firildak. Then we compare 
+		//the result points with the points that are true, which are 
+		//the 90 degrees returned points of the initial created 
+		//firildak. 
+		
 		//(0, 0)
 		Firildak testFirildak = new Firildak(0, 0);
 

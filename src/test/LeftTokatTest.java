@@ -11,6 +11,14 @@ public class LeftTokatTest {
 
 	@Test
 	public void testRotateBoolean() {
+		//This test is generated for checking the rotation of 
+		//LeftTokat. Rotation is done for hitting. In here we create a 
+		//LeftTokat and then check rotation in several conditions, 
+		//with boolean false, true and in several locations. At the end 
+		//we check by assertEquals the equality of expected points 
+		//after rotation with the points of the LeftTokat after rotation.
+		
+		
 		/*LeftTokat testLeft = new LeftTokat(150,150);
 		
 		Vect[] testPoints = new Vect[4];

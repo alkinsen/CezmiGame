@@ -10,6 +10,9 @@ public class BoardTest {
 
 	@Test
 	public void testMoveCezmi() {
+		//In here we check moveCezmi() method of the Ball. We create a Ball and 
+		//perform moveCezmi and check if Cezmi is moved by checking new location
+		//of the Cezmi with the location that it should be placed when moved. 
 		
 		// level 1 Board 
 		Board testBoard= new Board(1);
@@ -88,6 +91,11 @@ public class BoardTest {
 
 	@Test
 	public void testMoveGizmo() {
+		
+		//In here we check if the Board moves the Gizmo. We check it by 
+		//looking at its GizmoArrayList and checking if it contains the new 
+		//location of the Gizmo after moveGizmo method. We check the new loca
+		//tion of the Gizmo with the location that we want the Gizmo to be. 
 		
 		//level 1 board 
 		Board testBoard = new Board (1);
