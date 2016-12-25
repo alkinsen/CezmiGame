@@ -2,6 +2,7 @@ package game;
 
 import java.awt.Color;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.Observable;
 import java.util.Random;
 
@@ -191,9 +192,12 @@ public class Board extends Observable{
     }
 
     public void deleteGizmo(int x, int y) {
-        for (Gizmo element : gizmoArrayList) {
-            if (element.getX() < x && x < (element.getX() + width)
-                    && element.getY() < y && y < (element.getY() + height)) {
+    	Iterator<Gizmo> iter = gizmoArrayList.iterator();
+        while (iter.hasNext()){
+        	Gizmo element = iter.next();
+            if (element.getX() <= x && x <= (element.getX() + width)
+                    && element.getY() <= y && y <= (element.getY() + height)) {
+                iter.remove();
                 gizmoArrayList.remove(element);
             }
         }
