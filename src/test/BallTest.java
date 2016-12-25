@@ -10,6 +10,13 @@ public class BallTest {
 
 	@Test
 	public void testMove() {
+		
+		//this test is to control move() method of Ball object. In here 
+		//we create a Ball with a random velocity. Then we get the 
+		//velocity of the Ball. And we add vy and vy to the velocity 
+		//and check the equality of the x and y components of the 
+		//Ball after move method. 
+		
 		Ball testBall = new Ball(); 
 		double testX = testBall.getX();
 		double testY = testBall.getY();

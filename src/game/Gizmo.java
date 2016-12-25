@@ -200,13 +200,19 @@ public abstract class Gizmo extends Observable {
         this.orientation = orientation;
     }
     
+    /**
+     * Method for getting the angle of a Gizmo
+     * Used in rotations.
+     * @return angle of the Gizmo
+     */
+    
     public int getAngle() {
     	return angle;
     }
     /**
      * Method for setting an angle to a Gizmo
      * Used in rotations
-     * @param orientation new orientation
+     * @param angle new angle
      */
     
     public void setAngle(int angle) {
@@ -215,10 +221,18 @@ public abstract class Gizmo extends Observable {
     	//@effects: angle is changed.
     	this.angle = angle;
     }
-    
+    /**
+     * Method for getting each corner point of a Gizmo by a point vect.
+     * These points are used in rotations, move.
+     * @return point vector of the Gizmo.
+     */
     public Vect[] getPoints() {
         return points;
     }
+    /**
+     * Method for setting the 4 corner points of a Gizmo.
+     * @param points  of a Gizmo.
+     */
 
     public void setPoints(Vect[] points) {
         this.points = points;

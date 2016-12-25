@@ -393,16 +393,23 @@ public class EditFrame {
 		for(int i=0;i<12;i++){
 			Color c=e[i][24].getBackground();
 			if(c.equals(Color.green)){
-				cezmi1++;
-				
-			
-			if(temp==i-1){
-				cezmi1=2;
-				break;
-			} 
-			temp=i;
-			}else{
-			temp=0;
+//				cezmi1++;
+				if((i+1)<12){
+				Color d=e[i+1][24].getBackground();
+				if(d.equals(Color.green)){
+					cezmi1=2;
+					break;
+				}
+				}
+//				
+//			
+//			if(temp==i-1){
+//				cezmi1=2;
+//				break;
+//			} 
+//			temp=i;
+//			}else{
+//			temp=0;
 			}
 			
 		}
@@ -410,16 +417,22 @@ public class EditFrame {
 		for(int i=13;i<25;i++){
 			Color c=e[i][24].getBackground();
 			if(c.equals(Color.green)){
-				cezmi2++;
-				
+//				cezmi2++;
+				if((i+1)<25){
+					Color d=e[i+1][24].getBackground();
+					if(d.equals(Color.green)){
+						cezmi2=2;
+						break;
+					}
+					}
 			
-			if(temp==i-1){
-				cezmi2=2;
-				break;
-			}
-			temp=i;
-		}else{
-			temp=0;
+//			if(temp==i-1){
+//				cezmi2=2;
+//				break;
+//			}
+//			temp=i;
+//		}else{
+//			temp=0;
 		}
 		}
 		if(cezmi1!=2 || cezmi2!=2){

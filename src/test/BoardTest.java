@@ -12,6 +12,7 @@ public class BoardTest {
 
 	@Test
 
+
 	public void testRotateGizmo() {
 		Board testBoard = new Board(1);
 
@@ -92,6 +93,10 @@ public class BoardTest {
 	@Test
 
 	public void testAddGizmo() {
+		
+		//In here we check if the Board adds Gizmos. We check it if the size of
+		//the GizmoArrayList is increased or not by assertEquals.
+		
 		Board testBoard = new Board(1);
 		// Add one Gizmo
 
@@ -124,6 +129,10 @@ public class BoardTest {
 	@Test
 
 	public void testAddGizmoWithOrientation() {
+		
+		//In here we check if the Board adds Gizmos. We check it if the size of
+		//the GizmoArrayList is increased or not by assertEquals.
+		
 		Board testBoard = new Board(1);
 		// Add one Gizmo
 
@@ -157,7 +166,11 @@ public class BoardTest {
 	@Test
 	
 	public void testDeleteGizmo() {
+		//In here we check if the Board deletes Gizmos. We check it if the size of
+		//the GizmoArrayList is decreased or not by assertEquals.
+		
 		Board testBoard = new Board(1);
+
 		
 		//Checks if Board deletes one added Gizmo
 		
@@ -196,6 +209,10 @@ public class BoardTest {
 	@Test
 
 	public void testMoveCezmi() {
+		
+		//In here we check moveCezmi() method of the Ball. We create a Ball and 
+		//perform moveCezmi and check if Cezmi is moved by checking new location
+		//of the Cezmi with the location that it should be placed when moved. 
 
 		// level 1 Board 
 		Board testBoard= new Board(1);
@@ -274,6 +291,15 @@ public class BoardTest {
 
 	@Test
 	public void testMoveGizmo() {
+
+		
+		//In here we check if the Board moves the Gizmo. We check it by 
+		//looking at its GizmoArrayList and checking if it contains the new 
+		//location of the Gizmo after moveGizmo method. We check the new loca
+		//tion of the Gizmo with the location that we want the Gizmo to be. 
+		
+
+
 
 		//level 1 board 
 		Board testBoard = new Board (1);
@@ -425,83 +451,7 @@ public class BoardTest {
 
 	}
 
-	//	@Test
-	//	public void testRotateTokat() {
-	//		
-	//		//level 1 
-	//		Board testBoard = new Board(1);
-	//		
-	//		//left tokat 
-	//		testBoard.addGizmo("LeftTokat", 105, 130);
-	//		Gizmo testLeft = testBoard.getGizmoArrayList().get(0);
-	//		Vect[] leftVect = testLeft.getPoints();
-	//		System.out.println(leftVect[0].x());
-	//		System.out.println(leftVect[1].x());
-	//		System.out.println(leftVect[2].x());
-	//		System.out.println(leftVect[3].x());
-	//		
-	//		System.out.println("");
-	//		for(int i=0;i<30;i++){
-	//		testBoard.rotate(true);
-	//		}
-	//		testLeft = testBoard.getGizmoArrayList().get(0);
-	//		leftVect = testLeft.getPoints();
-	//		System.out.println(leftVect[0].x());
-	//		System.out.println(leftVect[1].x());
-	//		System.out.println(leftVect[2].x());
-	//		System.out.println(leftVect[3].x());
-	//		Vect[] testVect = new Vect[4];
-	//		testVect[0] = new Vect (115,140);
-	//		testVect[1] = new Vect (115,130);
-	//		testVect[2] = new Vect (155,130);
-	//		testVect[3] = new Vect (155,140);
-	//		
-	//		assertEquals((int)Math.round(leftVect[0].x()),(int)testVect[0].x());
-	//		assertEquals((int)Math.round(leftVect[1].x()),(int)testVect[1].x());
-	//		assertEquals((int)Math.round(leftVect[2].x()),(int)testVect[2].x());
-	//		assertEquals((int)Math.round(leftVect[3].x()),(int)testVect[3].x());
-	//		
-	//		assertEquals((int)Math.round(leftVect[0].y()),(int)testVect[0].y());
-	//		assertEquals((int)Math.round(leftVect[1].y()),(int)testVect[1].y());
-	//		assertEquals((int)Math.round(leftVect[2].y()),(int)testVect[2].y());
-	//		assertEquals((int)Math.round(leftVect[3].y()),(int)testVect[3].y());
-	//		
-	//		//right tokat 
-	//		testBoard.addGizmo("RightTokat", 105, 130);
-	//		Gizmo testRight = testBoard.getGizmoArrayList().get(0);
-	//		Vect[] rightVect = testRight.getPoints();
-	//		System.out.println(rightVect[0].x());
-	//		System.out.println(rightVect[1].x());
-	//		System.out.println(rightVect[2].x());
-	//		System.out.println(rightVect[3].x());
-	//				
-	//		System.out.println("");
-	//		for(int i=0;i<30;i++){
-	//		testBoard.rotateTokat("right");
-	//		}
-	//		testRight = testBoard.getGizmoArrayList().get(0);
-	//		rightVect = testRight.getPoints();
-	//		System.out.println(rightVect[0].x());
-	//		System.out.println(rightVect[1].x());
-	//		System.out.println(rightVect[2].x());
-	//		System.out.println(rightVect[3].x());
-	//		Vect[] testVect2 = new Vect[4];
-	//		testVect2[0] = new Vect (115,140);
-	//		testVect2[1] = new Vect (115,130);
-	//		testVect2[2] = new Vect (155,130);
-	//		testVect2[3] = new Vect (155,140);
-	//				
-	//		assertEquals((int)Math.round(rightVect[0].x()),(int)testVect2[0].x());
-	//		assertEquals((int)Math.round(rightVect[1].x()),(int)testVect2[1].x());
-	//		assertEquals((int)Math.round(rightVect[2].x()),(int)testVect2[2].x());
-	//		assertEquals((int)Math.round(rightVect[3].x()),(int)testVect2[3].x());
-	//				
-	//		assertEquals((int)Math.round(rightVect[0].y()),(int)testVect2[0].y());
-	//		assertEquals((int)Math.round(rightVect[1].y()),(int)testVect2[1].y());
-	//		assertEquals((int)Math.round(rightVect[2].y()),(int)testVect2[2].y());
-	//		assertEquals((int)Math.round(rightVect[3].y()),(int)testVect2[3].y());
-	//		
-	//	}
+	
 
 }
 

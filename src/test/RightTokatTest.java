@@ -11,7 +11,16 @@ public class RightTokatTest {
 
 	@Test
 	public void testRotateBoolean() {
+		//This test is generated for checking the rotation of 
+		//RightTokat. Rotation is done for hitting. In here we create a 
+		//RightTokat and then check rotation in several conditions, 
+		//with boolean false, true and in several locations. At the end 
+		//we check by assertEquals the equality of expected points 
+		//after rotation with the points of the RightTokat after rotation.
+		
+
 		RightTokat testRight = new RightTokat(350,350);
+
 		
 		Vect[] testPoints = new Vect[4];
 		

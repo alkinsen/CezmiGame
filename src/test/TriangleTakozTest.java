@@ -12,6 +12,13 @@ public class TriangleTakozTest {
 
 	@Test
 	public void testRotate() {
+		
+		//This test is to check the rotate method of Triangle
+		//Takoz. In here we check the equality of the expected points 
+		//calculated by us according to expected effect of the rotate 
+		//method and then we compare them with resulted points of the 
+		//TriangleTakoz. We perform this test for several conditions. 
+		
 		//(0,0)
 		TriangleTakoz testTriangle = new TriangleTakoz(0, 0);
 		testTriangle.rotate();
