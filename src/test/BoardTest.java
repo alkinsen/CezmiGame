@@ -1,7 +1,9 @@
-package game;
+package test;
 
 import static org.junit.Assert.*;
 
+import game.Board;
+import game.Gizmo;
 import org.junit.Test;
 
 import physics.Vect;

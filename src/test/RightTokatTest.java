@@ -11,7 +11,7 @@ public class RightTokatTest {
 
 	@Test
 	public void testRotateBoolean() {
-		/*RightTokat testRight = new RightTokat(350,350);
+		RightTokat testRight = new RightTokat(350,350);
 		
 		Vect[] testPoints = new Vect[4];
 		
@@ -94,7 +94,7 @@ public class RightTokatTest {
 		assertEquals(Math.round(testRight.points[1].y()),(int) testPoints[1].y());
 		assertEquals(Math.round(testRight.points[2].y()),(int) testPoints[2].y());
 		assertEquals(Math.round(testRight.points[3].y()),(int) testPoints[3].y());
-		*/
+
 	}
 
 }

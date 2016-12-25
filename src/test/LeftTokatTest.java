@@ -11,7 +11,7 @@ public class LeftTokatTest {
 
 	@Test
 	public void testRotateBoolean() {
-		/*LeftTokat testLeft = new LeftTokat(150,150);
+		LeftTokat testLeft = new LeftTokat(150,150);
 		
 		Vect[] testPoints = new Vect[4];
 		
@@ -75,7 +75,7 @@ public class LeftTokatTest {
 		
 		
 		
-		*/
+
 	}
 
 }
