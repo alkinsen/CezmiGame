@@ -36,7 +36,6 @@ public class Ball extends Observable{
 
 	public void setState(String state) {
 		this.state = state;
-		System.out.println(state);
 	}
 
 	public double getX() {
