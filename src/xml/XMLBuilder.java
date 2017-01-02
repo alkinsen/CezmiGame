@@ -34,6 +34,8 @@ public class XMLBuilder {
 	}
 	
 	public void writeToXML() throws ParserConfigurationException, TransformerException {
+		
+	int k = 1;
 	
 	DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
 	DocumentBuilder docBuilder = docFactory.newDocumentBuilder();
@@ -287,9 +289,8 @@ public class XMLBuilder {
 	TransformerFactory transformerFactory = TransformerFactory.newInstance();
 	Transformer transformer = transformerFactory.newTransformer();
 	DOMSource source = new DOMSource(doc);
-	StreamResult result = new StreamResult(new File("/Users/alikucukdeveci/Desktop/test.xml"));
-	
+	StreamResult result = new StreamResult(new File("HadiCezmi"+k+".xml"));
 	transformer.transform(source, result);
-
+	k++;
 	}
 }

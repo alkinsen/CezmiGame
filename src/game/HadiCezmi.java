@@ -118,6 +118,7 @@ public class HadiCezmi implements Observer{
             if (gizmoList.get(i).containsKey("orientation")) {
                 if (gizmoList.get(i).containsKey("type") && gizmoList.get(i).containsKey("x") && gizmoList.get(i).containsKey("y")) {
                     if (gizmoList.get(i).containsKey("orientation")) {
+                    	System.out.println(gizmoList.get(i));
                         board.addGizmo(gizmoList.get(i).get("type"), Integer.parseInt(gizmoList.get(i).get("x")) * 25, Integer.parseInt(gizmoList.get(i).get("y")) * 25, Integer.parseInt(gizmoList.get(i).get("orientation")));
                     } else {
                         board.addGizmo(gizmoList.get(i).get("type"), Integer.parseInt(gizmoList.get(i).get("x")) * 25, Integer.parseInt(gizmoList.get(i).get("y")) * 25);
