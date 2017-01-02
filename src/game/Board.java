@@ -259,11 +259,8 @@ public class Board extends Observable{
 
     	//apply the friction
     	Vect ballVel = new Vect(ball.getVx(),ball.getVy());
-//    	System.out.println("ballVel: "+ballVel.length());
     	friction = (double)1-mu*(double)delta_t-mu2*ballVel.length()*(double)delta_t;
-//    	System.out.println("friction: "+friction);
     	double velLength = ballVel.length()*friction;
-//    	System.out.println("new ballVel: "+velLength);
     	ballVel = new Vect(ballVel.angle(),velLength);
     	ball.setVx(ballVel.x());
         ball.setVy(ballVel.y());

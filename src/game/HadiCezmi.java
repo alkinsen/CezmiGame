@@ -20,14 +20,10 @@ public class HadiCezmi implements Observer{
     public static final int LEVEL_ONE = 1;
     public static final int LEVEL_TWO = 2;
 
-
-   
-
     private Player player1;
     private Player player2;
     private int level;
     private Board board;
-    
 
     private boolean runningMode = false;
     private boolean editMode = false;
@@ -165,48 +161,6 @@ public class HadiCezmi implements Observer{
         //DOLDURULACAK
     }
 
-
-    public void doAction(String s, String[] arg) {
-        int x = Integer.parseInt(arg[0]);
-        int y = Integer.parseInt(arg[1]);
-        if (editMode == true && runningMode == false) {
-            switch (s) {
-
-                case "addLeftTokat":
-                    board.addGizmo("leftTokat", x, y);
-                    break;
-                case "addRightTokat":
-                    board.addGizmo("rightTokat", x, y);
-                    break;
-                case "addSquareTakoz":
-                    board.addGizmo("squareTakoz", x, y);
-                    break;
-                case "addTriangularTakoz":
-                    board.addGizmo("triangularTakoz", x, y);
-                    break;
-                case "addFirildak":
-                    board.addGizmo("firildak", x, y);
-                    break;
-                case "deleteSquareTakoz":
-                    board.deleteGizmo(x, y);
-                    break;
-                case "deleteTriangularTakoz":
-                    board.deleteGizmo(x, y);
-                    break;
-                case "deleteLeftTokat":
-                    board.deleteGizmo(x, y);
-                    break;
-                case "deleteRightTokat":
-                    board.deleteGizmo(x, y);
-                    break;
-                case "deleteFirildak":
-                    board.deleteGizmo(x, y);
-                    break;
-                default:
-                    break;
-            }
-        }
-    }
 
     public void play() {
         runningMode = true;

@@ -16,14 +16,12 @@ public class Ball extends Observable{
 
 	private double x = (int) HadiCezmi.UNIT_LENGTH*15;
 	private double y = (int)0;
-	//private double vx = ((int)(Math.random() * 10.0))/20.0;
 	private double vx = 1;
-	//private double vy = ((int)(Math.random() * 10.0))/20.0;
 	private double vy = 0;
 	private int radius = HadiCezmi.UNIT_LENGTH;
 	private double acceleration= 0.003;
 	private double score = 1;
-	private String state = "";
+	private String state = "Reset";
 	private double player = 1;
 	private int tokatCounter = 0;
 	private Color color = Color.white;
