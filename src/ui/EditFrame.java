@@ -179,22 +179,7 @@ public class EditFrame {
         button.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-//                PrintWriter writer = null;
-//                try {
-//                    if(checkMap()) {
-//                        
-//                    }else{
-//                        String message = "The map is faulty. Please check the cezmi placement. There has to be 2 green squares next to each other on the bottom row.";
-//                        JOptionPane.showMessageDialog(null, message,"Map Status",JOptionPane.WARNING_MESSAGE);
-//                    }
-//                    writer.close();
-//                } catch (FileNotFoundException e1) {
-//                    e1.printStackTrace();
-//                } catch (UnsupportedEncodingException e1) {
-//                    e1.printStackTrace();
-//                }
             	if(checkMap().equalsIgnoreCase("Success")){
-            		
             		try {
             			XMLBuilder xmlBuilder=new XMLBuilder(hadi);
 						xmlBuilder.writeToXML();
@@ -254,6 +239,7 @@ public class EditFrame {
 				int levelNo=1;
 				if(level.equals("Level 1")){
 					levelNo=1;
+					System.out.println("level1");
 					
 				}else {
 					levelNo=2;
@@ -358,8 +344,8 @@ public class EditFrame {
 		}
 		if(tokat==2){
 			if(gizmo+tokat!=5 ){
-
 			System.out.println("f3");
+
 			message= "Gizmo number is not 4. Check again. ";
 			return message;
 //			return false;
@@ -371,6 +357,7 @@ public class EditFrame {
 				return message;
 			}
 		}
+
 		if(tokat>2){
 			System.out.println("f4");
 			message= "There are more than one Tokat at one of the sides. Check again.";
@@ -410,7 +397,7 @@ public class EditFrame {
 							
 						}
 //						return false;
-						
+
 						return message;
 
 					}else{
@@ -432,9 +419,9 @@ public class EditFrame {
 		if(tokat==2){
 			if(gizmo+tokat!=5 ){
 
-			System.out.println("f3");
 			message= "Gizmo number is not 4. Check again. ";
 			return message;
+
 //			return false;
 			}
 		}else{
@@ -446,9 +433,9 @@ public class EditFrame {
 		}
 		if(tokat>2){
 			System.out.println("f4");
+
 			message= "There are more than one Tokat at one of the sides. Check again.";
 			return message;
-//			return false;
 
 		}
 		int cezmi1=0;
@@ -488,7 +475,7 @@ public class EditFrame {
 						cezmi2=2;
 						break;
 					}
-					}
+				}
 			
 //			if(temp==i-1){
 //				cezmi2=2;
@@ -497,16 +484,14 @@ public class EditFrame {
 //			temp=i;
 //		}else{
 //			temp=0;
-		}
+			}
 		}
 		if(cezmi1!=2 || cezmi2!=2){
 
-			System.out.println("f5");
 			message= "Cezmi is not placed in a valid way. Check again.";
 			return message;
 //			return false;
 		}
-		System.out.println("t");
 		return message;
 //		return true;
 		

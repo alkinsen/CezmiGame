@@ -9,10 +9,10 @@ import game.Player;
  * Created by ASEN14 on 9.12.2016.
  */
 public class UiPlayer implements Observer {
-	String name;
-	int score;
-	int numOfEdit;
-	int numOfGizmo;
+	private String name;
+	private double score;
+	private int numOfEdit;
+	private int numOfGizmo;
 	
 	public UiPlayer(Player p){
 		this.name=p.getName();

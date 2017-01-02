@@ -6,10 +6,10 @@ import java.util.Observable;
  * Created by ASEN14 on 28.11.2016.
  */
 public class Player extends Observable {
-    String name;
-    int score;
-    int numOfEdit;
-    int numOfGizmo;
+    private String name;
+    private double score;
+    private int numOfEdit;
+    private int numOfGizmo;
 
 
     public Player() {
@@ -31,18 +31,12 @@ public class Player extends Observable {
         this.name = name;
     }
 
-    public int getScore() {
+    public double getScore() {
         return score;
     }
 
-    public void setScore(int score) {
+    public void setScore(double score) {
         this.score = score;
-    }
-
-    public void incrementScore() {
-        this.score += 1;
-        setChanged();
-        notifyObservers();
     }
 
     public int getNumOfEdit() {
