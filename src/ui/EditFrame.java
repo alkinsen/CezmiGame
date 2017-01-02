@@ -7,6 +7,9 @@ import java.awt.EventQueue;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -56,6 +59,7 @@ public class EditFrame {
 	private EditFrameController editFrameController;
 	private Boolean rotateMode;
 	private EditPane editPane;
+	private int[][] rotationMatrix= new int[25][25];
 
 	public EditFrame(HadiCezmi hadi) {
 		this.editFrameController = new EditFrameController();
@@ -128,7 +132,7 @@ public class EditFrame {
 //				}
 				if(message.equalsIgnoreCase("Success")){
 					frame.setVisible(false);
-					editFrameController.doAction(hadi, "play", editPane.getGridSquares());
+					editFrameController.doAction(hadi, "play", editPane.getGridSquares(),rotationMatrix);
 					
 				}
 				else {
@@ -210,8 +214,17 @@ public class EditFrame {
 		rotateBox.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if(rotateBox.isSelected()) rotateMode = true;
-				else rotateMode = false;
+				if(rotateBox.isSelected()){
+					rotateMode = true; 
+					editPane.setMode(true);
+					System.out.println("a");
+				
+				}
+				else{
+					editPane.setMode(false);
+					rotateMode = false;
+					rotationMatrix=editPane.getMatrix();
+				}
 			}});
 		toolBar.add(rotateBox);
 		
@@ -293,12 +306,29 @@ public class EditFrame {
 
 						System.out.println("tokat dolu");
 						message= "There is a Gizmo next to a Tokat. Check again.";
-						return message;
-//						return false;
+						if((j<=24) && (j>=1)){
+							Color c2=e[i][j+1].getBackground();
+							Color c3=e[i][j-1].getBackground();
+							int counter=0;
+								if(!c2.equals(Color.magenta)){
+									counter++;
+								
+								}
+								if(!c3.equals(Color.magenta)){
+									counter++;
+								}
+								if(counter==2){
+									message= "Not a valid tokat placement. Check your tokat representation again.";
+								}
+								
+							}
+//							return false;
+							
+							return message;
 
-					}else{
-						tokat++;
-					}
+						}else{
+							tokat++;
+						}
 					
 				} else if(c.equals(Color.yellow)){
 					gizmo++;
@@ -312,13 +342,24 @@ public class EditFrame {
 				
 			}
 		}
-		if(gizmo+tokat!=4){
+		if(tokat==2){
+			if(gizmo+tokat!=5 ){
+			System.out.println("f3");
 
 			message= "Gizmo number is not 4. Check again. ";
 			return message;
 //			return false;
+			}
+		}else{
+			if(gizmo!=4){
+				System.out.println("f9");
+				message= "Gizmo number is not 4. Check again. ";
+				return message;
+			}
 		}
-		if(tokat>1){
+
+		if(tokat>2){
+			System.out.println("f4");
 			message= "There are more than one Tokat at one of the sides. Check again.";
 			return message;
 //			return false;
@@ -338,8 +379,26 @@ public class EditFrame {
 
 						System.out.println("tokat dolu");
 						message= "There is a Gizmo next to a Tokat. Check again.";
-						return message;
+						
+						if((j<=24) && (j>=1)){
+						Color c2=e[i][j+1].getBackground();
+						Color c3=e[i][j-1].getBackground();
+						int counter=0;
+							if(!c2.equals(Color.magenta)){
+								counter++;
+							
+							}
+							if(!c3.equals(Color.magenta)){
+								counter++;
+							}
+							if(counter==2){
+								message= "Not a valid tokat placement. Check your tokat representation again.";
+							}
+							
+						}
 //						return false;
+
+						return message;
 
 					}else{
 						tokat++;
@@ -357,13 +416,24 @@ public class EditFrame {
 				
 			}
 		}
-		if(gizmo+tokat!=4){
+		if(tokat==2){
+			if(gizmo+tokat!=5 ){
 
 			message= "Gizmo number is not 4. Check again. ";
 			return message;
 
+//			return false;
+			}
+		}else{
+			if(gizmo!=4){
+				System.out.println("f9");
+				message= "Gizmo number is not 4. Check again. ";
+				return message;
+			}
 		}
-		if(tokat>1){
+		if(tokat>2){
+			System.out.println("f4");
+
 			message= "There are more than one Tokat at one of the sides. Check again.";
 			return message;
 
@@ -405,7 +475,7 @@ public class EditFrame {
 						cezmi2=2;
 						break;
 					}
-					}
+				}
 			
 //			if(temp==i-1){
 //				cezmi2=2;
@@ -414,7 +484,7 @@ public class EditFrame {
 //			temp=i;
 //		}else{
 //			temp=0;
-		}
+			}
 		}
 		if(cezmi1!=2 || cezmi2!=2){
 
@@ -424,6 +494,7 @@ public class EditFrame {
 		}
 		return message;
 //		return true;
+		
 
 
 	}
@@ -436,6 +507,8 @@ class EditPane extends JPanel {
 
 	EditableJButton[][] gridSquares;
 	HadiCezmi hadi;
+	boolean rotateMode;
+	int[][] rotationMatrix= new int[25][25];
 
 	public EditPane(HadiCezmi hadi) {
 		this.hadi = hadi;
@@ -483,6 +556,7 @@ class EditPane extends JPanel {
 
 		gridSquares[x2][y2-1].setBackground(Color.green);
 		gridSquares[x2+1][y2-1].setBackground(Color.green);
+		rotateMode=false;
 		}
 
 	public EditableJButton[][] getGridSquares() {
@@ -494,6 +568,29 @@ class EditPane extends JPanel {
 	}
 	public EditFrameController getEditFrameController(){
 		return editFrameController;
+	}
+	public void setMode(boolean mode){
+		rotateMode=mode;
+		for(int i=0;i<25;i++){
+			for(int j=0;j<25;j++){
+				gridSquares[i][j].setRotateMode(mode);
+			}
+		}
+		
+		if(mode==false){
+			for(int i=0;i<25;i++){
+				for(int j=0;j<25;j++){
+					rotationMatrix[i][j]=gridSquares[i][j].getMatrixValue();
+//					System.out.println(rotationMatrix[i][j]);
+					gridSquares[i][j].setMatrixValue(0);
+				}
+			}
+			
+		}
+		
+	}
+	public int[][] getMatrix(){
+		return rotationMatrix;
 	}
 	 
 }
