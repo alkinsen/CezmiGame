@@ -1,20 +1,11 @@
 package ui;
 import java.awt.Color;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 
 import java.util.ArrayList;
 
-import java.util.Random;
-
-
-import javax.swing.Timer;
 
 import game.Gizmo;
 import game.HadiCezmi;
-import xml.XMLBuilder;
 
 public class EditFrameController extends StartFrameController {
 
@@ -32,8 +23,6 @@ public class EditFrameController extends StartFrameController {
             		for(int j=0; j<25;j++){
             			
             			Color c=g[i][j].getBackground();
-            			System.out.println(i*20);
-            			System.out.println(j*20);
             			if(c.equals(Color.yellow)){
             			hadiCezmi.getBoard().addGizmo("SquareTakoz", i*20, j*20);
             			} else if (c.equals(Color.magenta)){
@@ -116,7 +105,7 @@ public class EditFrameController extends StartFrameController {
 			}
 		}
 
-		hadiCezmi.getBoard().resetBalls();
+		hadiCezmi.getBoard().resetBallPositions();
 
 	}
 }

@@ -1,16 +1,10 @@
 package game;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Observable;
 import java.util.Observer;
-
-import javax.swing.Timer;
 
 import xml.XMLParser;
 
@@ -21,6 +15,12 @@ public class HadiCezmi implements Observer{
     public static final int UNIT_LENGTH = 20;
     public static final int BOARD_WIDTH = UNIT_LENGTH*25;
     public static final int BOARD_HEIGHT = UNIT_LENGTH*25;
+    public static final double TIME_COLLISION = .25;
+    public static final double CORNER_RADIUS = 0;
+    public static final int LEVEL_ONE = 1;
+    public static final int LEVEL_TWO = 2;
+
+
    
 
     private Player player1;
@@ -341,15 +341,21 @@ public class HadiCezmi implements Observer{
 
 	@Override
 	public void update(Observable o, Object arg) {
-		String score = (String) arg;
-		if(score.equalsIgnoreCase("left")){
-			int num = player1.getScore();
-			player1.setScore(num+1);
+		Double[] score = (Double[]) arg;
+		if(score[0] == 1){
+			double num = player1.getScore();
+			player1.setScore(num+score[1]);
 		}else{
-			int num = player2.getScore();
-			player2.setScore(num+1);
+			double num = player2.getScore();
+			player2.setScore(num+score[1]);
 		}
+		board.resetBallPositions();
+        board.changeBallDiameters(player1.getScore(), player2.getScore());
+        board.resetBallVelocities();
 		System.out.println("Player1: "+player1.getScore()+ "Player2: "+player2.getScore());
+        if(player1.getScore() >= 10 || player2.getScore() >= 10){
+            this.setRunningMode(false);
+        }
 		
 	}
 
@@ -358,7 +364,7 @@ public class HadiCezmi implements Observer{
         board.addObserver(this);
     }
 	
-	
+
 
 }
 

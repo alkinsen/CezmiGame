@@ -85,12 +85,12 @@ public class GameFrame {
     }
 
     public void updateScore(){
-        score1.setText(hadi.getPlayer1().getName()+": "+Integer.toString(hadi.getPlayer1().getScore()));
-        score2.setText(hadi.getPlayer2().getName()+": "+Integer.toString(hadi.getPlayer2().getScore()));
+        score1.setText(hadi.getPlayer1().getName()+": "+Double.toString(hadi.getPlayer1().getScore()));
+        score2.setText(hadi.getPlayer2().getName()+": "+Double.toString(hadi.getPlayer2().getScore()));
 
     }
     public void addButtons(JToolBar toolBar) {
-        score1 = new JLabel(hadi.getPlayer1().getName()+": "+ Integer.toString(hadi.getPlayer1().getScore()), SwingConstants.CENTER);
+        score1 = new JLabel(hadi.getPlayer1().getName()+": "+ Double.toString(hadi.getPlayer1().getScore()), SwingConstants.CENTER);
         score1.setOpaque(true);
         score1.setBackground(Color.green);
         toolBar.add(score1);
@@ -147,7 +147,7 @@ public class GameFrame {
         });
         toolBar.add(button);
 
-        score2 = new JLabel(hadi.getPlayer2().getName()+": "+ Integer.toString(hadi.getPlayer2().getScore()), SwingConstants.CENTER);
+        score2 = new JLabel(hadi.getPlayer2().getName()+": "+ Double.toString(hadi.getPlayer2().getScore()), SwingConstants.CENTER);
         score2.setOpaque(true);
         score2.setBackground(Color.green);
         toolBar.add(score2);

@@ -1,10 +1,7 @@
 package game;
 
 import java.awt.Color;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.Observable;
-import java.util.Random;
+import java.util.*;
 
 import physics.*;
 
@@ -98,7 +95,6 @@ public class Board extends Observable{
 
 
     public void changeBallPosition(double x, double y) {
-        System.out.println(x +" " + y);
         ball.setX(x);
         ball.setY(y);
     }
@@ -236,8 +232,9 @@ public class Board extends Observable{
 
     public void checkCollision( boolean leftPressed, boolean rightPressed){
         checkCollisionAndReflectBall(getBall(), leftPressed, rightPressed);
-        checkCollisionAndReflectBall(getBall2(), leftPressed, rightPressed);
-
+        if(getLevel() == 2) {
+            checkCollisionAndReflectBall(getBall2(), leftPressed, rightPressed);
+        }
         //ball related vectors
         Circle ballCircle = new Circle(ball.getX(), ball.getY(), ball.getRadius());
         Vect ballVelocity = new Vect(ball.getVx(), ball.getVy());
@@ -258,6 +255,7 @@ public class Board extends Observable{
         }
     }
     public void checkCollisionAndReflectBall(Ball ball, boolean leftPressed, boolean rightPressed) {
+        Double[] score = new Double[2];
 
     	//apply the friction
     	Vect ballVel = new Vect(ball.getVx(),ball.getVy());
@@ -269,8 +267,6 @@ public class Board extends Observable{
     	ballVel = new Vect(ballVel.angle(),velLength);
     	ball.setVx(ballVel.x());
         ball.setVy(ballVel.y());
-
-
 
         //ball related vectors
         Circle ballCircle = new Circle(ball.getX(), ball.getY(), ball.getRadius());
@@ -285,30 +281,15 @@ public class Board extends Observable{
         Circle cezmiCircle2 = new Circle(cezmi2.getX(), cezmi2.getY(), cezmi2.getRadius());
         Vect cezmiVector2 = new Vect(cezmi2.getX(), cezmi2.getY());
 
-        //engel related vectors
-        Vect engelTopLeftCorner = new Vect(engel.getX(), engel.getY());
-//        Circle engelTopLeftCircle = new Circle(engelTopLeftCorner.x(), engelTopLeftCorner.y(), 1);
-        Vect engelTopRightCorner = new Vect((engel.getX() + engel.getWidth()), engel.getY());
-//        Circle engelTopRightCircle = new Circle(engelTopRightCorner.x(), engelTopRightCorner.y(), 1);
-        Vect engelBottomLeftCorner = new Vect(engel.getX(), (engel.getY() + engel.getHeight()));
-//        Circle engelBottomLeftCircle = new Circle(engelBottomLeftCorner.x(), engelBottomLeftCorner.y(), 1);
-        Vect engelBottomRightCorner = new Vect((engel.getX() + engel.getWidth()), (engel.getY() + engel.getHeight()));
-//        Circle engelBottomRightCircle = new Circle(engelBottomRightCorner.x(), engelBottomRightCorner.y(), 1);
-
-        LineSegment engelTopLine = new LineSegment(engelTopLeftCorner, engelTopRightCorner);
-        LineSegment engelRightLine = new LineSegment(engelTopRightCorner, engelBottomRightCorner);
-        LineSegment engelBottomLine = new LineSegment(engelBottomLeftCorner, engelBottomRightCorner);
-        LineSegment engelLeftLine = new LineSegment(engelTopLeftCorner, engelBottomLeftCorner);
-
         //duvar vectors
         Vect boardTopLeftCorner = new Vect(0, 0);
-//        Circle boardTopLeftCircle = new Circle(boardTopLeftCorner.x(), boardTopLeftCorner.y(), 1);
+        Circle boardTopLeftCircle = new Circle(boardTopLeftCorner.x(), boardTopLeftCorner.y(), HadiCezmi.CORNER_RADIUS);
         Vect boardTopRightCorner = new Vect(width, 0);
-//        Circle boardTopRightCircle = new Circle(boardTopRightCorner.x(), boardTopRightCorner.y(), 1);
+        Circle boardTopRightCircle = new Circle(boardTopRightCorner.x(), boardTopRightCorner.y(), HadiCezmi.CORNER_RADIUS);
         Vect boardBottomLeftCorner = new Vect(0, height);
-//        Circle boardBottomLeftCircle = new Circle(boardBottomLeftCorner.x(), boardBottomLeftCorner.y(), 1);
+        Circle boardBottomLeftCircle = new Circle(boardBottomLeftCorner.x(), boardBottomLeftCorner.y(), HadiCezmi.CORNER_RADIUS);
         Vect boardBottomRightCorner = new Vect(width, height);
-//        Circle boardBottomRightCircle = new Circle(boardBottomRightCorner.x(), boardBottomRightCorner.y(), 1);
+        Circle boardBottomRightCircle = new Circle(boardBottomRightCorner.x(), boardBottomRightCorner.y(), HadiCezmi.CORNER_RADIUS);
 
         LineSegment boardTopLine = new LineSegment(boardTopLeftCorner, boardTopRightCorner);
         LineSegment boardRightLine = new LineSegment(boardTopRightCorner, boardBottomRightCorner);
@@ -316,236 +297,118 @@ public class Board extends Observable{
         LineSegment boardLeftLine = new LineSegment(boardTopLeftCorner, boardBottomLeftCorner);
 
         //duvar collision
-        if (Geometry.timeUntilWallCollision(boardTopLine, ballCircle, ballVelocity) <= .5) {
+        if (Geometry.timeUntilWallCollision(boardTopLine, ballCircle, ballVelocity) <= HadiCezmi.TIME_COLLISION) {
             Vect returnedVector = Geometry.reflectWall(boardTopLine, ballVelocity);
             ball.setVx(returnedVector.x());
             ball.setVy(returnedVector.y());
-        } else if (Geometry.timeUntilWallCollision(boardRightLine, ballCircle, ballVelocity) <= .5) {
+            if(ball.getState().equals("Cezmi")){
+                score[0] = ball.getPlayer();
+                score[1] = 0.5;
+                setChanged();
+                notifyObservers(score);
+            }
+        } else if (Geometry.timeUntilWallCollision(boardRightLine, ballCircle, ballVelocity) <= HadiCezmi.TIME_COLLISION) {
             Vect returnedVector = Geometry.reflectWall(boardRightLine, ballVelocity);
             ball.setVx(returnedVector.x());
             ball.setVy(returnedVector.y());
-        } else if (Geometry.timeUntilWallCollision(boardBottomLine, ballCircle, ballVelocity) <= .5) {
-            Vect returnedVector = Geometry.reflectWall(engelBottomLine, ballVelocity);
+        } else if (Geometry.timeUntilWallCollision(boardBottomLine, ballCircle, ballVelocity) <= HadiCezmi.TIME_COLLISION) {
+            Vect returnedVector = Geometry.reflectWall(boardBottomLine, ballVelocity);
             ball.setVx(returnedVector.x());
             ball.setVy(returnedVector.y());
-            String score = "left";
+            double player = 1;
             if(ball.getX()<engel.getX()){
-            	score= "right";
+            	player = 2;
             }
+            score[0] = player;
+            score[1] = ball.getScore();
             setChanged();
             notifyObservers(score);
-        } else if (Geometry.timeUntilWallCollision(boardLeftLine, ballCircle, ballVelocity) <= .5) {
-            Vect returnedVector = Geometry.reflectWall(engelLeftLine, ballVelocity);
+        } else if (Geometry.timeUntilWallCollision(boardLeftLine, ballCircle, ballVelocity) <= HadiCezmi.TIME_COLLISION) {
+            Vect returnedVector = Geometry.reflectWall(boardLeftLine, ballVelocity);
             ball.setVx(returnedVector.x());
             ball.setVy(returnedVector.y());
 
         }
-//        else if (Geometry.timeUntilCircleCollision(boardTopLeftCircle, ballCircle, ballVelocity) == 0) {
-//
-//            Vect returnedVector = Geometry.reflectCircle(boardTopLeftCorner, ballVector, ballVelocity);
-//            ball.setVx(returnedVector.x());
-//            ball.setVy(returnedVector.y());
-//
-//
-//        } else if (Geometry.timeUntilCircleCollision(boardTopRightCircle, ballCircle, ballVelocity) == 0) {
-//
-//            Vect returnedVector = Geometry.reflectCircle(boardTopRightCorner, ballVector, ballVelocity);
-//            ball.setVx(returnedVector.x());
-//            ball.setVy(returnedVector.y());
-//
-//        } else if (Geometry.timeUntilCircleCollision(boardBottomLeftCircle, ballCircle, ballVelocity) == 0) {
-//
-//            Vect returnedVector = Geometry.reflectCircle(boardBottomLeftCorner, ballVector, ballVelocity);
-//            ball.setVx(returnedVector.x());
-//            ball.setVy(returnedVector.y());
-//
-//        } else if (Geometry.timeUntilCircleCollision(boardBottomRightCircle, ballCircle, ballVelocity) == 0) {
-//
-//            Vect returnedVector = Geometry.reflectCircle(boardBottomRightCorner, ballVector, ballVelocity);
-//            ball.setVx(returnedVector.x());
-//            ball.setVy(returnedVector.y());
-//        }
+        else if (Geometry.timeUntilCircleCollision(boardTopLeftCircle, ballCircle, ballVelocity) <= HadiCezmi.TIME_COLLISION) {
+
+            Vect returnedVector = Geometry.reflectCircle(boardTopLeftCorner, ballVector, ballVelocity);
+            ball.setVx(returnedVector.x());
+            ball.setVy(returnedVector.y());
+
+
+        } else if (Geometry.timeUntilCircleCollision(boardTopRightCircle, ballCircle, ballVelocity) <= HadiCezmi.TIME_COLLISION) {
+
+            Vect returnedVector = Geometry.reflectCircle(boardTopRightCorner, ballVector, ballVelocity);
+            ball.setVx(returnedVector.x());
+            ball.setVy(returnedVector.y());
+
+        } else if (Geometry.timeUntilCircleCollision(boardBottomLeftCircle, ballCircle, ballVelocity) <= HadiCezmi.TIME_COLLISION) {
+
+            Vect returnedVector = Geometry.reflectCircle(boardBottomLeftCorner, ballVector, ballVelocity);
+            ball.setVx(returnedVector.x());
+            ball.setVy(returnedVector.y());
+
+        } else if (Geometry.timeUntilCircleCollision(boardBottomRightCircle, ballCircle, ballVelocity) <= HadiCezmi.TIME_COLLISION) {
+
+            Vect returnedVector = Geometry.reflectCircle(boardBottomRightCorner, ballVector, ballVelocity);
+            ball.setVx(returnedVector.x());
+            ball.setVy(returnedVector.y());
+        }
 
         //cezmi1 collision
-        if (Geometry.timeUntilCircleCollision(cezmiCircle1, ballCircle, ballVelocity) <= .5) {
+        if (Geometry.timeUntilCircleCollision(cezmiCircle1, ballCircle, ballVelocity) <= HadiCezmi.TIME_COLLISION) {
             Vect returnedVector = Geometry.reflectCircle(cezmiVector1, ballVector, ballVelocity);
             ball.setVx(returnedVector.x());
             ball.setVy(returnedVector.y());
+            ball.setState("Cezmi");
+            ball.setPlayer(2.0);
 
         }
 
         //cezmi2 collision
-        if (Geometry.timeUntilCircleCollision(cezmiCircle2, ballCircle, ballVelocity) <= .5) {
+        if (Geometry.timeUntilCircleCollision(cezmiCircle2, ballCircle, ballVelocity) <= HadiCezmi.TIME_COLLISION) {
             Vect returnedVector = Geometry.reflectCircle(cezmiVector2, ballVector, ballVelocity);
             ball.setVx(returnedVector.x());
             ball.setVy(returnedVector.y());
+            ball.setState("Cezmi");
+            ball.setPlayer(1.0);
 
         }
 
         //engel collision
-        if (Geometry.timeUntilWallCollision(engelTopLine, ballCircle, ballVelocity) <= .5) {
-            Vect returnedVector = Geometry.reflectWall(engelTopLine, ballVelocity);
-            ball.setVx(returnedVector.x());
-            ball.setVy(returnedVector.y());
-        } else if (Geometry.timeUntilWallCollision(engelRightLine, ballCircle, ballVelocity) <= .5) {
-            Vect returnedVector = Geometry.reflectWall(engelRightLine, ballVelocity);
-            ball.setVx(returnedVector.x());
-            ball.setVy(returnedVector.y());
-        } else if (Geometry.timeUntilWallCollision(engelBottomLine, ballCircle, ballVelocity) <= .5) {
-            Vect returnedVector = Geometry.reflectWall(engelBottomLine, ballVelocity);
-            ball.setVx(returnedVector.x());
-            ball.setVy(returnedVector.y());
-        } else if (Geometry.timeUntilWallCollision(engelLeftLine, ballCircle, ballVelocity) <= .5) {
-            Vect returnedVector = Geometry.reflectWall(engelLeftLine, ballVelocity);
-            ball.setVx(returnedVector.x());
-            ball.setVy(returnedVector.y());
-
+        if(engelCollision(engel, ballCircle, ballVelocity, ballVector)){
+            if(!ball.getState().equals("Reset")) {
+                score[0] = ball.getPlayer();
+                score[1] = 0.5;
+                setChanged();
+                notifyObservers(score);
+                ball.setState("Reset");
+            }
         }
-//        else if (Geometry.timeUntilCircleCollision(engelTopLeftCircle, ballCircle, ballVelocity) == 0) {
-//
-//            Vect returnedVector = Geometry.reflectCircle(engelTopLeftCorner, ballVector, ballVelocity);
-//            ball.setVx(returnedVector.x());
-//            ball.setVy(returnedVector.y());
-//
-//
-//        } else if (Geometry.timeUntilCircleCollision(engelTopRightCircle, ballCircle, ballVelocity) == 0) {
-//
-//            Vect returnedVector = Geometry.reflectCircle(engelTopRightCorner, ballVector, ballVelocity);
-//            ball.setVx(returnedVector.x());
-//            ball.setVy(returnedVector.y());
-//
-//        } else if (Geometry.timeUntilCircleCollision(engelBottomLeftCircle, ballCircle, ballVelocity) == 0) {
-//
-//            Vect returnedVector = Geometry.reflectCircle(engelBottomLeftCorner, ballVector, ballVelocity);
-//            ball.setVx(returnedVector.x());
-//            ball.setVy(returnedVector.y());
-//
-//        } else if (Geometry.timeUntilCircleCollision(engelBottomRightCircle, ballCircle, ballVelocity) == 0) {
-//
-//            Vect returnedVector = Geometry.reflectCircle(engelBottomRightCorner, ballVector, ballVelocity);
-//            ball.setVx(returnedVector.x());
-//            ball.setVy(returnedVector.y());
-//        }
 
         //takozlar
 
         for (int i = 0; i < gizmoArrayList.size(); i++) {
             Gizmo gizmo = gizmoArrayList.get(i);
 
-            if ((gizmo instanceof SquareTakoz) || (gizmo instanceof Tokat)) {
-
-                Gizmo temp = (Gizmo) gizmo;
-                Vect p1 = temp.getPoints()[0];
-                Vect p2 = temp.getPoints()[1];
-                Vect p3 = temp.getPoints()[2];
-                Vect p4 = temp.getPoints()[3];
-
-//                Circle topLeftCircle = new Circle(p1.x(), p1.y(), 1);
-//                Circle topRightCircle = new Circle(p2.x(), p2.y(), 1);
-//                Circle bottomLeftCircle = new Circle(p3.x(), p3.y(), 1);
-//                Circle bottomRightCircle = new Circle(p4.x(), p4.y(), 1);
-
-                LineSegment topLine = new LineSegment(p1, p2);
-                LineSegment rightLine = new LineSegment(p2, p3);
-                LineSegment bottomLine = new LineSegment(p4, p1);
-                LineSegment leftLine = new LineSegment(p1, p4);
-
-                if (Geometry.timeUntilWallCollision(topLine, ballCircle, ballVelocity) <= .5) {
-                    Vect returnedVector = Geometry.reflectWall(topLine, ballVelocity);
-                    ball.setVx(returnedVector.x());
-                    ball.setVy(returnedVector.y());
-                } else if (Geometry.timeUntilWallCollision(rightLine, ballCircle, ballVelocity) <= .5) {
-                    Vect returnedVector = Geometry.reflectWall(rightLine, ballVelocity);
-                    ball.setVx(returnedVector.x());
-                    ball.setVy(returnedVector.y());
-                } else if (Geometry.timeUntilWallCollision(bottomLine, ballCircle, ballVelocity) <= .5) {
-                    Vect returnedVector = Geometry.reflectWall(bottomLine, ballVelocity);
-                    ball.setVx(returnedVector.x());
-                    ball.setVy(returnedVector.y());
-                } else if (Geometry.timeUntilWallCollision(leftLine, ballCircle, ballVelocity) <= .5) {
-                    Vect returnedVector = Geometry.reflectWall(leftLine, ballVelocity);
-                    ball.setVx(returnedVector.x());
-                    ball.setVy(returnedVector.y());
-
+            if (gizmo instanceof SquareTakoz) {
+                if(quadrilateralCollision(gizmo, ballCircle, ballVelocity, ballVector)) {
+                    ball.setState("SquareTakoz");
                 }
-//                else if (Geometry.timeUntilCircleCollision(topLeftCircle, ballCircle, ballVelocity) <= 1) {
-//
-//                    Vect returnedVector = Geometry.reflectCircle(p1, ballVector, ballVelocity);
-//                    ball.setVx(returnedVector.x());
-//                    ball.setVy(returnedVector.y());
-//
-//
-//                } else if (Geometry.timeUntilCircleCollision(topRightCircle, ballCircle, ballVelocity) <= 1) {
-//
-//                    Vect returnedVector = Geometry.reflectCircle(p2, ballVector, ballVelocity);
-//                    ball.setVx(returnedVector.x());
-//                    ball.setVy(returnedVector.y());
-//
-//                } else if (Geometry.timeUntilCircleCollision(bottomLeftCircle, ballCircle, ballVelocity) <= 1) {
-//
-//                    Vect returnedVector = Geometry.reflectCircle(p4, ballVector, ballVelocity);
-//                    ball.setVx(returnedVector.x());
-//                    ball.setVy(returnedVector.y());
-//
-//                } else if (Geometry.timeUntilCircleCollision(bottomRightCircle, ballCircle, ballVelocity) <= 1) {
-//
-//                    Vect returnedVector = Geometry.reflectCircle(p3, ballVector, ballVelocity);
-//                    ball.setVx(returnedVector.x());
-//                    ball.setVy(returnedVector.y());
-//                }
 
+            }else if(gizmo instanceof  Tokat){
+                if( quadrilateralCollision(gizmo, ballCircle, ballVelocity, ballVector)){
+                    ball.setScore(2.0);
+                    ball.setState("Tokat");
+                    ball.setTokatCounter(2000);
+                }
             } else if (gizmo instanceof TriangleTakoz) {
-
-                TriangleTakoz temp = (TriangleTakoz) gizmo;
-                Vect p1 = temp.getPoints()[0];
-                Vect p2 = temp.getPoints()[1];
-                Vect p3 = temp.getPoints()[2];
-
-//                Circle circle1 = new Circle(p1.x(), p1.y(), 1);
-//                Circle circle2 = new Circle(p2.x(), p2.y(), 1);
-//                Circle circle3 = new Circle(p3.x(), p3.y(), 1);
-
-                LineSegment line1 = new LineSegment(p1, p2);
-                LineSegment line2 = new LineSegment(p2, p3);
-                LineSegment line3 = new LineSegment(p3, p1);
-
-                if (Geometry.timeUntilWallCollision(line1, ballCircle, ballVelocity) <= .5) {
-                    Vect returnedVector = Geometry.reflectWall(line1, ballVelocity);
-                    ball.setVx(returnedVector.x());
-                    ball.setVy(returnedVector.y());
-                } else if (Geometry.timeUntilWallCollision(line2, ballCircle, ballVelocity) <= .5) {
-                    Vect returnedVector = Geometry.reflectWall(line2, ballVelocity);
-                    ball.setVx(returnedVector.x());
-                    ball.setVy(returnedVector.y());
-                } else if (Geometry.timeUntilWallCollision(line3, ballCircle, ballVelocity) <= .5) {
-                    Vect returnedVector = Geometry.reflectWall(line3, ballVelocity);
-                    ball.setVx(returnedVector.x());
-                    ball.setVy(returnedVector.y());
+                if(triangularCollision(gizmo,ballCircle,ballVelocity, ballVector)) {
+                    ball.setState("TriangularTakoz");
                 }
-//                else if (Geometry.timeUntilCircleCollision(circle1, ballCircle, ballVelocity) < 1) {
-//
-//                    Vect returnedVector = Geometry.reflectCircle(p1, ballVector, ballVelocity);
-//                    ball.setVx(returnedVector.x());
-//                    ball.setVy(returnedVector.y());
-//
-//
-//                } else if (Geometry.timeUntilCircleCollision(circle2, ballCircle, ballVelocity) < 1) {
-//
-//                    Vect returnedVector = Geometry.reflectCircle(p2, ballVector, ballVelocity);
-//                    ball.setVx(returnedVector.x());
-//                    ball.setVy(returnedVector.y());
-//
-//                } else if (Geometry.timeUntilCircleCollision(circle3, ballCircle, ballVelocity) < 1) {
-//
-//                    Vect returnedVector = Geometry.reflectCircle(p3, ballVector, ballVelocity);
-//                    ball.setVx(returnedVector.x());
-//                    ball.setVy(returnedVector.y());
-//
-//                }
             }
-
-
         }
+
         for (Gizmo g : gizmoArrayList) {
             if (g instanceof Firildak) {
                 g.rotate();
@@ -619,34 +482,268 @@ public class Board extends Observable{
     }
 
 
-    public void resetBalls() {
+    public void resetBallPositions() {
         Random random = new Random();
         if(getLevel() == 1){
-            int x = random.nextInt(500);
-            int y = random.nextInt(100);
+            int x = random.nextInt(400)+50;
+            int y = random.nextInt(200)+50;
             changeBallPosition(x,y);
             while(!verifyGizmo(x,y)){
+                x = random.nextInt(400)+50;
+                y = random.nextInt(200)+50;
                 changeBallPosition(x,y);
-                x =random.nextInt(500);
-                y = random.nextInt(100);
             }
         }else if(getLevel() == 2){
-            int x = random.nextInt(500);
-            int y = random.nextInt(100);
+            int x = random.nextInt(400)+50;
+            int y = random.nextInt(200)+50;
             changeBallPosition(x,y);
-            x =random.nextInt(500);
-            y = random.nextInt(100);
+            x =random.nextInt(400)+50;
+            y = random.nextInt(200)+50;
             changeBall2Position(x,y);
-            while(verifyGizmo(x,y)){
+            while(!verifyGizmo(x,y)){
+                x =random.nextInt(400)+50;
+                y = random.nextInt(200)+50;
                 changeBallPosition(x,y);
-                x =random.nextInt(500);
-                y = random.nextInt(100);
             }
-            while(verifyGizmo(x,y)){
+            while(!verifyGizmo(x,y)){
+                x =random.nextInt(400)+50;
+                y = random.nextInt(200)+50;
                 changeBall2Position(x,y);
-                x =random.nextInt(500);
-                y = random.nextInt(100);
+                changeBall2Position(x,y);
             }
         }
+        ball.setState("Reset");
+        ball.setScore(1.0);
+        ball2.setState("Reset");
+        ball2.setScore(1.0);
+    }
+
+    public void resetBallVelocities(){
+        Random random = new Random();
+        if(getLevel() == 1){
+            double vx = random.nextDouble()*2 - 1.0;
+            double vy = 0.0;
+            changeBallVelocity(vx, vy);
+        }else if(getLevel() == 2){
+            double vx = random.nextDouble()*2 - 1.0;
+            double vy = 0.0;
+            changeBallVelocity(vx, vy);
+            vx = random.nextDouble();
+            changeBall2Velocity(vx, vy);
+        }
+    }
+
+    public boolean quadrilateralCollision(Gizmo gizmo, Circle ballCircle, Vect ballVelocity, Vect ballVector){
+        boolean result = false;
+        Gizmo temp = (Gizmo) gizmo;
+        Vect p1 = temp.getPoints()[0];
+        Vect p2 = temp.getPoints()[1];
+        Vect p3 = temp.getPoints()[2];
+        Vect p4 = temp.getPoints()[3];
+
+        Circle topLeftCircle = new Circle(p1.x(), p1.y(), HadiCezmi.CORNER_RADIUS);
+        Circle topRightCircle = new Circle(p2.x(), p2.y(), HadiCezmi.CORNER_RADIUS);
+        Circle bottomLeftCircle = new Circle(p3.x(), p3.y(), HadiCezmi.CORNER_RADIUS);
+        Circle bottomRightCircle = new Circle(p4.x(), p4.y(), HadiCezmi.CORNER_RADIUS);
+
+        LineSegment topLine = new LineSegment(p1, p2);
+        LineSegment rightLine = new LineSegment(p2, p3);
+        LineSegment bottomLine = new LineSegment(p4, p1);
+        LineSegment leftLine = new LineSegment(p1, p4);
+
+        if (Geometry.timeUntilWallCollision(topLine, ballCircle, ballVelocity) <= HadiCezmi.TIME_COLLISION) {
+            Vect returnedVector = Geometry.reflectWall(topLine, ballVelocity);
+            ball.setVx(returnedVector.x());
+            ball.setVy(returnedVector.y());
+            result = true;
+        } else if (Geometry.timeUntilWallCollision(rightLine, ballCircle, ballVelocity) <= HadiCezmi.TIME_COLLISION) {
+            Vect returnedVector = Geometry.reflectWall(rightLine, ballVelocity);
+            ball.setVx(returnedVector.x());
+            ball.setVy(returnedVector.y());
+            result = true;
+        } else if (Geometry.timeUntilWallCollision(bottomLine, ballCircle, ballVelocity) <= HadiCezmi.TIME_COLLISION) {
+            Vect returnedVector = Geometry.reflectWall(bottomLine, ballVelocity);
+            ball.setVx(returnedVector.x());
+            ball.setVy(returnedVector.y());
+            result = true;
+        } else if (Geometry.timeUntilWallCollision(leftLine, ballCircle, ballVelocity) <= HadiCezmi.TIME_COLLISION) {
+            Vect returnedVector = Geometry.reflectWall(leftLine, ballVelocity);
+            ball.setVx(returnedVector.x());
+            ball.setVy(returnedVector.y());
+            result = true;
+
+        }
+        else if (Geometry.timeUntilCircleCollision(topLeftCircle, ballCircle, ballVelocity) <= HadiCezmi.TIME_COLLISION) {
+
+            Vect returnedVector = Geometry.reflectCircle(p1, ballVector, ballVelocity);
+            ball.setVx(returnedVector.x());
+            ball.setVy(returnedVector.y());
+            result = true;
+
+
+        } else if (Geometry.timeUntilCircleCollision(topRightCircle, ballCircle, ballVelocity) <= HadiCezmi.TIME_COLLISION) {
+
+            Vect returnedVector = Geometry.reflectCircle(p2, ballVector, ballVelocity);
+            ball.setVx(returnedVector.x());
+            ball.setVy(returnedVector.y());
+            result = true;
+
+        } else if (Geometry.timeUntilCircleCollision(bottomLeftCircle, ballCircle, ballVelocity) <= HadiCezmi.TIME_COLLISION) {
+
+            Vect returnedVector = Geometry.reflectCircle(p4, ballVector, ballVelocity);
+            ball.setVx(returnedVector.x());
+            ball.setVy(returnedVector.y());
+            result = true;
+
+        } else if (Geometry.timeUntilCircleCollision(bottomRightCircle, ballCircle, ballVelocity) <= HadiCezmi.TIME_COLLISION) {
+
+            Vect returnedVector = Geometry.reflectCircle(p3, ballVector, ballVelocity);
+            ball.setVx(returnedVector.x());
+            ball.setVy(returnedVector.y());
+            result = true;
+        }
+
+
+        return result;
+    }
+    public boolean triangularCollision(Gizmo gizmo, Circle ballCircle, Vect ballVelocity, Vect ballVector){
+        boolean result = false;
+        TriangleTakoz temp = (TriangleTakoz) gizmo;
+        Vect p1 = temp.getPoints()[0];
+        Vect p2 = temp.getPoints()[1];
+        Vect p3 = temp.getPoints()[2];
+
+        Circle circle1 = new Circle(p1.x(), p1.y(), HadiCezmi.CORNER_RADIUS);
+        Circle circle2 = new Circle(p2.x(), p2.y(), HadiCezmi.CORNER_RADIUS);
+        Circle circle3 = new Circle(p3.x(), p3.y(), HadiCezmi.CORNER_RADIUS);
+
+        LineSegment line1 = new LineSegment(p1, p2);
+        LineSegment line2 = new LineSegment(p2, p3);
+        LineSegment line3 = new LineSegment(p3, p1);
+
+        if (Geometry.timeUntilWallCollision(line1, ballCircle, ballVelocity) <= HadiCezmi.TIME_COLLISION) {
+            Vect returnedVector = Geometry.reflectWall(line1, ballVelocity);
+            ball.setVx(returnedVector.x());
+            ball.setVy(returnedVector.y());
+            result = true;
+        } else if (Geometry.timeUntilWallCollision(line2, ballCircle, ballVelocity) <= HadiCezmi.TIME_COLLISION) {
+            Vect returnedVector = Geometry.reflectWall(line2, ballVelocity);
+            ball.setVx(returnedVector.x());
+            ball.setVy(returnedVector.y());
+            result = true;
+        } else if (Geometry.timeUntilWallCollision(line3, ballCircle, ballVelocity) <= HadiCezmi.TIME_COLLISION) {
+            Vect returnedVector = Geometry.reflectWall(line3, ballVelocity);
+            ball.setVx(returnedVector.x());
+            ball.setVy(returnedVector.y());
+            result = true;
+        }
+        else if (Geometry.timeUntilCircleCollision(circle1, ballCircle, ballVelocity) <= HadiCezmi.TIME_COLLISION) {
+
+            Vect returnedVector = Geometry.reflectCircle(p1, ballVector, ballVelocity);
+            ball.setVx(returnedVector.x());
+            ball.setVy(returnedVector.y());
+            result = true;
+
+
+        } else if (Geometry.timeUntilCircleCollision(circle2, ballCircle, ballVelocity) <= HadiCezmi.TIME_COLLISION) {
+
+            Vect returnedVector = Geometry.reflectCircle(p2, ballVector, ballVelocity);
+            ball.setVx(returnedVector.x());
+            ball.setVy(returnedVector.y());
+            result = true;
+
+        } else if (Geometry.timeUntilCircleCollision(circle3, ballCircle, ballVelocity) <= HadiCezmi.TIME_COLLISION) {
+
+            Vect returnedVector = Geometry.reflectCircle(p3, ballVector, ballVelocity);
+            ball.setVx(returnedVector.x());
+            ball.setVy(returnedVector.y());
+            result = true;
+
+        }
+        return result;
+    }
+    public boolean engelCollision(Engel engel, Circle ballCircle, Vect ballVelocity, Vect ballVector){
+        boolean result = false;
+
+        Vect engelTopLeftCorner = new Vect(engel.getX(), engel.getY());
+        Circle engelTopLeftCircle = new Circle(engelTopLeftCorner.x(), engelTopLeftCorner.y(), HadiCezmi.CORNER_RADIUS);
+        Vect engelTopRightCorner = new Vect((engel.getX() + engel.getWidth()), engel.getY());
+        Circle engelTopRightCircle = new Circle(engelTopRightCorner.x(), engelTopRightCorner.y(), HadiCezmi.CORNER_RADIUS);
+        Vect engelBottomLeftCorner = new Vect(engel.getX(), (engel.getY() + engel.getHeight()));
+        Circle engelBottomLeftCircle = new Circle(engelBottomLeftCorner.x(), engelBottomLeftCorner.y(), HadiCezmi.CORNER_RADIUS);
+        Vect engelBottomRightCorner = new Vect((engel.getX() + engel.getWidth()), (engel.getY() + engel.getHeight()));
+        Circle engelBottomRightCircle = new Circle(engelBottomRightCorner.x(), engelBottomRightCorner.y(), HadiCezmi.CORNER_RADIUS);
+
+
+        LineSegment engelTopLine = new LineSegment(engelTopLeftCorner, engelTopRightCorner);
+        LineSegment engelRightLine = new LineSegment(engelTopRightCorner, engelBottomRightCorner);
+        LineSegment engelBottomLine = new LineSegment(engelBottomLeftCorner, engelBottomRightCorner);
+        LineSegment engelLeftLine = new LineSegment(engelTopLeftCorner, engelBottomLeftCorner);
+
+        if (Geometry.timeUntilWallCollision(engelTopLine, ballCircle, ballVelocity) <= HadiCezmi.TIME_COLLISION) {
+            Vect returnedVector = Geometry.reflectWall(engelTopLine, ballVelocity);
+            ball.setVx(returnedVector.x());
+            ball.setVy(returnedVector.y());
+            result = true;
+        } else if (Geometry.timeUntilWallCollision(engelRightLine, ballCircle, ballVelocity) <= HadiCezmi.TIME_COLLISION) {
+            Vect returnedVector = Geometry.reflectWall(engelRightLine, ballVelocity);
+            ball.setVx(returnedVector.x());
+            ball.setVy(returnedVector.y());
+            result = true;
+        } else if (Geometry.timeUntilWallCollision(engelBottomLine, ballCircle, ballVelocity) <= HadiCezmi.TIME_COLLISION) {
+            Vect returnedVector = Geometry.reflectWall(engelBottomLine, ballVelocity);
+            ball.setVx(returnedVector.x());
+            ball.setVy(returnedVector.y());
+            result = true;
+        } else if (Geometry.timeUntilWallCollision(engelLeftLine, ballCircle, ballVelocity) <= HadiCezmi.TIME_COLLISION) {
+            Vect returnedVector = Geometry.reflectWall(engelLeftLine, ballVelocity);
+            ball.setVx(returnedVector.x());
+            ball.setVy(returnedVector.y());
+            result = true;
+        }
+        else if (Geometry.timeUntilCircleCollision(engelTopLeftCircle, ballCircle, ballVelocity) <= HadiCezmi.TIME_COLLISION) {
+
+            Vect returnedVector = Geometry.reflectCircle(engelTopLeftCorner, ballVector, ballVelocity);
+            ball.setVx(returnedVector.x());
+            ball.setVy(returnedVector.y());
+            result = true;
+
+
+        } else if (Geometry.timeUntilCircleCollision(engelTopRightCircle, ballCircle, ballVelocity) <= HadiCezmi.TIME_COLLISION) {
+
+            Vect returnedVector = Geometry.reflectCircle(engelTopRightCorner, ballVector, ballVelocity);
+            ball.setVx(returnedVector.x());
+            ball.setVy(returnedVector.y());
+            result = true;
+
+        } else if (Geometry.timeUntilCircleCollision(engelBottomLeftCircle, ballCircle, ballVelocity) <= HadiCezmi.TIME_COLLISION) {
+
+            Vect returnedVector = Geometry.reflectCircle(engelBottomLeftCorner, ballVector, ballVelocity);
+            ball.setVx(returnedVector.x());
+            ball.setVy(returnedVector.y());
+            result = true;
+
+        } else if (Geometry.timeUntilCircleCollision(engelBottomRightCircle, ballCircle, ballVelocity) <= HadiCezmi.TIME_COLLISION) {
+
+            Vect returnedVector = Geometry.reflectCircle(engelBottomRightCorner, ballVector, ballVelocity);
+            ball.setVx(returnedVector.x());
+            ball.setVy(returnedVector.y());
+            result = true;
+
+        }
+
+        return result;
+
+    }
+
+    public void changeBallDiameters(double score1, double score2) {
+        if(((score1 + score2) % 2.0) == 0){
+            if(ball.getRadius() > HadiCezmi.UNIT_LENGTH/5) {
+                ball.setRadius(ball.getRadius() - HadiCezmi.UNIT_LENGTH / 10);
+                ball2.setRadius(ball2.getRadius() - HadiCezmi.UNIT_LENGTH / 10);
+            }
+        }
+        System.out.println(ball.getRadius());
+
     }
 }
