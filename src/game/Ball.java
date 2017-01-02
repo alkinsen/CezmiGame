@@ -16,17 +16,26 @@ public class Ball extends Observable{
 
 	private double x = (int) HadiCezmi.UNIT_LENGTH*15;
 	private double y = (int)0;
-	//private double vx = ((int)(Math.random() * 10.0))/20.0;
 	private double vx = 1;
-	//private double vy = ((int)(Math.random() * 10.0))/20.0;
 	private double vy = 0;
-	private int radius = (HadiCezmi.UNIT_LENGTH*6)/20;
+	private int radius = HadiCezmi.UNIT_LENGTH;
 	private double acceleration= 0.003;
-	
+	private double score = 1;
+	private String state = "Reset";
+	private double player = 1;
+	private int tokatCounter = 0;
 	private Color color = Color.white;
 	
 	public Ball() {
 		super();
+	}
+
+	public String getState() {
+		return state;
+	}
+
+	public void setState(String state) {
+		this.state = state;
 	}
 
 	public double getX() {
@@ -91,10 +100,7 @@ public class Ball extends Observable{
 			vx=-vx;
 		}
 		
-		if(y<0 && vy<0){
-			y=0;
-			vy=-vy;
-		}else if(y>495 && vy>0){
+		if(y>500 && vy>0){
 			y=494;
 			vy=-vy;
 		}
@@ -102,9 +108,43 @@ public class Ball extends Observable{
 		x = x + vx;
 		y = y + vy;
 		vy= vy+acceleration;
+		if(getTokatCounter() > 0){
+			decrementTokatCounter();
+		}
+
+		if(getTokatCounter() == 0){
+			this.setScore(1.0);
+		}
 		setChanged();
 		notifyObservers(this);
 
 	}
-	
+
+	public double getScore() {
+		return score;
+	}
+
+	public void setScore(double score) {
+		this.score = score;
+	}
+
+	public double getPlayer() {
+		return player;
+	}
+
+	public void setPlayer(double player) {
+		this.player = player;
+	}
+
+	public int getTokatCounter() {
+		return tokatCounter;
+	}
+
+	public void setTokatCounter(int tokatCounter) {
+		this.tokatCounter = tokatCounter;
+	}
+	public void decrementTokatCounter() {
+		this.tokatCounter = this.tokatCounter--;
+	}
+
 }
