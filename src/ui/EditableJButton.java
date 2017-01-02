@@ -12,6 +12,8 @@ public class EditableJButton extends JButton {
     private int mode = 0;
     private int x, y;
     private final static int UNIT_LENGTH = 20;
+    private boolean rotateMode=false;
+    private int matrixValue=0;
     //mode 0 = null, 
     //mode 1 = SquareTakoz  = sarı
     //mode 2 = TriangleTakoz = kırmızı
@@ -38,7 +40,7 @@ public class EditableJButton extends JButton {
             }
             @Override
             public void mousePressed(MouseEvent e) {
-                if (e.getButton() == MouseEvent.BUTTON1) {
+                if (e.getButton() == MouseEvent.BUTTON1 && !rotateMode) {
                 	switch(mode){
                 	case 0 :
                 		if (y == 24){
@@ -67,6 +69,15 @@ public class EditableJButton extends JButton {
                 }
                 else if(e.getButton() == MouseEvent.BUTTON3){
                 	setMode(0);
+                }
+                else if(e.getButton() == MouseEvent.BUTTON1 && rotateMode){
+                	int x=e.getX();
+                	int y=e.getY();
+                	if(mode!=0){
+//                	System.out.println(x+" "+y);
+                	matrixValue++;
+//                	System.out.println(matrixValue);
+                	}
                 }
             }
 
@@ -101,5 +112,15 @@ public class EditableJButton extends JButton {
         if(mode == 5) setBackground(Color.green);
         repaint();
 
+    }
+    public void setRotateMode(boolean mode){
+    	rotateMode=mode;
+    }
+    public int getMatrixValue(){
+    	System.out.println("Editabledaki deger "+matrixValue);
+    	return matrixValue;
+    }
+    public void setMatrixValue(int newMatrixValue){
+    	matrixValue=newMatrixValue;
     }
 }
