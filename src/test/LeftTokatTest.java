@@ -11,6 +11,7 @@ public class LeftTokatTest {
 
 	@Test
 	public void testRotateBoolean() {
+
 		//This test is generated for checking the rotation of 
 		//LeftTokat. Rotation is done for hitting. In here we create a 
 		//LeftTokat and then check rotation in several conditions, 
@@ -19,7 +20,8 @@ public class LeftTokatTest {
 		//after rotation with the points of the LeftTokat after rotation.
 		
 		
-		/*LeftTokat testLeft = new LeftTokat(150,150);
+		LeftTokat testLeft = new LeftTokat(150,150);
+
 		
 		Vect[] testPoints = new Vect[4];
 		
@@ -83,7 +85,7 @@ public class LeftTokatTest {
 		
 		
 		
-		*/
+
 	}
 
 }
