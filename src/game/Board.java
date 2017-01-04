@@ -179,6 +179,7 @@ public class Board extends Observable{
     }
 
     public void rotateGizmo(int x, int y) {
+        System.out.println("rotate");
         for (Gizmo element : gizmoArrayList) {
             if (element.getX() == x && element.getY() == y) {
                 element.rotate();

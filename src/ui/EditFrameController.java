@@ -25,8 +25,6 @@ public class EditFrameController extends StartFrameController {
             		for(int j=0; j<25;j++){
             			
             			Color c=g[i][j].getBackground();
-            			System.out.println(i*20);
-            			System.out.println(j*20);
             			int rotationAmount= matrix[i][j];
 
             			if(c.equals(Color.yellow)){
