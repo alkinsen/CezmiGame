@@ -119,11 +119,11 @@ public class XMLBuilder {
 		cezeryes.appendChild(element3);
 		
 		Attr cezeryeAttr = doc.createAttribute("x");
-		cezeryeAttr.setValue(Double.toString(g2.getX()));
+		cezeryeAttr.setValue(Integer.toString(g2.getX()));
 		element3.setAttributeNode(cezeryeAttr);
 		
 		Attr cezeryeAttr2 = doc.createAttribute("y");
-		cezeryeAttr2.setValue(Double.toString(g2.getY()));
+		cezeryeAttr2.setValue(Integer.toString(g2.getY()));
 		element3.setAttributeNode(cezeryeAttr2);
 		
 		Attr cezeryeAttr3 = doc.createAttribute("time");
