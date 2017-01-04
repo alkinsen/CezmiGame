@@ -165,8 +165,17 @@ public class Board extends Observable{
         if (valid) {
             Gizmo g = gizmoFactory.getGizmo(type, x, y);
             gizmoArrayList.add(g);
+
         }
-      
+    }
+
+    public void addCezerye(int x, int y, double time){
+        getCezerye().setX(x);
+        getCezerye().setY(y);
+        countdown = (int)time * 200;
+        getCezerye().setCountdown(countdown);
+        cezeryeAppear = true;
+        getCezerye().setCezeryeAppear(true);
     }
 
     public void addGizmo(String type, int x, int y, int orientation) {
@@ -266,6 +275,7 @@ public class Board extends Observable{
       //check the situation of cezerye
         if(!cezeryeAppear && countdown == -1){
         	countdown = (int) (1000 + Math.random()*200*25);
+            getCezerye().setCountdown(countdown);
         }else if(!cezeryeAppear && countdown == 0){
         	int xLoc = (int)(Math.random()*24.0) * 20;
         	int yLoc = (int)(Math.random()*18.0) * 20  + 40;
@@ -281,16 +291,20 @@ public class Board extends Observable{
         	cezeryeAppear=true;
             getCezerye().setCezeryeAppear(cezeryeAppear);
         	countdown=1000;
+            getCezerye().setCountdown(countdown);
         }else if(!cezeryeAppear && countdown>0){
         	countdown--;
+            getCezerye().setCountdown(countdown);
         }else if(cezeryeAppear && countdown >0){
         	countdown--;
+            getCezerye().setCountdown(countdown);
         }else if(cezeryeAppear && countdown == 0){
         	cezeryeAppear=false;
             getCezerye().setCezeryeAppear(cezeryeAppear);
             getCezerye().setX(1000);
             getCezerye().setY(1000);
             countdown = (int) (1000 + Math.random()*200*25);
+            getCezerye().setCountdown(countdown);
         }
     }
     public void checkCollisionAndReflectBall(Ball ball, boolean leftPressed, boolean rightPressed) {
@@ -450,6 +464,7 @@ public class Board extends Observable{
                     getCezerye().setX(1000);
                     getCezerye().setY(1000);
                     countdown = (int) (1000 + Math.random()*200*25);
+                    getCezerye().setCountdown(countdown);
 
                     Random rand = new Random();
                     int specialEffectNumber = rand.nextInt(3);
