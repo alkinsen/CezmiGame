@@ -1,6 +1,9 @@
 package xml;
 
+import java.awt.Color;
 import java.io.File;
+import java.util.Date;
+
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -22,6 +25,7 @@ import game.Gizmo;
 import game.Player;
 import game.SquareTakoz;
 import game.TriangleTakoz;
+import ui.EditableJButton;
 import game.LeftTokat;
 import game.RightTokat;
 import game.Firildak;
@@ -33,7 +37,7 @@ public class XMLBuilder {
 		this.hadiCezmi = cezmi;
 	}
 	
-	public void writeToXML() throws ParserConfigurationException, TransformerException {
+	public void writeToXML(EditableJButton[][] gridSquares) throws ParserConfigurationException, TransformerException {
 	
 	DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
 	DocumentBuilder docBuilder = docFactory.newDocumentBuilder();
@@ -133,7 +137,92 @@ public class XMLBuilder {
 	Element gizmos = doc.createElement("gizmos");
 	rootElement.appendChild(gizmos);
 	
-	for(int i=0; i<hadiCezmi.getBoard().getGizmoArrayList().size(); i++){
+	for(int i=0; i<25; i++){
+		for(int j=0; j<25; j++){
+			Color c = gridSquares[i][j].getBackground();
+		
+			if(c.equals(Color.yellow)){
+				Element element4 = doc.createElement("squareTakoz");
+				gizmos.appendChild(element4);
+				
+				Attr squareTakozAttr = doc.createAttribute("x");
+				squareTakozAttr.setValue(Integer.toString(i*20));
+				element4.setAttributeNode(squareTakozAttr);
+				
+				Attr squareTakozAttr2 = doc.createAttribute("y");
+				squareTakozAttr2.setValue(Integer.toString(j*20));
+				element4.setAttributeNode(squareTakozAttr2);
+			}
+			else if(c.equals(Color.red)){
+				Element element5 = doc.createElement("triangleTakoz");
+				gizmos.appendChild(element5);
+				
+				Attr triangleTakozAttr = doc.createAttribute("x");
+				triangleTakozAttr.setValue(Integer.toString(i*20));
+				element5.setAttributeNode(triangleTakozAttr);
+				
+				Attr triangleTakozAttr2 = doc.createAttribute("y");
+				triangleTakozAttr2.setValue(Integer.toString(j*20));
+				element5.setAttributeNode(triangleTakozAttr2);
+				
+				/*Attr triangleTakozAttr3 = doc.createAttribute("orientation");
+				triangleTakozAttr3.setValue(Integer.toString(g.getOrientation()));
+				element5.setAttributeNode(triangleTakozAttr3);*/
+			}
+			else if (c.equals(Color.blue)){
+				Element element6 = doc.createElement("firildak");
+				gizmos.appendChild(element6);
+				
+				Attr firildakAttr = doc.createAttribute("x");
+				firildakAttr.setValue(Integer.toString(i*20));
+				element6.setAttributeNode(firildakAttr);
+				
+				Attr firildakAttr2 = doc.createAttribute("y");
+				firildakAttr2.setValue(Integer.toString(j*20));
+				element6.setAttributeNode(firildakAttr2);
+				
+				Attr firildakAttr3 = doc.createAttribute("angle");
+				firildakAttr3.setValue(Double.toString(0));
+				element6.setAttributeNode(firildakAttr3);
+			}
+			else if(c.equals(Color.pink) && i<13){
+				Element element7 = doc.createElement("leftTokat");
+				gizmos.appendChild(element7);
+				
+				Attr leftTokatAttr = doc.createAttribute("x");
+				leftTokatAttr.setValue(Integer.toString(i*20));
+				element7.setAttributeNode(leftTokatAttr);
+				
+				Attr leftTokatAttr2 = doc.createAttribute("y");
+				leftTokatAttr2.setValue(Integer.toString(j*20));
+				element7.setAttributeNode(leftTokatAttr2);
+				
+				Attr leftTokatAttr3 = doc.createAttribute("orientation");
+				leftTokatAttr3.setValue(Integer.toString(0));
+				element7.setAttributeNode(leftTokatAttr3);
+			}
+			else if(c.equals(Color.pink) && i>13){
+				Element element8 = doc.createElement("rightTokat");
+				gizmos.appendChild(element8);
+				
+				Attr rightTokatAttr = doc.createAttribute("x");
+				rightTokatAttr.setValue(Integer.toString(i*20));
+				element8.setAttributeNode(rightTokatAttr);
+				
+				Attr rightTokatAttr2 = doc.createAttribute("y");
+				rightTokatAttr2.setValue(Integer.toString(j*20));
+				element8.setAttributeNode(rightTokatAttr2);
+				
+				Attr rightTokatAttr3 = doc.createAttribute("orientation");
+				rightTokatAttr3.setValue(Integer.toString(0));
+				element8.setAttributeNode(rightTokatAttr3);
+			}
+				
+			}
+		}
+	
+	
+	/*for(int i=0; i<hadiCezmi.getBoard().getGizmoArrayList().size(); i++){
 		Gizmo g = hadiCezmi.getBoard().getGizmoArrayList().get(i);
 		
 		if (g instanceof Firildak){
@@ -231,10 +320,10 @@ public class XMLBuilder {
 		
 		}
 		
-	}
+	}*/
 	
 	//
-	
+
 	Element keys = doc.createElement("keys");
 	rootElement.appendChild(keys);
 	
@@ -287,9 +376,10 @@ public class XMLBuilder {
 	TransformerFactory transformerFactory = TransformerFactory.newInstance();
 	Transformer transformer = transformerFactory.newTransformer();
 	DOMSource source = new DOMSource(doc);
-	StreamResult result = new StreamResult(new File("/Users/alikucukdeveci/Desktop/test.xml"));
-	
+	Date date = new Date();
+	String time = ""+ date.getTime();
+	StreamResult result = new StreamResult(new File("HadiCezmi-"+time+".xml"));
 	transformer.transform(source, result);
-
+	
 	}
 }

@@ -13,9 +13,9 @@ import xml.XMLParser;
  */
 public class HadiCezmi implements Observer{
     public static final int UNIT_LENGTH = 20;
-    public static final int BOARD_WIDTH = UNIT_LENGTH*25;
-    public static final int BOARD_HEIGHT = UNIT_LENGTH*25;
-    public static final double TIME_COLLISION = .25;
+    public static final int BOARD_WIDTH = UNIT_LENGTH*20;
+    public static final int BOARD_HEIGHT = UNIT_LENGTH*20;
+    public static final double TIME_COLLISION = .20;
     public static final double CORNER_RADIUS = 0;
     public static final int LEVEL_ONE = 1;
     public static final int LEVEL_TWO = 2;
@@ -82,30 +82,20 @@ public class HadiCezmi implements Observer{
 
         //creating cezmi1 from xml
         ArrayList<HashMap<String, String>> cezmiList = xmlParser.createCezmi1FromXml();
-        if (cezmiList.get(0).containsKey("x")) {
-            if (cezmiList.get(0).containsKey("y")) {
+        if (cezmiList.get(0).containsKey("x") & cezmiList.get(0).containsKey("y")) {
                 board.changeCezmiPosition(1, Double.parseDouble(cezmiList.get(0).get("x")) , Double.parseDouble(cezmiList.get(0).get("y")));
-            } else {
-                board.changeCezmiPosition(1, Double.parseDouble(cezmiList.get(0).get("x")));
             }
-        }
-
         if (cezmiList.get(0).containsKey("score")) {
-            player1.setScore(Integer.parseInt(cezmiList.get(0).get("score")));
+            player1.setScore(Double.parseDouble(cezmiList.get(0).get("score")));
         }
 
         //creating cezmi2 from xml
         ArrayList<HashMap<String, String>> cezmiList2 = xmlParser.createCezmi2FromXml();
-        if (cezmiList2.get(0).containsKey("x")) {
-            if (cezmiList2.get(0).containsKey("y")) {
+        if (cezmiList2.get(0).containsKey("x") && cezmiList2.get(0).containsKey("y") ) {
                 board.changeCezmiPosition(2, Double.parseDouble(cezmiList2.get(0).get("x")), Double.parseDouble(cezmiList2.get(0).get("y")) );
-            } else {
-                board.changeCezmiPosition(2, Double.parseDouble(cezmiList2.get(0).get("x")) );
             }
-        }
-
         if (cezmiList.get(0).containsKey("score")) {
-            player2.setScore(Integer.parseInt(cezmiList2.get(0).get("score")));
+            player2.setScore(Double.parseDouble(cezmiList2.get(0).get("score")));
         }
 
         //creating gizmo from xml
@@ -113,60 +103,59 @@ public class HadiCezmi implements Observer{
         for (int i = 0; i < gizmoList.size(); i++) {
             if (gizmoList.get(i).containsKey("type") && gizmoList.get(i).containsKey("x") && gizmoList.get(i).containsKey("y")) {
                 if (gizmoList.get(i).containsKey("orientation")) {
-                    board.addGizmo(gizmoList.get(i).get("type"), Integer.parseInt(gizmoList.get(i).get("x")) * 25, Integer.parseInt(gizmoList.get(i).get("y")) * 25, Integer.parseInt(gizmoList.get(i).get("orientation")));
+                    board.addGizmo(gizmoList.get(i).get("type"), Integer.parseInt(gizmoList.get(i).get("x")), Integer.parseInt(gizmoList.get(i).get("y")), Integer.parseInt(gizmoList.get(i).get("orientation")));
                 } else {
-                    board.addGizmo(gizmoList.get(i).get("type"), Integer.parseInt(gizmoList.get(i).get("x")) * 25, Integer.parseInt(gizmoList.get(i).get("y")) * 25);
+                    board.addGizmo(gizmoList.get(i).get("type"), Integer.parseInt(gizmoList.get(i).get("x")), Integer.parseInt(gizmoList.get(i).get("y")));
                 }
 
             }
             if (gizmoList.get(i).containsKey("orientation")) {
                 if (gizmoList.get(i).containsKey("type") && gizmoList.get(i).containsKey("x") && gizmoList.get(i).containsKey("y")) {
                     if (gizmoList.get(i).containsKey("orientation")) {
-                        board.addGizmo(gizmoList.get(i).get("type"), Integer.parseInt(gizmoList.get(i).get("x")) * 25, Integer.parseInt(gizmoList.get(i).get("y")) * 25, Integer.parseInt(gizmoList.get(i).get("orientation")));
+                    	System.out.println(gizmoList.get(i));
+                        board.addGizmo(gizmoList.get(i).get("type"), Integer.parseInt(gizmoList.get(i).get("x")), Integer.parseInt(gizmoList.get(i).get("y")), Integer.parseInt(gizmoList.get(i).get("orientation")));
                     } else {
-                        board.addGizmo(gizmoList.get(i).get("type"), Integer.parseInt(gizmoList.get(i).get("x")) * 25, Integer.parseInt(gizmoList.get(i).get("y")) * 25);
+                        board.addGizmo(gizmoList.get(i).get("type"), Integer.parseInt(gizmoList.get(i).get("x")), Integer.parseInt(gizmoList.get(i).get("y")));
                     }
                 }
             }
             if (gizmoList.get(i).containsKey("angle")) {
                 if (gizmoList.get(i).containsKey("type") && gizmoList.get(i).containsKey("x") && gizmoList.get(i).containsKey("y")) {
                     if (gizmoList.get(i).containsKey("angle")) {
-                        board.addGizmo(gizmoList.get(i).get("type"), Integer.parseInt(gizmoList.get(i).get("x")) * 25, Integer.parseInt(gizmoList.get(i).get("y")) * 25, Integer.parseInt(gizmoList.get(i).get("angle")));
+                        board.addGizmo(gizmoList.get(i).get("type"), Integer.parseInt(gizmoList.get(i).get("x")), Integer.parseInt(gizmoList.get(i).get("y")), (int) Double.parseDouble(gizmoList.get(i).get("angle")));
                     } else {
-                        board.addGizmo(gizmoList.get(i).get("type"), Integer.parseInt(gizmoList.get(i).get("x")) * 25, Integer.parseInt(gizmoList.get(i).get("y")) * 25);
+                        board.addGizmo(gizmoList.get(i).get("type"), Integer.parseInt(gizmoList.get(i).get("x")), Integer.parseInt(gizmoList.get(i).get("y")));
                     }
                 }
-            }
-            
+            }  
         }
 
         //creating level, friction and gravity from xml
-        ArrayList<HashMap<String, String>> levelList = xmlParser.createBoardFromXml();
-        if (levelList.get(0).containsKey("level")) {
-            board.setLevel(Integer.parseInt(levelList.get(0).get("level")));
+        ArrayList<HashMap<String, String>> boardList = xmlParser.createBoardFromXml();
+        if (boardList.get(0).containsKey("level")) {
+            board.setLevel(Integer.parseInt(boardList.get(0).get("level")));
         }
-        if (levelList.get(0).containsKey("gravity")) {
-            board.setGravity(Double.parseDouble(levelList.get(0).get("gravity")));
+        if (boardList.get(0).containsKey("gravity")) {
+            board.setGravity(Double.parseDouble(boardList.get(0).get("gravity")));
         }
-        if (levelList.get(0).containsKey("friction1")) {
-            board.setFriction(Double.parseDouble(levelList.get(0).get("friction1")));
+        if (boardList.get(0).containsKey("friction1")) {
+            board.setFriction(Double.parseDouble(boardList.get(0).get("friction1")));
         }
+        /*if (boardList.get(0).containsKey("friction2")) {
+            board.setFriction(Double.parseDouble(boardList.get(0).get("friction2")));
+        }*/
+       // Friction2'yi ne yapıyoruz niye 2 friction tutturuyorlar ki. 
+       
 
         //creating cezerye from xml
-        ArrayList<HashMap<String, String>> cezeryeList = xmlParser.createCezeryeFromXml();
+       /* ArrayList<HashMap<String, String>> cezeryeList = xmlParser.createCezeryeFromXml();
         for (int i = 0; i < cezeryeList.size(); i++) {
-            if (cezeryeList.get(i).containsKey("type") && cezeryeList.get(i).containsKey("x") && cezeryeList.get(i).containsKey("y")) {
-                if (cezeryeList.get(i).containsKey("time")) {
-                    //TIMER EKLENECEK!!!
-                    board.addGizmo(cezeryeList.get(i).get("type"), Integer.parseInt(cezeryeList.get(i).get("x")) * 25, Integer.parseInt(cezeryeList.get(i).get("y")) * 25);
-                } else {
-                    board.addGizmo(cezeryeList.get(i).get("type"), Integer.parseInt(cezeryeList.get(i).get("x")) * 25, Integer.parseInt(cezeryeList.get(i).get("y")) * 25);
+            if (cezeryeList.get(i).containsKey("type") && cezeryeList.get(i).containsKey("x") && cezeryeList.get(i).containsKey("y") && cezeryeList.get(i).containsKey("time")){
+                    board.addGizmo(cezeryeList.get(i).get("type"), Integer.parseInt(cezeryeList.get(i).get("x")) * 20, Integer.parseInt(cezeryeList.get(i).get("y")) * 20, Double.parseDouble(cezeryeList.get(i).get("time")));
                 }
-            }
-        }
-        //creating keys from xml
-        ArrayList<HashMap<String, String>> keyList = xmlParser.createCezeryeFromXml();
-        //DOLDURULACAK
+            }*/ 
+        //addGizmo time almadığı için şuanlık comment'e aldım. Cezerye implement edilmeli.
+        
     }
 
 
