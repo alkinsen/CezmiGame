@@ -67,6 +67,14 @@ public class Cezerye extends Gizmo {
 
 	}
 
+	public int getCountdown() {
+		return countdown;
+	}
+
+	public void setCountdown(int countdown) {
+		this.countdown = countdown;
+	}
+
 	public boolean isCezeryeAppear() {
 		return cezeryeAppear;
 	}
@@ -77,6 +85,10 @@ public class Cezerye extends Gizmo {
 		notifyObservers(this);
 	}
 
+	@Override
+	public double getTime() {
+		return countdown/5.0;
+	}
 
 	@Override
 	public String toString() {
