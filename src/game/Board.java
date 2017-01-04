@@ -165,8 +165,17 @@ public class Board extends Observable{
         if (valid) {
             Gizmo g = gizmoFactory.getGizmo(type, x, y);
             gizmoArrayList.add(g);
+
         }
-      
+    }
+
+    public void addCezerye(int x, int y, double time){
+        getCezerye().setX(x);
+        getCezerye().setY(y);
+        countdown = (int)time * 200;
+        getCezerye().setCountdown(countdown);
+        cezeryeAppear = true;
+        getCezerye().setCezeryeAppear(true);
     }
 
     public void addGizmo(String type, int x, int y, int orientation) {
