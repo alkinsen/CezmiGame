@@ -19,6 +19,12 @@ public class HadiCezmi implements Observer{
     public static final double CORNER_RADIUS = 0;
     public static final int LEVEL_ONE = 1;
     public static final int LEVEL_TWO = 2;
+    public static final int hadiCezmi_SquareTakoz=1;
+    public static final int hadiCezmi_TriangleTakoz=2;
+    public static final int hadiCezmi_Tokat=3;
+    public static final int hadiCezmi_Cezmi=5;
+    public static final int hadiCezmi_Firildak=4;
+    public static final int hadiCezmi_Null=0;
 
     private Player player1;
     private Player player2;
@@ -181,6 +187,7 @@ public class HadiCezmi implements Observer{
 
 	public void setLevel(int level) {
 		this.level = level;
+        board.setLevel(level);
 	}
 
 	public Player getPlayer1() {
@@ -238,7 +245,6 @@ public class HadiCezmi implements Observer{
     public void setCezmi2Right(int cezmi2Right) {
         this.cezmi2Right = cezmi2Right;
     }
-
 
     public int getTokatLeftKey() {
         return tokatLeftKey;
@@ -306,6 +312,8 @@ public class HadiCezmi implements Observer{
 
 	public void reset(){
         board = new Board(level);
+        player1.setScore(0);
+        player2.setScore(0);
         board.addObserver(this);
     }
 	

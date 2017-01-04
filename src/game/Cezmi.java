@@ -59,6 +59,14 @@ public class Cezmi extends Observable {
         color = newcolor;
     }
 
+    public int getCezmiLevel() {
+        return cezmiLevel;
+    }
+
+    public void setCezmiLevel(int cezmiLevel) {
+        this.cezmiLevel = cezmiLevel;
+    }
+
     @Override
     public String toString() {
         return "Cezmi [radius=" + radius + ", x=" + x + ", y=" + y + "]";
@@ -80,6 +88,25 @@ public class Cezmi extends Observable {
     
     }
 
+    public int getVy() {
+        return vy;
+    }
+
+    public void setVy(int vy) {
+        this.vy = vy;
+    }
+
+    public int getVx() {
+        return vx;
+    }
+
+    public void resetRadius(){
+        setRadius(20);
+    }
+    public void setVx(int vx) {
+        this.vx = vx;
+    }
+
     public void moveRight() {
         if(cezmiLevel == 2 && x >= 500-vx && y > 0 ){
             x = 500;
@@ -93,6 +120,10 @@ public class Cezmi extends Observable {
         }
         setChanged();
         notifyObservers(this);
+    }
+
+    public void resetVx() {
+        setVx(10);
     }
 
 //    public void moveUp() {
