@@ -59,7 +59,7 @@ public class EditFrame {
 	private EditFrameController editFrameController;
 	private Boolean rotateMode;
 	private EditPane editPane;
-	private int[][] rotationMatrix= new int[25][25];
+	private int[][] rotationMatrix= new int[25][25];	
 
 	public EditFrame(HadiCezmi hadi) {
 		this.editFrameController = new EditFrameController();
@@ -182,7 +182,7 @@ public class EditFrame {
             	if(checkMap().equalsIgnoreCase("Success")){
             		try {
             			XMLBuilder xmlBuilder=new XMLBuilder(hadi);
-						xmlBuilder.writeToXML();
+						xmlBuilder.writeToXML(editPane.getGridSquares());
 					} catch (ParserConfigurationException e1) {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();

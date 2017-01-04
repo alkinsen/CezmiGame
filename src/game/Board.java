@@ -181,6 +181,8 @@ public class Board extends Observable{
             gizmoArrayList.add(g);
         }
     }
+    
+    
 
     public void rotateGizmo(int x, int y) {
         for (Gizmo element : gizmoArrayList) {

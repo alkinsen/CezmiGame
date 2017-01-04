@@ -30,65 +30,60 @@ public class XMLParser {
 		}catch(Exception e){
 			System.out.println(e.toString());
 		} 
-
 	}
 
 	private int getLevel(){
-		Node tempNode;
-		NodeList tempNodeList;
+		Node tempLevel;
+		NodeList nodeLevelList;
 		int cezmiIntLevel = 1;
 
 		try{
-			tempNodeList = doc.getElementsByTagName("board");
-			for (int temp = 0; temp < tempNodeList.getLength(); temp++) {
-				tempNode = tempNodeList.item(temp);
+			nodeLevelList = doc.getElementsByTagName("board");
+			for (int i = 0; i < nodeLevelList.getLength(); i++) {
+				tempLevel = nodeLevelList.item(i);
 
-				if (tempNode.getNodeType() == Node.ELEMENT_NODE) {
+				if (tempLevel.getNodeType() == Node.ELEMENT_NODE) {
 
-					Element eElement = (Element) tempNode;
+					Element level = (Element) tempLevel;
 
-					String cezmiLevel = eElement.getAttribute("level");
+					String cezmiLevel = level.getAttribute("level");
 					cezmiIntLevel = Integer.parseInt(cezmiLevel);
-
 				}
 			}		
-
 		}catch(Exception e){
 			System.out.println(e.toString());
 		} 
-
 		return cezmiIntLevel;
-
 	}
 	
 	public ArrayList<HashMap<String, String>> createBallFromXml(){ 
 		ArrayList<HashMap<String, String>> ballList = new ArrayList<>();
-		Node tempNode;
-		NodeList tempNodeList;
+		Node tempBall;
+		NodeList nodeBallList;
 		try {
-			tempNodeList = doc.getElementsByTagName("ball");
-			if(tempNodeList.getLength() != 0){
+			nodeBallList = doc.getElementsByTagName("ball");
+			if(nodeBallList.getLength() != 0){
 
-				for (int temp = 0; temp < tempNodeList.getLength(); temp++) {
-					tempNode = tempNodeList.item(temp);
+				for (int i = 0; i < nodeBallList.getLength(); i++) {
+					tempBall = nodeBallList.item(i);
 
 					HashMap<String, String> ballInfo = new HashMap<String, String>();
-					Element eElement = (Element) tempNode;
+					Element ball = (Element) tempBall;
 
 					ballInfo.put("type", "ball");
 
-					String ballX = eElement.getAttribute("x");
+					String ballX = ball.getAttribute("x");
 					double ballDoubleX = Double.parseDouble(ballX);	
-					String ballY = eElement.getAttribute("y");
+					String ballY = ball.getAttribute("y");
 					double ballDoubleY = Double.parseDouble(ballY);	 
 
 					if (getLevel() == 1){
-						if(tempNodeList.getLength() == 1){
-							if(ballDoubleX < 500 && ballDoubleX > 0 && ballDoubleY < 500 && ballDoubleY > 0 ){
-								ballInfo.put("x", eElement.getAttribute("x"));
-								ballInfo.put("y", eElement.getAttribute("y"));
-								ballInfo.put("vx", eElement.getAttribute("xVelocity"));
-								ballInfo.put("vy", eElement.getAttribute("yVelocity"));
+						if(nodeBallList.getLength() == 1){
+							if(ballDoubleX <= 500 && ballDoubleX >= 0 && ballDoubleY <= 500 && ballDoubleY >= 0 ){
+								ballInfo.put("x", ball.getAttribute("x"));
+								ballInfo.put("y", ball.getAttribute("y"));
+								ballInfo.put("vx", ball.getAttribute("xVelocity"));
+								ballInfo.put("vy", ball.getAttribute("yVelocity"));
 							}
 							else{
 								throw new Error("Invalid location for Ball");
@@ -99,12 +94,12 @@ public class XMLParser {
 						}
 					}
 					else if(getLevel() ==2){
-						if(tempNodeList.getLength() == 2){
+						if(nodeBallList.getLength() == 2){
 							if(ballDoubleX < 500 && ballDoubleX > 0 && ballDoubleY < 500 && ballDoubleY > 0){
-								ballInfo.put("x", eElement.getAttribute("x"));
-								ballInfo.put("y", eElement.getAttribute("y"));
-								ballInfo.put("vx", eElement.getAttribute("xVelocity"));
-								ballInfo.put("vy", eElement.getAttribute("yVelocity"));
+								ballInfo.put("x", ball.getAttribute("x"));
+								ballInfo.put("y", ball.getAttribute("y"));
+								ballInfo.put("vx", ball.getAttribute("xVelocity"));
+								ballInfo.put("vy", ball.getAttribute("yVelocity"));
 							}
 							else{
 								throw new Error("Invalid location for Ball");
@@ -132,38 +127,39 @@ public class XMLParser {
 	public ArrayList<HashMap<String, String>> createCezmi1FromXml() {
 		ArrayList<HashMap<String, String>> cezmiList = new ArrayList<>();
 		HashMap<String, String> cezmiInfo = new HashMap<String, String>();
-		Node tempNode;
-		NodeList tempNodeList;
+		Node tempCezmi;
+		NodeList nodeCezmiList;
 
 		try {
-			tempNodeList = doc.getElementsByTagName("cezmi1");
-			if(tempNodeList.getLength() != 0){
-				for (int temp = 0; temp < tempNodeList.getLength(); temp++) {
-					tempNode = tempNodeList.item(temp);
+			nodeCezmiList = doc.getElementsByTagName("cezmi1");
+			if(nodeCezmiList.getLength() != 0){
+				for (int i = 0; i < nodeCezmiList.getLength(); i++) {
+					tempCezmi = nodeCezmiList.item(i);
 
-					Element eElement = (Element) tempNode;
+					Element cezmi1 = (Element) tempCezmi;
 
 					cezmiInfo.put("type", "Cezmi");
 
-					String cezmi1X = eElement.getAttribute("x");
+					String cezmi1X = cezmi1.getAttribute("x");
 					double cezmi1intX = Double.parseDouble(cezmi1X);					
-					String cezmi1Y = eElement.getAttribute("y");
+					String cezmi1Y = cezmi1.getAttribute("y");
 					double cezmi1intY = Double.parseDouble(cezmi1Y);	
-
+					
 					if (getLevel() == 1){
 						if (cezmi1intX <= 247 && cezmi1intX >= 0 && cezmi1intY == 500){
-							cezmiInfo.put("x", eElement.getAttribute("x"));
-							cezmiInfo.put("y", eElement.getAttribute("y"));
+							cezmiInfo.put("x", cezmi1.getAttribute("x"));
+							cezmiInfo.put("y", cezmi1.getAttribute("y"));
 						}
 						else{
 							throw new Error("Invalid location for Cezmi1");
 						}
 					}
-
+					
 					else if (getLevel() == 2){
 						if ((cezmi1intX <= 247 && cezmi1intX >= 0 && cezmi1intY == 500) || (cezmi1intX == 0 && cezmi1intY >= 0 && cezmi1intY <= 500)){
-							cezmiInfo.put("x", eElement.getAttribute("x"));
-							cezmiInfo.put("y", eElement.getAttribute("y"));
+							cezmiInfo.put("x", cezmi1.getAttribute("x"));
+							cezmiInfo.put("y", cezmi1.getAttribute("y"));
+	
 						}
 						else{
 							throw new Error("Invalid location for Cezmi1");
@@ -173,11 +169,11 @@ public class XMLParser {
 						throw new Error("Invalid level");
 					}
 
-					String cezmi1Score = eElement.getAttribute("score");
-					int cezmi1intScore = Integer.parseInt(cezmi1Score);
+					String cezmi1Score = cezmi1.getAttribute("score");
+					double cezmi1intScore = Double.parseDouble(cezmi1Score);
 
 					if (cezmi1intScore < 10 && cezmi1intScore >= 0){
-						cezmiInfo.put("score", eElement.getAttribute("score"));
+						cezmiInfo.put("score", cezmi1.getAttribute("score"));
 					}
 					else{
 						throw new Error("Invalid score for Cezmi1");
@@ -199,28 +195,28 @@ public class XMLParser {
 	public ArrayList<HashMap<String, String>> createCezmi2FromXml() {
 		ArrayList<HashMap<String, String>> cezmiList2 = new ArrayList<>();
 		HashMap<String, String> cezmiInfo = new HashMap<String, String>();
-		Node tempNode;
-		NodeList tempNodeList;
+		Node tempCezmi;
+		NodeList nodeCezmiList;
 
 		try {
-			tempNodeList = doc.getElementsByTagName("cezmi2");
-			if(tempNodeList.getLength() == 1){
-				for (int temp = 0; temp < tempNodeList.getLength(); temp++) {
-					tempNode = tempNodeList.item(temp);
+			nodeCezmiList = doc.getElementsByTagName("cezmi2");
+			if(nodeCezmiList.getLength() == 1){
+				for (int i = 0; i < nodeCezmiList.getLength(); i++) {
+					tempCezmi = nodeCezmiList.item(i);
 
-					Element eElement = (Element) tempNode;
+					Element cezmi2 = (Element) tempCezmi;
 
 					cezmiInfo.put("type", "Cezmi");
 
-					String cezmi2X = eElement.getAttribute("x");
+					String cezmi2X = cezmi2.getAttribute("x");
 					double cezmi2DoubleX = Double.parseDouble(cezmi2X);					
-					String cezmi2Y = eElement.getAttribute("y");
+					String cezmi2Y = cezmi2.getAttribute("y");
 					double cezmi2DoubleY = Double.parseDouble(cezmi2Y);	
 
 					if (getLevel() == 1){
 						if (cezmi2DoubleX >= 253 && cezmi2DoubleX <= 500 && cezmi2DoubleY == 500){
-							cezmiInfo.put("x", eElement.getAttribute("x"));
-							cezmiInfo.put("y", eElement.getAttribute("y"));
+							cezmiInfo.put("x", cezmi2.getAttribute("x"));
+							cezmiInfo.put("y", cezmi2.getAttribute("y"));
 						}
 						else{
 							throw new Error("Invalid location for Cezmi2");
@@ -229,8 +225,8 @@ public class XMLParser {
 
 					else if (getLevel() == 2){
 						if ((cezmi2DoubleX >= 253 && cezmi2DoubleX <= 500 && cezmi2DoubleY == 500) || (cezmi2DoubleX == 500 && cezmi2DoubleY >= 0 && cezmi2DoubleY <= 500)){
-							cezmiInfo.put("x", eElement.getAttribute("x"));
-							cezmiInfo.put("y", eElement.getAttribute("y"));
+							cezmiInfo.put("x", cezmi2.getAttribute("x"));
+							cezmiInfo.put("y", cezmi2.getAttribute("y"));
 						}
 						else{
 							throw new Error("Invalid location for Cezmi2");
@@ -240,11 +236,11 @@ public class XMLParser {
 						throw new Error("Invalid level");
 					}
 
-					String cezmi2Score = eElement.getAttribute("score");
-					int cezmi2DoubleScore = Integer.parseInt(cezmi2Score);
+					String cezmi2Score = cezmi2.getAttribute("score");
+					double cezmi2DoubleScore = Double.parseDouble(cezmi2Score);
 
 					if (cezmi2DoubleScore < 10 && cezmi2DoubleScore >= 0){
-						cezmiInfo.put("score", eElement.getAttribute("score"));
+						cezmiInfo.put("score", cezmi2.getAttribute("score"));
 					}
 					else{
 						throw new Error("Invalid score for Cezmi2");
@@ -266,34 +262,34 @@ public class XMLParser {
 	public ArrayList<HashMap<String, String>> createCezeryeFromXml() {
 		ArrayList<HashMap<String, String>> cezeryeList = new ArrayList<>();
 
-		Node tempNode;
-		NodeList tempNodeList;
+		Node tempCezerye;
+		NodeList nodeCezeryeList;
 
 		try {
-			tempNodeList = doc.getElementsByTagName("cezerye");
-			if(tempNodeList.getLength() > 0){
+			nodeCezeryeList = doc.getElementsByTagName("cezerye");
+			if(nodeCezeryeList.getLength() > 0){
 
-				for (int temp = 0; temp < tempNodeList.getLength(); temp++) {
-					tempNode = tempNodeList.item(temp);
+				for (int i = 0; i < nodeCezeryeList.getLength(); i++) {
+					tempCezerye = nodeCezeryeList.item(i);
 
-					if (tempNode.getNodeType() == Node.ELEMENT_NODE) {
+					if (tempCezerye.getNodeType() == Node.ELEMENT_NODE) {
 
-						Element eElement = (Element) tempNode;
+						Element cezerye = (Element) tempCezerye;
 						HashMap<String, String> cezeryeInfo = new HashMap<String, String>();
 
 						cezeryeInfo.put("type", "Cezerye");
 
-						String cezeryeX = eElement.getAttribute("x");
+						String cezeryeX = cezerye.getAttribute("x");
 						int  cezeryeIntX = Integer.parseInt(cezeryeX);
-						String cezeryeY = eElement.getAttribute("y");
+						String cezeryeY = cezerye.getAttribute("y");
 						int  cezeryeIntY = Integer.parseInt(cezeryeY);
-						String cezeryeTime = eElement.getAttribute("time");
+						String cezeryeTime = cezerye.getAttribute("time");
 						double cezeryeDoubleTime =  Double.parseDouble(cezeryeTime);	
 
 						if(cezeryeIntX > 0 && cezeryeIntX < 500 && cezeryeIntY > 0 && cezeryeIntY < 380 && cezeryeDoubleTime > 0 && cezeryeDoubleTime <= 5){
-							cezeryeInfo.put("x", eElement.getAttribute("x"));
-							cezeryeInfo.put("y", eElement.getAttribute("y"));
-							cezeryeInfo.put("time", eElement.getAttribute("time"));
+							cezeryeInfo.put("x", cezerye.getAttribute("x"));
+							cezeryeInfo.put("y", cezerye.getAttribute("y"));
+							cezeryeInfo.put("time", cezerye.getAttribute("time"));
 						}
 						else{
 							throw new Error("Invalid location for Cezerye");
@@ -318,59 +314,59 @@ public class XMLParser {
 
 	public ArrayList<HashMap<String, String>> createGizmoFromXml() {
 		ArrayList<HashMap<String, String>> gizmoList = new ArrayList<>();
-		Node tempNode;
-		NodeList tempNodeList;
-		NodeList tempNodeList2;
-		NodeList tempNodeList3;
-		NodeList tempNodeList4;
-		NodeList tempNodeList5;
-		NodeList tempNodeList6;
+		Node tempGizmo;
+		NodeList nodeGizmoList;
+		NodeList nodeSquareTakozList;
+		NodeList nodeTriangleTakozList;
+		NodeList nodeFirildakList;
+		NodeList nodeLeftTokatList;
+		NodeList nodeRightTokatList;
 	
-		int i = 0;
 		int j = 0;
+		int k = 0;
 
-		tempNodeList = doc.getElementsByTagName("gizmos");
-		tempNodeList2 = doc.getElementsByTagName("squareTakoz");
-		tempNodeList3 = doc.getElementsByTagName("triangleTakoz");
-		tempNodeList4 = doc.getElementsByTagName("firildak");
-		tempNodeList5 = doc.getElementsByTagName("leftTokat");
-		tempNodeList6 = doc.getElementsByTagName("rightTokat");
+		nodeGizmoList = doc.getElementsByTagName("gizmos");
+		nodeSquareTakozList = doc.getElementsByTagName("squareTakoz");
+		nodeTriangleTakozList = doc.getElementsByTagName("triangleTakoz");
+		nodeFirildakList = doc.getElementsByTagName("firildak");
+		nodeLeftTokatList = doc.getElementsByTagName("leftTokat");
+		nodeRightTokatList = doc.getElementsByTagName("rightTokat");
 
-		if((tempNodeList2.getLength() + tempNodeList3.getLength() + tempNodeList4.getLength() + tempNodeList5.getLength() + tempNodeList6.getLength()) == 8){
-				for (int temp = 0; temp < tempNodeList.getLength(); temp++) {
-					tempNode = tempNodeList.item(temp);}
+		if((nodeSquareTakozList.getLength() + nodeTriangleTakozList.getLength() + nodeFirildakList.getLength() + nodeLeftTokatList.getLength() + nodeRightTokatList.getLength()) == 8){
+				for (int i = 0; i < nodeGizmoList.getLength(); i++) {
+					tempGizmo = nodeGizmoList.item(i);}
 				try {
-					tempNodeList = doc.getElementsByTagName("squareTakoz");
-					for (int temp5 = 0; temp5 < tempNodeList.getLength(); temp5++) {
-						tempNode = tempNodeList.item(temp5);
+					nodeSquareTakozList = doc.getElementsByTagName("squareTakoz");
+					for (int i = 0; i < nodeSquareTakozList.getLength(); i++) {
+						tempGizmo = nodeSquareTakozList.item(i);
 
-						if (tempNode.getNodeType() == Node.ELEMENT_NODE) {
+						if (tempGizmo.getNodeType() == Node.ELEMENT_NODE) {
 
-							Element eElement = (Element) tempNode;
+							Element squareTakoz = (Element) tempGizmo;
 
 							HashMap<String, String> gizmoInfo = new HashMap<String, String>();
 
-							if(!eElement.getAttribute("x").equals("")){
+							if(!squareTakoz.getAttribute("x").equals("")){
 
 								gizmoInfo.put("type", "SquareTakoz");
 
-								String squareTakozX = eElement.getAttribute("x");
+								String squareTakozX = squareTakoz.getAttribute("x");
 								int  squareTakozIntX = Integer.parseInt(squareTakozX);
-								String squareTakozY = eElement.getAttribute("y");
+								String squareTakozY = squareTakoz.getAttribute("y");
 								int  squareTakozIntY = Integer.parseInt(squareTakozY);
-
-								if(squareTakozIntX > 0 && squareTakozIntX < 380 && squareTakozIntY > 0 && squareTakozIntY < 380){
-									gizmoInfo.put("x", eElement.getAttribute("x"));
-									gizmoInfo.put("y", eElement.getAttribute("y"));
+								
+								if(squareTakozIntX > 0 && squareTakozIntX < 500 && squareTakozIntY > 0 && squareTakozIntY < 380){
+									gizmoInfo.put("x", squareTakoz.getAttribute("x"));
+									gizmoInfo.put("y", squareTakoz.getAttribute("y"));
 								}
 								else{
 									throw new Error("Invalid location for Square Takoz");
 								}
 								if(squareTakozIntX >= 0 && squareTakozIntX <250){
-									i++;
+									j++;
 								}
 								else{
-									j++;
+									k++;
 								}
 							}
 
@@ -378,45 +374,47 @@ public class XMLParser {
 						}
 					}
 
-					tempNodeList = doc.getElementsByTagName("triangleTakoz");
-					for (int temp1 = 0; temp1 < tempNodeList.getLength(); temp1++) {
-						tempNode = tempNodeList.item(temp1);
+					nodeTriangleTakozList = doc.getElementsByTagName("triangleTakoz");
+					
+					for (int i = 0; i < nodeTriangleTakozList.getLength(); i++) {
+						tempGizmo = nodeTriangleTakozList.item(i);
 
-						if (tempNode.getNodeType() == Node.ELEMENT_NODE) {
+						if (tempGizmo.getNodeType() == Node.ELEMENT_NODE) {
 
-							Element eElement1 = (Element) tempNode;
+							Element triangleTakoz = (Element) tempGizmo;
 
 							HashMap<String, String> gizmoInfo = new HashMap<String, String>();
 
-							if(!eElement1.getAttribute("x").equals("")){
+							if(!triangleTakoz.getAttribute("x").equals("")){
+								
 
 								gizmoInfo.put("type", "TriangleTakoz");
 
-								String triangleTakozX = eElement1.getAttribute("x");
+								String triangleTakozX = triangleTakoz.getAttribute("x");
 								int  triangleTakozIntX = Integer.parseInt(triangleTakozX);
-								String triangleTakozY = eElement1.getAttribute("y");
+								String triangleTakozY = triangleTakoz.getAttribute("y");
 								int  triangleTakozIntY = Integer.parseInt(triangleTakozY);
-								String triangleTakozOrientation = eElement1.getAttribute("orientation");
-								int triangleTakozIntOrientation = Integer.parseInt(triangleTakozOrientation);
+								//String triangleTakozOrientation = triangleTakoz.getAttribute("orientation");
+							    //int triangleTakozIntOrientation = Integer.parseInt(triangleTakozOrientation);
 
-								if(triangleTakozIntX > 0 && triangleTakozIntX < 380 && triangleTakozIntY > 0 && triangleTakozIntY < 380){
-									gizmoInfo.put("x", eElement1.getAttribute("x"));
-									gizmoInfo.put("y", eElement1.getAttribute("y"));	
+								if(triangleTakozIntX > 0 && triangleTakozIntX < 500 && triangleTakozIntY > 0 && triangleTakozIntY < 380){
+									gizmoInfo.put("x", triangleTakoz.getAttribute("x"));
+									gizmoInfo.put("y", triangleTakoz.getAttribute("y"));	
 								}
 								else{
 									throw new Error("Invalid location for Triangle Takoz");
 								}
-								if(triangleTakozIntOrientation == 0 || triangleTakozIntOrientation == 90 || triangleTakozIntOrientation == 180 || triangleTakozIntOrientation == 270){
-									gizmoInfo.put("orientation", eElement1.getAttribute("orientation"));
+								/*if(triangleTakozIntOrientation == 0 || triangleTakozIntOrientation == 90 || triangleTakozIntOrientation == 180 || triangleTakozIntOrientation == 270){
+									gizmoInfo.put("orientation", triangleTakoz.getAttribute("orientation"));
 								}
 								else{
 									throw new Error("Invalid orientation for Triangle Takoz");
-								}
+								}*/
 								if(triangleTakozIntX >= 0 && triangleTakozIntX <250){
-									i++;
+									j++;
 								}
 								else{
-									j++;
+									k++;
 								}
 							}
 
@@ -424,131 +422,133 @@ public class XMLParser {
 						}
 					}
 
-					tempNodeList = doc.getElementsByTagName("firildak");
-					for (int temp2= 0; temp2 < tempNodeList.getLength(); temp2++) {
-						tempNode = tempNodeList.item(temp2);
+					nodeFirildakList = doc.getElementsByTagName("firildak");
+					for (int i= 0; i < nodeFirildakList.getLength(); i++) {
+						tempGizmo = nodeFirildakList.item(i);
 
-						if (tempNode.getNodeType() == Node.ELEMENT_NODE) {
+						if (tempGizmo.getNodeType() == Node.ELEMENT_NODE) {
 
-							Element eElement2 = (Element) tempNode;
+							Element firildak = (Element) tempGizmo;
 
 							HashMap<String, String> gizmoInfo = new HashMap<String, String>();
 
-							if(!eElement2.getAttribute("x").equals("")){
+							if(!firildak.getAttribute("x").equals("")){
 
 								gizmoInfo.put("type", "Firildak");
-								String firildakX = eElement2.getAttribute("x");
+								String firildakX = firildak.getAttribute("x");
 								int  firildakIntX = Integer.parseInt(firildakX);
-								String firildakY = eElement2.getAttribute("y");
+								String firildakY = firildak.getAttribute("y");
 								int  firildakIntY = Integer.parseInt(firildakY);
-								String firildakAngle = eElement2.getAttribute("angle");
-								int  firildakIntAngle = Integer.parseInt(firildakAngle);
+								
+								String firildakAngle = firildak.getAttribute("angle");
+								double  firildakDoubleAngle = Double.parseDouble(firildakAngle);
+								int firildakIntAngle = (int) firildakDoubleAngle;
 
-								if(firildakIntX > 0 && firildakIntX < 380 && firildakIntY > 0 && firildakIntY < 380){
-									gizmoInfo.put("x", eElement2.getAttribute("x"));
-									gizmoInfo.put("y", eElement2.getAttribute("y"));
+								if(firildakIntX > 0 && firildakIntX <500 && firildakIntY > 0 && firildakIntY < 380){
+									gizmoInfo.put("x", firildak.getAttribute("x"));
+									gizmoInfo.put("y", firildak.getAttribute("y"));
 								}
 								else{
 									throw new Error ("Invalid location for Firildak");
 								}
 								if(firildakIntAngle >= 0 && firildakIntAngle < 359){	
-									gizmoInfo.put("angle", eElement2.getAttribute("angle"));
+									gizmoInfo.put("angle", firildak.getAttribute("angle"));
 								}
 								else{
 									throw new Error ("Invalid angle for Firildak");
 								}
 								if(firildakIntX >= 0 && firildakIntX <250){
-									i++;
+									j++;
 								}
 								else{
-									j++;
+									k++;
 								}
 							}
 							gizmoList.add(gizmoInfo);
 						}
 					}
 
-					tempNodeList = doc.getElementsByTagName("leftTokat");
-					for (int temp3= 0; temp3 < tempNodeList.getLength(); temp3++) {
-						tempNode = tempNodeList.item(temp3);
+					nodeLeftTokatList = doc.getElementsByTagName("leftTokat");
+					for (int i= 0; i < nodeLeftTokatList.getLength(); i++) {
+						tempGizmo = nodeLeftTokatList.item(i);
 
-						if (tempNode.getNodeType() == Node.ELEMENT_NODE) {
+						if (tempGizmo.getNodeType() == Node.ELEMENT_NODE) {
 
-							Element eElement3 = (Element) tempNode;
+							Element leftTokat = (Element) tempGizmo;
 
 							HashMap<String, String> gizmoInfo = new HashMap<String, String>();
 
-							if(!eElement3.getAttribute("x").equals("")){
+							if(!leftTokat.getAttribute("x").equals("")){
 
 								gizmoInfo.put("type", "leftTokat");
-								String leftTokatX = eElement3.getAttribute("x");
+								String leftTokatX = leftTokat.getAttribute("x");
 								int  leftTokatIntX = Integer.parseInt(leftTokatX);
-								String leftTokatY = eElement3.getAttribute("y");
+								String leftTokatY = leftTokat.getAttribute("y");
 								int  leftTokatIntY = Integer.parseInt(leftTokatY);
-								String leftTokatOrientation = eElement3.getAttribute("orientation");
+								String leftTokatOrientation = leftTokat.getAttribute("orientation");
 								int  leftTokatIntOrientation = Integer.parseInt(leftTokatOrientation);
 
-								if(leftTokatIntX > 0 && leftTokatIntX < 380 && leftTokatIntY > 0 && leftTokatIntY < 380){
-									gizmoInfo.put("x", eElement3.getAttribute("x"));
-									gizmoInfo.put("y", eElement3.getAttribute("y"));
+								if(leftTokatIntX > 0 && leftTokatIntX < 500 && leftTokatIntY > 0 && leftTokatIntY < 380){
+									gizmoInfo.put("x", leftTokat.getAttribute("x"));
+									gizmoInfo.put("y", leftTokat.getAttribute("y"));
 								}
 								else{
 									throw new Error ("Invalid location for Left Tokat");
 								}
 								if(leftTokatIntOrientation == 0 || leftTokatIntOrientation == 90 || leftTokatIntOrientation == 180 || leftTokatIntOrientation == 270 ){	
-									gizmoInfo.put("orientation", eElement3.getAttribute("orientation"));
+									gizmoInfo.put("orientation", leftTokat.getAttribute("orientation"));
 								}
 								else{
 									throw new Error ("Invalid orientation for Left Tokat");
 								}
 								if(leftTokatIntX >= 0 && leftTokatIntX <250){
-									i++;
+									j++;
 								}
 								else{
-									j++;
+									k++;
 								}
 							}
 							gizmoList.add(gizmoInfo);
 						}
 					}
 
-					tempNodeList = doc.getElementsByTagName("rightTokat");
-					for (int temp4= 0; temp4 < tempNodeList.getLength(); temp4++) {
-						tempNode = tempNodeList.item(temp4);
+					nodeRightTokatList = doc.getElementsByTagName("rightTokat");
+					for (int i= 0; i < nodeRightTokatList.getLength(); i++) {
+						tempGizmo = nodeRightTokatList.item(i);
 
-						if (tempNode.getNodeType() == Node.ELEMENT_NODE) {
+						if (tempGizmo.getNodeType() == Node.ELEMENT_NODE) {
 
-							Element eElement4 = (Element) tempNode;
+							Element rightTokat = (Element) tempGizmo;
 
 							HashMap<String, String> gizmoInfo = new HashMap<String, String>();
-							if(!eElement4.getAttribute("x").equals("")){
+							if(!rightTokat.getAttribute("x").equals("")){
 
 								gizmoInfo.put("type", "leftTokat");
-								String rightTokatX = eElement4.getAttribute("x");
+								String rightTokatX = rightTokat.getAttribute("x");
 								int  rightTokatIntX = Integer.parseInt(rightTokatX);
-								String rightTokatY = eElement4.getAttribute("y");
+								String rightTokatY = rightTokat.getAttribute("y");
 								int  rightTokatIntY = Integer.parseInt(rightTokatY);
-								String rightTokatOrientation = eElement4.getAttribute("orientation");
+								String rightTokatOrientation = rightTokat.getAttribute("orientation");
 								int  rightTokatIntOrientation = Integer.parseInt(rightTokatOrientation);
 
-								if(rightTokatIntX > 0 && rightTokatIntX < 380 && rightTokatIntY > 0 && rightTokatIntY < 380){
-									gizmoInfo.put("x", eElement4.getAttribute("x"));
-									gizmoInfo.put("y", eElement4.getAttribute("y"));
+								if(rightTokatIntX > 0 && rightTokatIntX < 500 && rightTokatIntY > 0 && rightTokatIntY < 380){
+									gizmoInfo.put("x", rightTokat.getAttribute("x"));
+									gizmoInfo.put("y", rightTokat.getAttribute("y"));
 								}
 								else{
 									throw new Error ("Invalid location for Right Tokat");
 								}
 								if(rightTokatIntOrientation == 0 || rightTokatIntOrientation == 90 || rightTokatIntOrientation == 180 || rightTokatIntOrientation == 270 ){	
-									gizmoInfo.put("orientation", eElement4.getAttribute("orientation"));
+									gizmoInfo.put("orientation", rightTokat.getAttribute("orientation"));
 								}
 								else{
 									throw new Error ("Invalid orientation for Right Tokat");
 								}
 								if(rightTokatIntX >= 0 && rightTokatIntX <250){
-									i++;
+									j++;
 								}
 								else{
-									j++;
+									k++;
 								}
 							}
 							gizmoList.add(gizmoInfo);
@@ -562,8 +562,7 @@ public class XMLParser {
 		else{
 			throw new Error ("Number of gizmos must be 8");
 		}
-		
-		if(i == j){
+		if(j == k){
 			return gizmoList;
 		}
 		else{
@@ -574,34 +573,32 @@ public class XMLParser {
 	public ArrayList<HashMap<String, String>> createKeysFromXml() {
 		ArrayList<HashMap<String, String>> keysList = new ArrayList<>();
 		HashMap<String, String> keysInfo = new HashMap<String, String>();
-		Node tempNode;
-		NodeList tempNodeList;
+		Node tempKeys;
+		NodeList nodeKeysList;
 
 		try {
-			tempNodeList = doc.getElementsByTagName("key1left");
-			for (int temp = 0; temp < tempNodeList.getLength(); temp++) {
-				tempNode = tempNodeList.item(temp);
+			nodeKeysList = doc.getElementsByTagName("key1left");
+			for (int i = 0; i < nodeKeysList.getLength(); i++) {
+				tempKeys = nodeKeysList.item(i);
 
-				Element eElement = (Element) tempNode;	
+				Element keys = (Element) tempKeys;	
 				keysInfo.put("type", "keys");
-				if(tempNode.hasAttributes() == true){
-					keysInfo.put("key1left", eElement.getAttribute("key"));
+				if(tempKeys.hasAttributes() == true){
+					keysInfo.put("key1left", keys.getAttribute("key"));
 				}
 				else{
 					throw new Error ("There is no assigned key for Cezmi1");
 				}
 				keysList.add(keysInfo); 
-
 			}
 
-			tempNodeList = doc.getElementsByTagName("key1right");
-			for (int temp1 = 0; temp1 < tempNodeList.getLength(); temp1++) {
-				tempNode = tempNodeList.item(temp1);
+			nodeKeysList = doc.getElementsByTagName("key1right");
+			for (int i = 0; i < nodeKeysList.getLength(); i++) {
+				tempKeys = nodeKeysList.item(i);
 
-				Element eElement = (Element) tempNode;
-
-				if(tempNode.hasAttributes() == true){
-					keysInfo.put("key1right", eElement.getAttribute("key"));	
+				Element keys = (Element) tempKeys;
+				if(tempKeys.hasAttributes() == true){
+					keysInfo.put("key1right", keys.getAttribute("key"));	
 				}
 				else{
 					throw new Error("There is no assigned key for Cezmi1");
@@ -609,38 +606,33 @@ public class XMLParser {
 				keysList.add(keysInfo);
 			}  
 
-			tempNodeList = doc.getElementsByTagName("key2left");
-			for (int temp2 = 0; temp2 < tempNodeList.getLength(); temp2++) {
-				tempNode = tempNodeList.item(temp2);
+			nodeKeysList = doc.getElementsByTagName("key2left");
+			for (int i = 0; i < nodeKeysList.getLength(); i++) {
+				tempKeys = nodeKeysList.item(i);
 
-				Element eElement = (Element) tempNode;
-
-				if(tempNode.hasAttributes() == true){
-					keysInfo.put("key2left", eElement.getAttribute("key"));	
+				Element keys = (Element) tempKeys;
+				if(tempKeys.hasAttributes() == true){
+					keysInfo.put("key2left", keys.getAttribute("key"));	
 				}
 				else{
 					throw new Error ("There is no assigned key for Cezmi2");
 				}
-
 				keysList.add(keysInfo);
 			}
 
-			tempNodeList = doc.getElementsByTagName("key2right");
-			for (int temp3 = 0; temp3 < tempNodeList.getLength(); temp3++) {
-				tempNode = tempNodeList.item(temp3);
+			nodeKeysList = doc.getElementsByTagName("key2right");
+			for (int i = 0; i < nodeKeysList.getLength(); i++) {
+				tempKeys = nodeKeysList.item(i);
 
-				Element eElement = (Element) tempNode;
-
-				if(tempNode.hasAttributes() == true){
-					keysInfo.put("key2right", eElement.getAttribute("key"));	
+				Element keys = (Element) tempKeys;
+				if(tempKeys.hasAttributes() == true){
+					keysInfo.put("key2right", keys.getAttribute("key"));	
 				}	
 				else{
 					throw new Error ("There is no assigned key for Cezmi2");
 				}
-
 				keysList.add(keysInfo);
 			}
-
 		}catch(Exception e){
 			System.out.println(e.toString());
 		} 
@@ -650,40 +642,38 @@ public class XMLParser {
 	public ArrayList<HashMap<String, String>> createBoardFromXml() {
 		ArrayList<HashMap<String, String>> boardList = new ArrayList<>();
 		HashMap<String, String> boardInfo = new HashMap<String, String>();
-		Node tempNode;
+		Node tempBoard;
 		NodeList tempNodeList;	
 
 		try {
 			tempNodeList = doc.getElementsByTagName("board");	
 
-			for (int temp = 0; temp < tempNodeList.getLength(); temp++) {
-				tempNode = tempNodeList.item(temp);
+			for (int i = 0; i < tempNodeList.getLength(); i++) {
+				tempBoard = tempNodeList.item(i);
 
-				if (tempNode.getNodeType() == Node.ELEMENT_NODE) {
+				if (tempBoard.getNodeType() == Node.ELEMENT_NODE) {
 
-					Element eElement = (Element) tempNode;
+					Element friction1 = (Element) tempBoard;
 
-					if(eElement.getAttribute("friction1") != ""){
-						boardInfo.put("friction1", eElement.getAttribute("friction1"));
+					if(friction1.getAttribute("friction1") != ""){
+						boardInfo.put("friction1", friction1.getAttribute("friction1"));
 					}
 					else{
 						boardInfo.put("friction1", "0.025");
 					}
-
 					boardList.add(boardInfo);
 				}  
-
 			}
 
-			for (int temp1 = 0; temp1 < tempNodeList.getLength(); temp1++) {
-				tempNode = tempNodeList.item(temp1);
+			for (int i = 0; i < tempNodeList.getLength(); i++) {
+				tempBoard = tempNodeList.item(i);
 
-				if (tempNode.getNodeType() == Node.ELEMENT_NODE) {
+				if (tempBoard.getNodeType() == Node.ELEMENT_NODE) {
 
-					Element eElement = (Element) tempNode;
+					Element friction2 = (Element) tempBoard;
 
-					if(eElement.getAttribute("friction2") != ""){
-						boardInfo.put("friction2", eElement.getAttribute("friction2"));
+					if(friction2.getAttribute("friction2") != ""){
+						boardInfo.put("friction2", friction2.getAttribute("friction2"));
 					}
 					else{
 						boardInfo.put("friction2", "0.025");
@@ -691,35 +681,33 @@ public class XMLParser {
 
 					boardList.add(boardInfo);
 				}  
-
 			}
 
-			for (int temp2 = 0; temp2 < tempNodeList.getLength(); temp2++) {
-				tempNode = tempNodeList.item(temp2);
+			for (int i = 0; i < tempNodeList.getLength(); i++) {
+				tempBoard = tempNodeList.item(i);
 
-				if (tempNode.getNodeType() == Node.ELEMENT_NODE) {
+				if (tempBoard.getNodeType() == Node.ELEMENT_NODE) {
 
-					Element eElement = (Element) tempNode;
+					Element gravity = (Element) tempBoard;
 
-					if(eElement.getAttribute("gravity") != ""){
-						boardInfo.put("gravity", eElement.getAttribute("gravity"));
+					if(gravity.getAttribute("gravity") != ""){
+						boardInfo.put("gravity", gravity.getAttribute("gravity"));
 					}
 					else{
 						boardInfo.put("gravity", "25.0");
 					}
 					boardList.add(boardInfo);
 				}  
-
 			}
 
-			for (int temp3 = 0; temp3 < tempNodeList.getLength(); temp3++) {
-				tempNode = tempNodeList.item(temp3);
+			for (int i = 0; i < tempNodeList.getLength(); i++) {
+				tempBoard = tempNodeList.item(i);
 
-				Element eElement = (Element) tempNode;
+				Element level = (Element) tempBoard;
 
-				if(tempNode.hasAttributes() == true){
+				if(tempBoard.hasAttributes() == true){
 					if(getLevel() == 1 || getLevel() == 2){
-						boardInfo.put("level", eElement.getAttribute("level"));
+						boardInfo.put("level", level.getAttribute("level"));
 					}
 					else{
 						throw new Error("Invalid level");
@@ -729,7 +717,6 @@ public class XMLParser {
 					throw new Error ("There is no level");
 				}
 				boardList.add(boardInfo);  
-
 			}
 
 		}catch(Exception e){
