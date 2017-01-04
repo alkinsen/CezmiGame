@@ -24,6 +24,9 @@ public class Board extends Observable{
     private int delta_t;
 
     private double maxVel = 0.0;
+    
+    private boolean cezeryeAppear = false;
+    private int countdown = -1;
 
 
     public Board(int level) {
@@ -160,6 +163,7 @@ public class Board extends Observable{
             Gizmo g = gizmoFactory.getGizmo(type, x, y);
             gizmoArrayList.add(g);
         }
+      
     }
 
     public void addGizmo(String type, int x, int y, int orientation) {
@@ -252,6 +256,44 @@ public class Board extends Observable{
             changeBallVelocity(returnVectBall.x(), returnVectBall.y());
             changeBall2Velocity(returnVectBall2.x(), returnVectBall2.y());
 
+        }
+        
+      //check the situation of cezerye
+        if(!cezeryeAppear && countdown == -1){
+        	//countdown = (int) (1000 + Math.random()*200*25);
+        	countdown = 400;
+        	System.out.println("countdown: "+countdown/200);
+        }else if(!cezeryeAppear && countdown == 0){
+        	System.out.println("yep");
+        	int xLoc = (int)(Math.random()*24)*20;
+        	int yLoc = (int)(Math.random()*18)*20;
+        	boolean validity = this.verifyGizmo(xLoc, yLoc);
+        	while(!validity){
+        		xLoc = (int)(Math.random()*24)*20;
+            	yLoc = (int)(Math.random()*18)*20;
+            	validity = this.verifyGizmo(xLoc, yLoc);
+        	}
+        	this.addGizmo("Cezerye", xLoc, yLoc);
+        	cezeryeAppear=true;
+        	countdown=1000;
+        }else if(!cezeryeAppear && countdown>0){
+        	countdown--;
+        }else if(cezeryeAppear && countdown >0){
+        	countdown--;
+        }else if(cezeryeAppear && countdown == 0){
+        	for(int i=0; i<gizmoArrayList.size();i++){
+        		Gizmo element = gizmoArrayList.get(i);
+        		if(element instanceof Cezerye){
+        			Cezerye toDelete = (Cezerye) element;
+        			int x = toDelete.getX();
+        			int y = toDelete.getY();
+        			this.deleteGizmo(x, y);
+        			break;
+        			
+        		}
+        	}
+        	cezeryeAppear=false;
+        	countdown = (int) (1000 + Math.random()*200*25);
         }
     }
     public void checkCollisionAndReflectBall(Ball ball, boolean leftPressed, boolean rightPressed) {
@@ -421,6 +463,8 @@ public class Board extends Observable{
             	
             }
         }
+        
+        
 
         ball.move();
 

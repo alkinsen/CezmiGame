@@ -38,6 +38,8 @@ public class HadiCezmi implements Observer{
     
     private boolean leftPressed = false;
     private boolean rightPressed = false;
+    
+    
 
 
     public HadiCezmi(int level, String playerName1, String playerName2) {
