@@ -276,6 +276,8 @@ public class HadiCezmi implements Observer{
 			double num = player2.getScore();
 			player2.setScore(num+score[1]);
 		}
+		board.getCezmi1().resetVx();
+		board.getCezmi2().resetVx();
 		board.resetBallPositions();
 		board.changeBallDiameters(player1.getScore(), player2.getScore());
 		board.resetBallVelocities();
