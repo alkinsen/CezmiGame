@@ -71,8 +71,8 @@ public class EditFrameController extends StartFrameController {
                 			hadiCezmi.getBoard().changeCezmiPosition(2, i*20);        
                 		}
                 }
-            	
 
+				hadiCezmi.getBoard().addGizmo("Cezerye", 1000, 1000);
             	initializeBoard(hadiCezmi, g,matrix);
 
             	play(hadiCezmi);
