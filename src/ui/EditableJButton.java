@@ -48,12 +48,17 @@ public class EditableJButton extends JButton {
                 if (e.getButton() == MouseEvent.BUTTON1 && !rotateMode) {
                 	switch(mode){
                 	case HadiCezmi.hadiCezmi_Null :
+                		if(x==12){
+                			setMode(HadiCezmi.hadiCezmi_Null);
+                			break;
+                		}
                 		if (y == 24){
                 			setMode(HadiCezmi.hadiCezmi_Cezmi);
-                		}
+                		} 
                 		else{
                 			setMode(HadiCezmi.hadiCezmi_SquareTakoz);
                 		}
+                		
                 		break;
                 	case HadiCezmi.hadiCezmi_SquareTakoz : 
                 		setMode(HadiCezmi.hadiCezmi_TriangleTakoz);

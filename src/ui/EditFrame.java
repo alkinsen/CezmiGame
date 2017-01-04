@@ -298,6 +298,15 @@ public class EditFrame {
 		for(int i=0;i<12;i++){
 			for(int j=0;j<25;j++){
 				Color c=e[i][j].getBackground();
+				if(hadi.getLevel()==HadiCezmi.LEVEL_TWO){
+					if(i==0 || i==24){
+						if(c.equals(Color.magenta) || c.equals(Color.yellow) || c.equals(Color.blue) ||  c.equals(Color.red)){
+							message="You cannot have Gizmos in first and last columns. Check again.";
+							return message;
+									
+						}
+					}
+				}
 				if(c.equals(Color.magenta)){
 					
 					
@@ -381,6 +390,15 @@ public class EditFrame {
 		for(int i=13;i<25;i++){
 			for(int j=0;j<25;j++){
 				Color c=e[i][j].getBackground();
+				if(hadi.getLevel()==HadiCezmi.LEVEL_TWO){
+					if(i==0 || i==24){
+						if(c.equals(Color.magenta) || c.equals(Color.yellow) || c.equals(Color.blue) ||  c.equals(Color.red)){
+							message="You cannot have Gizmos in first and last columns. Check again.";
+							return message;
+									
+						}
+					}
+				}
 				if(c.equals(Color.magenta)){
 					
 					int count=0;
