@@ -16,6 +16,7 @@ public class Board extends Observable{
     private Cezmi cezmi2;
     private GizmoFactory gizmoFactory;
     private ArrayList<Gizmo> gizmoArrayList;
+    private boolean[] cezeryeSpecialEffect;
     private double gravity;
     private double friction;
     private int level;
@@ -24,6 +25,9 @@ public class Board extends Observable{
     private int delta_t;
 
     private double maxVel = 0.0;
+    
+    private boolean cezeryeAppear = false;
+    private int countdown = -1;
 
 
     public Board(int level) {
@@ -36,6 +40,8 @@ public class Board extends Observable{
         cezmi2 = new Cezmi(HadiCezmi.UNIT_LENGTH*15, HadiCezmi.UNIT_LENGTH*25, level);
         gizmoFactory = GizmoFactory.getInstance();
         gizmoArrayList = new ArrayList<Gizmo>();
+        addGizmo("Cezerye", 1000, 1000);
+        cezeryeSpecialEffect = new boolean[3];
         gravity = 20;
         this.level = level;
         delta_t = level;
@@ -62,6 +68,7 @@ public class Board extends Observable{
     }
 
     public ArrayList<Gizmo> getGizmoArrayList() {
+        System.out.println(gizmoArrayList);
         return gizmoArrayList;
     }
 
@@ -160,6 +167,7 @@ public class Board extends Observable{
             Gizmo g = gizmoFactory.getGizmo(type, x, y);
             gizmoArrayList.add(g);
         }
+      
     }
 
     public void addGizmo(String type, int x, int y, int orientation) {
@@ -179,6 +187,7 @@ public class Board extends Observable{
     }
 
     public void rotateGizmo(int x, int y) {
+        System.out.println("rotate");
         for (Gizmo element : gizmoArrayList) {
             if (element.getX() == x && element.getY() == y) {
                 element.rotate();
@@ -204,15 +213,16 @@ public class Board extends Observable{
             if (element.getX() < oldX && oldX < (element.getX() + width)
                     && element.getY() < oldY && oldY < (element.getY() + height)) {
                 element.setX(x);
-                element.setY(x);
+                element.setY(y);
             }
         }
     }
 
     public boolean verifyGizmo(int x, int y) {
+        System.out.println("x:" + x + " y: " + y);
         for (Gizmo element : gizmoArrayList) {
-            if (element.getX() < x && x < (element.getX() + width)
-                    && element.getY() < y && y < (element.getY() + height)) {
+            if (element.getX() < x && x < (element.getX() + element.getWidth())
+                    && element.getY() < y && y < (element.getY() + element.getHeight())) {
                 return true;
             }
         }
@@ -232,7 +242,7 @@ public class Board extends Observable{
 
     public void checkCollision( boolean leftPressed, boolean rightPressed){
         checkCollisionAndReflectBall(getBall(), leftPressed, rightPressed);
-        if(getLevel() == 2) {
+        if(getLevel() == 2.0) {
             checkCollisionAndReflectBall(getBall2(), leftPressed, rightPressed);
         }
         //ball related vectors
@@ -252,6 +262,40 @@ public class Board extends Observable{
             changeBallVelocity(returnVectBall.x(), returnVectBall.y());
             changeBall2Velocity(returnVectBall2.x(), returnVectBall2.y());
 
+        }
+        
+      //check the situation of cezerye
+        if(!cezeryeAppear && countdown == -1){
+        	countdown = (int) (1000 + Math.random()*200*25);
+            countdown = 400;
+        	System.out.println("countdown: "+countdown/200);
+        }else if(!cezeryeAppear && countdown == 0){
+        	System.out.println("Cezerye Appears");
+        	int xLoc = (int)(Math.random()*24.0) * 20;
+        	int yLoc = (int)(Math.random()*18.0) * 20  + 40;
+        	boolean validity = this.verifyGizmo(xLoc, yLoc);
+        	while(validity){
+                xLoc = (int)(Math.random()*24.0) * 20;
+                yLoc = (int)(Math.random()*12.0) * 20  + 120;
+            	validity = this.verifyGizmo(xLoc, yLoc);
+        	}
+            System.out.println("cezerye x: " + xLoc + " y: " + yLoc);
+            getCezerye().setX(xLoc);
+            getCezerye().setY(yLoc);
+        	cezeryeAppear=true;
+            getCezerye().setCezeryeAppear(cezeryeAppear);
+        	countdown=1000;
+        }else if(!cezeryeAppear && countdown>0){
+        	countdown--;
+        }else if(cezeryeAppear && countdown >0){
+        	countdown--;
+        }else if(cezeryeAppear && countdown == 0){
+        	cezeryeAppear=false;
+            getCezerye().setCezeryeAppear(cezeryeAppear);
+            getCezerye().setX(1000);
+            getCezerye().setY(1000);
+            countdown = (int) (1000 + Math.random()*200*25);
+            countdown = 400;
         }
     }
     public void checkCollisionAndReflectBall(Ball ball, boolean leftPressed, boolean rightPressed) {
@@ -355,6 +399,7 @@ public class Board extends Observable{
         //cezmi1 collision
         if (Geometry.timeUntilCircleCollision(cezmiCircle1, ballCircle, ballVelocity) <= HadiCezmi.TIME_COLLISION) {
             Vect returnedVector = Geometry.reflectCircle(cezmiVector1, ballVector, ballVelocity);
+
             ball.setVx(returnedVector.x());
             ball.setVy(returnedVector.y());
             ball.setState("Cezmi");
@@ -373,7 +418,7 @@ public class Board extends Observable{
         }
 
         //engel collision
-        if(engelCollision(engel, ballCircle, ballVelocity, ballVector)){
+        if(engelCollision(engel, ball, ballCircle, ballVelocity, ballVector)){
             if(!ball.getState().equals("Reset")) {
                 score[0] = ball.getPlayer();
                 score[1] = 0.5;
@@ -389,19 +434,61 @@ public class Board extends Observable{
             Gizmo gizmo = gizmoArrayList.get(i);
 
             if (gizmo instanceof SquareTakoz) {
-                if(quadrilateralCollision(gizmo, ballCircle, ballVelocity, ballVector)) {
+                if(quadrilateralCollision(gizmo, ball, ballCircle, ballVelocity, ballVector)) {
                     ball.setState("SquareTakoz");
                 }
 
             }else if(gizmo instanceof  Tokat){
-                if( quadrilateralCollision(gizmo, ballCircle, ballVelocity, ballVector)){
+                if( quadrilateralCollision(gizmo, ball, ballCircle, ballVelocity, ballVector)){
                     ball.setScore(2.0);
                     ball.setState("Tokat");
                     ball.setTokatCounter(2000);
                 }
             } else if (gizmo instanceof TriangleTakoz) {
-                if(triangularCollision(gizmo,ballCircle,ballVelocity, ballVector)) {
+                if(triangularCollision(gizmo, ball, ballCircle,ballVelocity, ballVector)) {
                     ball.setState("TriangularTakoz");
+                }
+            }else if (gizmo instanceof Cezerye && cezeryeAppear){
+                if(checkCezeryeCollision(gizmo, ball, ballCircle, ballVelocity, ballVector)){
+                    System.out.println("hit cezerye");
+                    cezeryeAppear=false;
+                    getCezerye().setCezeryeAppear(cezeryeAppear);
+                    getCezerye().setX(1000);
+                    getCezerye().setY(1000);
+                    countdown = (int) (1000 + Math.random()*200*25);
+
+                    Random rand = new Random();
+                    int specialEffectNumber = rand.nextInt(3);
+                    resetSpecialEffect();
+
+                    switch (specialEffectNumber) {
+                        case 0:
+                            if(ball.getPlayer() == 2){
+                                cezmi2.setRadius(cezmi2.getRadius()/2);
+                            }else if( ball.getPlayer() == 1){
+                                cezmi1.setRadius(cezmi1.getRadius()/2);
+                            }
+                            cezeryeSpecialEffect[0] = true;
+
+                            break;
+                        case 1:
+                            if(ball.getPlayer() == 2){
+                                cezmi1.setRadius(cezmi1.getRadius()*2);
+                            }else if( ball.getPlayer() == 1){
+                                cezmi2.setRadius(cezmi2.getRadius()*2);
+                            }
+                            cezeryeSpecialEffect[1] = true;
+                            break;
+                        case 2:
+                            if(ball.getPlayer() == 2){
+                                cezmi2.setVx(0);
+                            }else if( ball.getPlayer() == 1){
+                                cezmi1.setVx(0);
+                            }
+                            cezeryeSpecialEffect[2] = true;
+                            break;
+                    }
+
                 }
             }
         }
@@ -421,9 +508,29 @@ public class Board extends Observable{
             	
             }
         }
+        
+        
 
         ball.move();
 
+    }
+
+    private void resetSpecialEffect() {
+        if(cezeryeSpecialEffect[0]){
+            cezmi1.resetRadius();
+            cezmi2.resetRadius();
+            cezeryeSpecialEffect[0] = false;
+        }
+        if(cezeryeSpecialEffect[1]){
+            cezmi1.resetRadius();
+            cezmi2.resetRadius();
+            cezeryeSpecialEffect[1] = false;
+        }
+        if(cezeryeSpecialEffect[2]){
+            cezmi1.resetVx();
+            cezmi2.resetVx();
+            cezeryeSpecialEffect[2] = false;
+        }
     }
 
     public int getLevel() {
@@ -432,6 +539,8 @@ public class Board extends Observable{
 
     public void setLevel(int level) {
         this.level = level;
+        this.cezmi1.setCezmiLevel(level);
+        this.cezmi2.setCezmiLevel(level);
     }
 
     public double getGravity() {
@@ -485,7 +594,7 @@ public class Board extends Observable{
             int x = random.nextInt(400)+50;
             int y = random.nextInt(200)+50;
             changeBallPosition(x,y);
-            while(!verifyGizmo(x,y)){
+            while(verifyGizmo(x,y)){
                 x = random.nextInt(400)+50;
                 y = random.nextInt(200)+50;
                 changeBallPosition(x,y);
@@ -497,12 +606,12 @@ public class Board extends Observable{
             x =random.nextInt(400)+50;
             y = random.nextInt(200)+50;
             changeBall2Position(x,y);
-            while(!verifyGizmo(x,y)){
+            while(verifyGizmo(x,y)){
                 x =random.nextInt(400)+50;
                 y = random.nextInt(200)+50;
                 changeBallPosition(x,y);
             }
-            while(!verifyGizmo(x,y)){
+            while(verifyGizmo(x,y)){
                 x =random.nextInt(400)+50;
                 y = random.nextInt(200)+50;
                 changeBall2Position(x,y);
@@ -530,7 +639,7 @@ public class Board extends Observable{
         }
     }
 
-    public boolean quadrilateralCollision(Gizmo gizmo, Circle ballCircle, Vect ballVelocity, Vect ballVector){
+    public boolean quadrilateralCollision(Gizmo gizmo, Ball ball, Circle ballCircle, Vect ballVelocity, Vect ballVector){
         boolean result = false;
         Gizmo temp = (Gizmo) gizmo;
         Vect p1 = temp.getPoints()[0];
@@ -603,7 +712,7 @@ public class Board extends Observable{
 
         return result;
     }
-    public boolean triangularCollision(Gizmo gizmo, Circle ballCircle, Vect ballVelocity, Vect ballVector){
+    public boolean triangularCollision(Gizmo gizmo, Ball ball,  Circle ballCircle, Vect ballVelocity, Vect ballVector){
         boolean result = false;
         TriangleTakoz temp = (TriangleTakoz) gizmo;
         Vect p1 = temp.getPoints()[0];
@@ -659,7 +768,7 @@ public class Board extends Observable{
         }
         return result;
     }
-    public boolean engelCollision(Engel engel, Circle ballCircle, Vect ballVelocity, Vect ballVector){
+    public boolean engelCollision(Engel engel, Ball ball,  Circle ballCircle, Vect ballVelocity, Vect ballVector){
         boolean result = false;
 
         Vect engelTopLeftCorner = new Vect(engel.getX(), engel.getY());
@@ -733,6 +842,48 @@ public class Board extends Observable{
 
     }
 
+    public boolean checkCezeryeCollision(Gizmo cezerye, Ball ball, Circle ballCircle, Vect ballVelocity, Vect ballVector){
+        boolean result = false;
+
+        Vect cezeryeTopLeftCorner = new Vect(cezerye.getX(), cezerye.getY());
+        Circle cezeryeTopLeftCircle = new Circle(cezeryeTopLeftCorner.x(), cezeryeTopLeftCorner.y(), HadiCezmi.CORNER_RADIUS);
+        Vect cezeryeTopRightCorner = new Vect((cezerye.getX() + cezerye.getWidth()), cezerye.getY());
+        Circle cezeryeTopRightCircle = new Circle(cezeryeTopRightCorner.x(), cezeryeTopRightCorner.y(), HadiCezmi.CORNER_RADIUS);
+        Vect cezeryeBottomLeftCorner = new Vect(cezerye.getX(), (cezerye.getY() + cezerye.getHeight()));
+        Circle cezeryeBottomLeftCircle = new Circle(cezeryeBottomLeftCorner.x(), cezeryeBottomLeftCorner.y(), HadiCezmi.CORNER_RADIUS);
+        Vect cezeryeBottomRightCorner = new Vect((cezerye.getX() + cezerye.getWidth()), (cezerye.getY() + cezerye.getHeight()));
+        Circle cezeryeBottomRightCircle = new Circle(cezeryeBottomRightCorner.x(), cezeryeBottomRightCorner.y(), HadiCezmi.CORNER_RADIUS);
+
+
+        LineSegment cezeryeTopLine = new LineSegment(cezeryeTopLeftCorner, cezeryeTopRightCorner);
+        LineSegment cezeryeRightLine = new LineSegment(cezeryeTopRightCorner, cezeryeBottomRightCorner);
+        LineSegment cezeryeBottomLine = new LineSegment(cezeryeBottomLeftCorner, cezeryeBottomRightCorner);
+        LineSegment cezeryeLeftLine = new LineSegment(cezeryeTopLeftCorner, cezeryeBottomLeftCorner);
+
+
+        if (Geometry.timeUntilWallCollision(cezeryeTopLine, ballCircle, ballVelocity) <= HadiCezmi.TIME_COLLISION) {
+            result = true;
+        } else if (Geometry.timeUntilWallCollision(cezeryeRightLine, ballCircle, ballVelocity) <= HadiCezmi.TIME_COLLISION) {
+            result = true;
+        } else if (Geometry.timeUntilWallCollision(cezeryeBottomLine, ballCircle, ballVelocity) <= HadiCezmi.TIME_COLLISION) {
+            result = true;
+        } else if (Geometry.timeUntilWallCollision(cezeryeLeftLine, ballCircle, ballVelocity) <= HadiCezmi.TIME_COLLISION) {
+            result = true;
+        } else if (Geometry.timeUntilCircleCollision(cezeryeTopLeftCircle, ballCircle, ballVelocity) <= HadiCezmi.TIME_COLLISION) {
+            result = true;
+        } else if (Geometry.timeUntilCircleCollision(cezeryeTopRightCircle, ballCircle, ballVelocity) <= HadiCezmi.TIME_COLLISION) {
+            result = true;
+        } else if (Geometry.timeUntilCircleCollision(cezeryeBottomLeftCircle, ballCircle, ballVelocity) <= HadiCezmi.TIME_COLLISION) {
+            result = true;
+        } else if (Geometry.timeUntilCircleCollision(cezeryeBottomRightCircle, ballCircle, ballVelocity) <= HadiCezmi.TIME_COLLISION) {
+            result = true;
+        }
+
+        return result;
+
+    }
+
+
     public void changeBallDiameters(double score1, double score2) {
         if(((score1 + score2) % 2.0) == 0){
             if(ball.getRadius() > HadiCezmi.UNIT_LENGTH/5) {
@@ -742,5 +893,16 @@ public class Board extends Observable{
         }
         System.out.println(ball.getRadius());
 
+    }
+
+    public Cezerye getCezerye() {
+
+        for (Gizmo gizmo : gizmoArrayList) {
+            if(gizmo instanceof Cezerye){
+                return (Cezerye) gizmo;
+            }
+        }
+        System.out.println("No Cezerye");
+        return null;
     }
 }

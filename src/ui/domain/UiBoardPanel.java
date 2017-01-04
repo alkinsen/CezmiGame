@@ -29,6 +29,8 @@ public class UiBoardPanel extends JPanel {
         if(hadiCezmi.getLevel() == 2) addUiBall2(hadiCezmi.getBoard().getBall2());
         addUiGizmo(hadiCezmi.getBoard().getGizmoArrayList());
         uiEngel = new UiEngel(hadiCezmi.getBoard().getEngel());
+
+
         
     }
 
@@ -44,7 +46,6 @@ public class UiBoardPanel extends JPanel {
     public void addUiCezmi2(Cezmi cezmi2){
         this.uiCezmi2 = new UiCezmi(cezmi2);
     }
-
     public void addUiGizmo(ArrayList<Gizmo> gizmos) {
         for (Gizmo gizmo : gizmos) {
             if ((gizmo instanceof SquareTakoz) && (!(gizmo instanceof Firildak))) {
@@ -62,6 +63,7 @@ public class UiBoardPanel extends JPanel {
             } else if (gizmo instanceof Cezerye) {
             	Cezerye cezerye= (Cezerye) gizmo;
             	this.uiGizmos.add(new UiCezerye(cezerye));
+                System.out.println("Adding the observer");
             } else if (gizmo instanceof Firildak) {
             	Firildak firildak= (Firildak) gizmo;
             	this.uiGizmos.add(new UiFirildak (firildak)); 
@@ -80,11 +82,20 @@ public class UiBoardPanel extends JPanel {
         if(uiCezmi2 != null) uiCezmi2.paint(g);
         if(uiGizmos != null) {
             for(UiGizmo uiGizmo: uiGizmos){
-                uiGizmo.paint(g);
+                if(uiGizmo instanceof UiCezerye){
+                    UiCezerye temp = (UiCezerye) uiGizmo;
+                    if (temp.isAppear()) {
+                        uiGizmo.paint(g);
+
+                    }
+                }else {
+                    uiGizmo.paint(g);
+                }
             }
         }
         if(uiEngel != null){
         	uiEngel.paint(g);
         }
+
     }
 }

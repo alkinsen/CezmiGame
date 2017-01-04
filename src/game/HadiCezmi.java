@@ -44,6 +44,8 @@ public class HadiCezmi implements Observer{
     
     private boolean leftPressed = false;
     private boolean rightPressed = false;
+    
+    
 
 
     public HadiCezmi(int level, String playerName1, String playerName2) {
@@ -196,6 +198,7 @@ public class HadiCezmi implements Observer{
 
 	public void setLevel(int level) {
 		this.level = level;
+        board.setLevel(level);
 	}
 
 	public Player getPlayer1() {
@@ -253,7 +256,6 @@ public class HadiCezmi implements Observer{
     public void setCezmi2Right(int cezmi2Right) {
         this.cezmi2Right = cezmi2Right;
     }
-
 
     public int getTokatLeftKey() {
         return tokatLeftKey;
@@ -321,6 +323,8 @@ public class HadiCezmi implements Observer{
 
 	public void reset(){
         board = new Board(level);
+        player1.setScore(0);
+        player2.setScore(0);
         board.addObserver(this);
     }
 	
