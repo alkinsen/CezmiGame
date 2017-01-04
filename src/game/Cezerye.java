@@ -87,7 +87,7 @@ public class Cezerye extends Gizmo {
 
 	@Override
 	public double getTime() {
-		return countdown/5.0;
+		return countdown/200.0;
 	}
 
 	@Override
