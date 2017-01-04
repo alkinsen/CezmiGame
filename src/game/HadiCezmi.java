@@ -129,7 +129,7 @@ public class HadiCezmi implements Observer{
 		ArrayList<HashMap<String, String>> cezeryeList = xmlParser.createCezeryeFromXml();
 		for (int i = 0; i < cezeryeList.size(); i++) {
 			if (cezeryeList.get(i).containsKey("type") && cezeryeList.get(i).containsKey("x") && cezeryeList.get(i).containsKey("y") && cezeryeList.get(i).containsKey("time")){
-				board.addGizmo(cezeryeList.get(i).get("type"), Integer.parseInt(cezeryeList.get(i).get("x")), Integer.parseInt(cezeryeList.get(i).get("y")));
+				board.addCezerye(Integer.parseInt(cezeryeList.get(i).get("x")), Integer.parseInt(cezeryeList.get(i).get("y")), Double.parseDouble(cezeryeList.get(i).get("time")));
 			}
 		}
 	}
