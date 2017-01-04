@@ -32,7 +32,7 @@ public class XMLParser {
 		} 
 	}
 
-	private int getLevel(){
+	public int getLevel(){
 		Node tempLevel;
 		NodeList nodeLevelList;
 		int cezmiIntLevel = 1;
@@ -286,7 +286,7 @@ public class XMLParser {
 						String cezeryeTime = cezerye.getAttribute("time");
 						double cezeryeDoubleTime =  Double.parseDouble(cezeryeTime);	
 
-						if(cezeryeIntX > 0 && cezeryeIntX < 500 && cezeryeIntY > 0 && cezeryeIntY < 380 && cezeryeDoubleTime > 0 && cezeryeDoubleTime <= 5){
+						if(cezeryeDoubleTime >= 0 && cezeryeDoubleTime <= 5){
 							cezeryeInfo.put("x", cezerye.getAttribute("x"));
 							cezeryeInfo.put("y", cezerye.getAttribute("y"));
 							cezeryeInfo.put("time", cezerye.getAttribute("time"));

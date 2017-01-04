@@ -116,7 +116,7 @@ public class HadiCezmi implements Observer{
 		//creating level, friction and gravity from xml
 		ArrayList<HashMap<String, String>> boardList = xmlParser.createBoardFromXml();
 		if (boardList.get(0).containsKey("level")) {
-			board.setLevel(Integer.parseInt(boardList.get(0).get("level")));
+			this.setLevel(Integer.parseInt(boardList.get(0).get("level")));
 		}
 		if (boardList.get(0).containsKey("gravity")) {
 			board.setGravity(Double.parseDouble(boardList.get(0).get("gravity")));
