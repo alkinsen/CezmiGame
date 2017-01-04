@@ -48,8 +48,8 @@ public class GizmoFactory {
                 g.setOrientation(orientation);
                 return g;
             case "TriangleTakoz":
-                g = new TriangleTakoz(xLoc, yLoc);
-                g.setOrientation(orientation);
+                g = new TriangleTakoz(xLoc, yLoc, orientation);
+//                g.setOrientation(orientation);
                 return g;
             case "LeftTokat":
                 g = new LeftTokat(xLoc, yLoc);

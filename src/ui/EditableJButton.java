@@ -1,6 +1,9 @@
 package ui;
 
 import javax.swing.*;
+
+import game.HadiCezmi;
+
 import java.awt.*;
 import java.awt.event.*;
 import java.awt.image.BufferedImage;
@@ -14,6 +17,8 @@ public class EditableJButton extends JButton {
     private final static int UNIT_LENGTH = 20;
     private boolean rotateMode=false;
     private int matrixValue=0;
+    
+    
     //mode 0 = null, 
     //mode 1 = SquareTakoz  = sarı
     //mode 2 = TriangleTakoz = kırmızı
@@ -42,28 +47,28 @@ public class EditableJButton extends JButton {
             public void mousePressed(MouseEvent e) {
                 if (e.getButton() == MouseEvent.BUTTON1 && !rotateMode) {
                 	switch(mode){
-                	case 0 :
+                	case HadiCezmi.hadiCezmi_Null :
                 		if (y == 24){
-                			setMode(5);
+                			setMode(HadiCezmi.hadiCezmi_Cezmi);
                 		}
                 		else{
-                			setMode(1);
+                			setMode(HadiCezmi.hadiCezmi_SquareTakoz);
                 		}
                 		break;
-                	case 1 : 
-                		setMode(2);
+                	case HadiCezmi.hadiCezmi_SquareTakoz : 
+                		setMode(HadiCezmi.hadiCezmi_TriangleTakoz);
                 		break;
-                	case 2 : 
-                		setMode(3);
+                	case HadiCezmi.hadiCezmi_TriangleTakoz : 
+                		setMode(HadiCezmi.hadiCezmi_Tokat);
                 		break;
-                	case 3 : 
-                		setMode(4);
+                	case HadiCezmi.hadiCezmi_Tokat : 
+                		setMode(HadiCezmi.hadiCezmi_Firildak);
                 		break;	
-                	case 4 : 
-                		setMode(0);
+                	case HadiCezmi.hadiCezmi_Firildak : 
+                		setMode(HadiCezmi.hadiCezmi_Null);
                 		break;
-                	case 5 :
-                		setMode(0);
+                	case HadiCezmi.hadiCezmi_Cezmi :
+                		setMode(HadiCezmi.hadiCezmi_Null);
                 	}
 
                 }
@@ -73,7 +78,7 @@ public class EditableJButton extends JButton {
                 else if(e.getButton() == MouseEvent.BUTTON1 && rotateMode){
                 	int x=e.getX();
                 	int y=e.getY();
-                	if(mode!=0){
+                	if(mode!=HadiCezmi.hadiCezmi_Null){
 //                	System.out.println(x+" "+y);
                 	matrixValue++;
 //                	System.out.println(matrixValue);
@@ -104,12 +109,12 @@ public class EditableJButton extends JButton {
     }
     public void setMode(int mode) {
         this.mode = mode;
-        if(mode == 0) setBackground(Color.black);
-        if(mode == 1) setBackground(Color.yellow);
-        if(mode == 2) setBackground(Color.red);
-        if(mode == 3) setBackground(Color.magenta);
-        if(mode == 4) setBackground(Color.blue);
-        if(mode == 5) setBackground(Color.green);
+        if(mode == HadiCezmi.hadiCezmi_Null) setBackground(Color.black);
+        if(mode == HadiCezmi.hadiCezmi_SquareTakoz) setBackground(Color.yellow);
+        if(mode == HadiCezmi.hadiCezmi_TriangleTakoz) setBackground(Color.red);
+        if(mode == HadiCezmi.hadiCezmi_Tokat) setBackground(Color.magenta);
+        if(mode == HadiCezmi.hadiCezmi_Firildak) setBackground(Color.blue);
+        if(mode == HadiCezmi.hadiCezmi_Cezmi) setBackground(Color.green);
         repaint();
 
     }
