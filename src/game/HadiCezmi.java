@@ -13,9 +13,9 @@ import xml.XMLParser;
  */
 public class HadiCezmi implements Observer{
     public static final int UNIT_LENGTH = 20;
-    public static final int BOARD_WIDTH = UNIT_LENGTH*20;
-    public static final int BOARD_HEIGHT = UNIT_LENGTH*20;
-    public static final double TIME_COLLISION = .20;
+    public static final int BOARD_WIDTH = UNIT_LENGTH*25;
+    public static final int BOARD_HEIGHT = UNIT_LENGTH*25;
+    public static final double TIME_COLLISION = .10;
     public static final double CORNER_RADIUS = 0;
     public static final int LEVEL_ONE = 1;
     public static final int LEVEL_TWO = 2;
