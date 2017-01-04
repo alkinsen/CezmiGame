@@ -158,7 +158,7 @@ public class EditFrame {
 //				}
 //				JOptionPane.showMessageDialog(null, message,"Map Status",JOptionPane.WARNING_MESSAGE);
 
-				System.out.println("girdi");
+				
 				message = checkMap();
 				if(!(checkMap().equalsIgnoreCase("Success"))){
 //					String message= "Check your board again";
@@ -300,37 +300,47 @@ public class EditFrame {
 				Color c=e[i][j].getBackground();
 				if(c.equals(Color.magenta)){
 					
-//						
-					Color c1=e[i+1][j].getBackground();
+					
+					Color c1=e[i][j+1].getBackground();
+					Color c2=e[i+1][j].getBackground();
+				
+					
 					if(c1.equals(Color.magenta)|| c1.equals(Color.yellow) || c1.equals(Color.blue) || c1.equals(Color.red)){
 
-						System.out.println("tokat dolu");
+						
 						message= "There is a Gizmo next to a Tokat. Check again.";
-						if((j<=24) && (j>=1)){
-							Color c2=e[i][j+1].getBackground();
-							Color c3=e[i][j-1].getBackground();
-							int counter=0;
-								if(!c2.equals(Color.magenta)){
-									counter++;
-								
-								}
-								if(!c3.equals(Color.magenta)){
-									counter++;
-								}
-								if(counter==2){
-									message= "Not a valid tokat placement. Check your tokat representation again.";
-								}
-								
-							}
-//							return false;
-							
+//						if((j<=24) && (j>=1)){
+//							Color c2=e[i][j+1].getBackground();
+//							Color c3=e[i][j-1].getBackground();
+//							int counter=0;
+//								if(!c2.equals(Color.magenta)){
+//									counter++;
+//								
+//								}
+//								if(!c3.equals(Color.magenta)){
+//									counter++;
+//								}
+//								if(counter==2){
+//									message= "Not a valid tokat placement. Check your tokat representation again.";
+//								}
+//								
+//							}
+////							return false;
+//							
 							return message;
 
-						}else{
-							tokat++;
-						}
+						}				
+					else if(c2.equals(Color.magenta)|| c2.equals(Color.yellow) || c2.equals(Color.blue) || c2.equals(Color.red)){
+						
+						message= "There is a Gizmo under the Tokat. Check again.";
+						return message;
+					}else {
+						tokat++;
+					}
+					
 					
 				} else if(c.equals(Color.yellow)){
+					
 					gizmo++;
 				} else if(c.equals(Color.blue)){
 					gizmo++;
@@ -342,24 +352,24 @@ public class EditFrame {
 				
 			}
 		}
-		if(tokat==2){
-			if(gizmo+tokat!=5 ){
-			System.out.println("f3");
+//		if(tokat==2){
+			if(gizmo+tokat!=4 ){
+			
 
-			message= "Gizmo number is not 4. Check again. ";
-			return message;
-//			return false;
-			}
-		}else{
-			if(gizmo!=4){
-				System.out.println("f9");
+//			message= "Gizmo number is not 4. Check again. ";
+//			return message;
+////			return false;
+//			}
+//		}else{
+//			if(gizmo!=4){
+//				
 				message= "Gizmo number is not 4. Check again. ";
 				return message;
-			}
+//			}
 		}
 
 		if(tokat>2){
-			System.out.println("f4");
+			
 			message= "There are more than one Tokat at one of the sides. Check again.";
 			return message;
 //			return false;
@@ -373,36 +383,46 @@ public class EditFrame {
 				Color c=e[i][j].getBackground();
 				if(c.equals(Color.magenta)){
 					
-					
+					int count=0;
 					Color c1=e[i-1][j].getBackground();
+					Color c2=e[i][j+1].getBackground();
 					if(c1.equals(Color.magenta)|| c1.equals(Color.yellow) || c1.equals(Color.blue) || c1.equals(Color.red)){
+						
 
-						System.out.println("tokat dolu");
+						
 						message= "There is a Gizmo next to a Tokat. Check again.";
 						
-						if((j<=24) && (j>=1)){
-						Color c2=e[i][j+1].getBackground();
-						Color c3=e[i][j-1].getBackground();
-						int counter=0;
-							if(!c2.equals(Color.magenta)){
-								counter++;
-							
-							}
-							if(!c3.equals(Color.magenta)){
-								counter++;
-							}
-							if(counter==2){
-								message= "Not a valid tokat placement. Check your tokat representation again.";
-							}
-							
-						}
-//						return false;
+//						if((j<=24) && (j>=1)){
+//						Color c2=e[i][j+1].getBackground();
+//						Color c3=e[i][j-1].getBackground();
+//						int counter=0;
+//							if(!c2.equals(Color.magenta)){
+//								counter++;
+//							
+//							}
+//							if(!c3.equals(Color.magenta)){
+//								counter++;
+//							}
+//							if(counter==2){
+//								message= "Not a valid tokat placement. Check your tokat representation again.";
+//							}
+//							
+//						}
+////						return false;
 
 						return message;
 
-					}else{
+					}else if(c2.equals(Color.magenta)|| c2.equals(Color.yellow) || c2.equals(Color.blue) || c2.equals(Color.red)){
+						
+						message= "There is a Gizmo under the Tokat. Check again.";
+						return message;
+					}else {
 						tokat++;
 					}
+						
+					
+					
+					
 					
 				} else if(c.equals(Color.yellow)){
 					gizmo++;
@@ -416,21 +436,21 @@ public class EditFrame {
 				
 			}
 		}
-		if(tokat==2){
-			if(gizmo+tokat!=5 ){
-
-			message= "Gizmo number is not 4. Check again. ";
-			return message;
-
-//			return false;
-			}
-		}else{
-			if(gizmo!=4){
-				System.out.println("f9");
+//		if(tokat==2){
+//			if(gizmo+tokat!=5 ){
+//
+//			message= "Gizmo number is not 4. Check again. ";
+//			return message;
+//
+////			return false;
+//			}
+//		}else{
+			if(gizmo+tokat!=4){
+				
 				message= "Gizmo number is not 4. Check again. ";
 				return message;
 			}
-		}
+//		}
 		if(tokat>2){
 			System.out.println("f4");
 

@@ -19,6 +19,12 @@ public class HadiCezmi implements Observer{
     public static final double CORNER_RADIUS = 0;
     public static final int LEVEL_ONE = 1;
     public static final int LEVEL_TWO = 2;
+    public static final int hadiCezmi_SquareTakoz=1;
+    public static final int hadiCezmi_TriangleTakoz=2;
+    public static final int hadiCezmi_Tokat=3;
+    public static final int hadiCezmi_Cezmi=5;
+    public static final int hadiCezmi_Firildak=4;
+    public static final int hadiCezmi_Null=0;
 
     private Player player1;
     private Player player2;
