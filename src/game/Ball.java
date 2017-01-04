@@ -108,6 +108,8 @@ public class Ball extends Observable{
 		x = x + vx;
 		y = y + vy;
 		vy= vy+acceleration;
+
+
 		if(getTokatCounter() > 0){
 			decrementTokatCounter();
 		}
