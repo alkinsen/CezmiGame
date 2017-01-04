@@ -34,7 +34,6 @@ public class TriangleTakoz extends Takoz {
         center = new Vect((double) xLoc + (double) width / 2, (double) yLoc + (double) height / 2);
         
         if(orientation==90){
-        	System.out.println("90");
         	rotate();
         } else if(orientation==180){
         	rotate();
@@ -66,9 +65,42 @@ public class TriangleTakoz extends Takoz {
     	
     }
 
-   
-	
-	//methods
+    @Override
+    public void setWidth(int width) {
+        super.setWidth(width);
+
+        points = new Vect[3];
+        points[0] = new Vect(x, y);
+        points[1] = new Vect(x, y + height);
+        points[2] = new Vect(x + width, y);
+        setChanged();
+        notifyObservers();
+    }
+
+    @Override
+    public void setHeight(int height) {
+        super.setHeight(height);
+        points = new Vect[3];
+        points[0] = new Vect(x, y);
+        points[1] = new Vect(x, y + height);
+        points[2] = new Vect(x + width, y);
+        setChanged();
+        notifyObservers();
+    }
+
+    @Override
+    public void reset() {
+        this.width = 20;
+        this.height = 20;
+        points = new Vect[3];
+        points[0] = new Vect(x, y);
+        points[1] = new Vect(x, y + height);
+        points[2] = new Vect(x + width, y);
+        setChanged();
+        notifyObservers();
+    }
+
+    //methods
     public void rotate() {
 
         Angle angle = new Angle(Math.PI / 2);

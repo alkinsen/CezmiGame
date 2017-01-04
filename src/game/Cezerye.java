@@ -27,7 +27,42 @@ public class Cezerye extends Gizmo {
         points[3] = new Vect(xLoc, yLoc + height);
 
 	}
+	@Override
+	public void setWidth(int width) {
+		super.setWidth(width);
+		points = new Vect[4];
+		points[0] = new Vect(x, y);
+		points[1] = new Vect(x + width, y);
+		points[2] = new Vect(x + width, y + height);
+		points[3] = new Vect(x, y + height);
+		setChanged();
+		notifyObservers();
+	}
 
+	@Override
+	public void setHeight(int height) {
+		super.setHeight(height);
+		points = new Vect[4];
+		points[0] = new Vect(x, y);
+		points[1] = new Vect(x + width, y);
+		points[2] = new Vect(x + width, y + height);
+		points[3] = new Vect(x, y + height);
+		setChanged();
+		notifyObservers();
+	}
+
+	@Override
+	public void reset() {
+		this.width = 20;
+		this.height = 20;
+		points = new Vect[4];
+		points[0] = new Vect(x, y);
+		points[1] = new Vect(x + width, y);
+		points[2] = new Vect(x + width, y + height);
+		points[3] = new Vect(x, y + height);
+		setChanged();
+		notifyObservers();
+	}
 
 	@Override
 	public void setX(int x) {
@@ -62,6 +97,7 @@ public class Cezerye extends Gizmo {
     public void setPoints(Vect[] points) {
         this.points = points;
     }
+
 
 	public void rotate(){
 

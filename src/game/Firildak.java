@@ -30,6 +30,45 @@ public class Firildak extends SquareTakoz {
 
     }
 
+    @Override
+    public void setWidth(int width) {
+        super.setWidth(width);
+        points = new Vect[4];
+        points[0] = new Vect(x, y);
+        points[1] = new Vect(x + width, y);
+        points[2] = new Vect(x + width, y + height);
+        points[3] = new Vect(x, y + height);
+        center = new Vect((double) x + (double) width / 2, (double) y + (double) height / 2);
+        setChanged();
+        notifyObservers();
+    }
+
+    @Override
+    public void setHeight(int height) {
+        super.setHeight(height);
+        points = new Vect[4];
+        points[0] = new Vect(x, y);
+        points[1] = new Vect(x + width, y);
+        points[2] = new Vect(x + width, y + height);
+        points[3] = new Vect(x, y + height);
+        center = new Vect((double) x + (double) width / 2, (double) y + (double) height / 2);
+        setChanged();
+        notifyObservers();
+    }
+
+    @Override
+    public void reset() {
+        this.width = 20;
+        this.height = 20;
+        points = new Vect[4];
+        points[0] = new Vect(x, y);
+        points[1] = new Vect(x + width, y);
+        points[2] = new Vect(x + width, y + height);
+        points[3] = new Vect(x, y + height);
+        setChanged();
+        notifyObservers();
+    }
+
     public void rotate() {
 
         Angle angle = new Angle(2 * Math.PI / 120);

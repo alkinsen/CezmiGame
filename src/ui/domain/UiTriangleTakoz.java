@@ -45,7 +45,6 @@ public class UiTriangleTakoz extends UiTakoz{
 
     @Override
     public void update(Observable o, Object arg) {
-        System.out.println("updated triangle takoz");
         TriangleTakoz temp = (TriangleTakoz) o;
         
         for(int i=0; i<3; i++){

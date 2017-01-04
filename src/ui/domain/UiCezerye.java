@@ -25,9 +25,7 @@ public class UiCezerye extends UiGizmo {
 
     @Override
     public void update(Observable o, Object arg) {
-		if(arg == null){
-			System.out.println(arg);
-		}else {
+		if(arg != null){
 			Cezerye cc = (Cezerye) arg;
 			this.appear = cc.isCezeryeAppear();
 			this.x = (int) Math.round(cc.getX());

@@ -30,6 +30,44 @@ public class LeftTokat extends Tokat {
 		center = new Vect(points[1].x(),points[1].y());
 	}
 
+
+	@Override
+	public void setWidth(int width) {
+		super.setWidth(width);
+		points = new Vect[4];
+		points[0] = new Vect(x, y);
+		points[1] = new Vect(x + width, y);
+		points[2] = new Vect(x + width, y + height);
+		points[3] = new Vect(x, y + height);
+		setChanged();
+		notifyObservers();
+	}
+
+	@Override
+	public void setHeight(int height) {
+		super.setHeight(height);
+		points = new Vect[4];
+		points[0] = new Vect(x, y);
+		points[1] = new Vect(x + width, y);
+		points[2] = new Vect(x + width, y + height);
+		points[3] = new Vect(x, y + height);
+		setChanged();
+		notifyObservers();
+	}
+
+	@Override
+	public void reset() {
+		this.width = 10;
+		this.height = 40;
+		points = new Vect[4];
+		points[0] = new Vect(x, y);
+		points[1] = new Vect(x + width, y);
+		points[2] = new Vect(x + width, y + height);
+		points[3] = new Vect(x, y + height);
+		setChanged();
+		notifyObservers();
+	}
+
 	public void rotate() {
 
 	}

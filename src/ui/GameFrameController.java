@@ -30,8 +30,9 @@ public class GameFrameController {
             	new StartFrame(hadiCezmi);
             	break;
             case "Edit":
+                hadiCezmi.pause();
             	frame.setVisible(false);
-//                hadiCezmi.reset();
+                frame.dispose();
             	new EditFrame(hadiCezmi);
             	break;
         }

@@ -217,8 +217,6 @@ public class EditFrame {
 				if(rotateBox.isSelected()){
 					rotateMode = true; 
 					editPane.setMode(true);
-					System.out.println("a");
-				
 				}
 				else{
 					editPane.setMode(false);
@@ -246,7 +244,6 @@ public class EditFrame {
 				}
 				hadi.setLevel(levelNo);
 				hadi.getBoard().setLevel(levelNo);
-				System.out.println(hadi.getBoard().getLevel());
 			}
 		});
 		toolBar.add(levelBox);
@@ -452,8 +449,6 @@ public class EditFrame {
 			}
 //		}
 		if(tokat>2){
-			System.out.println("f4");
-
 			message= "There are more than one Tokat at one of the sides. Check again.";
 			return message;
 
@@ -567,12 +562,14 @@ class EditPane extends JPanel {
 		Cezmi cezmi1 = hadi.getBoard().getCezmi1();
 		int x1 = (int) cezmi1.getX() / 20;
 		int y1 = (int) cezmi1.getY() / 20;
+		if(x1 == 11 || x1 == 12) x1=10;
 		gridSquares[x1][y1 - 1].setBackground(Color.green);
 		gridSquares[x1 + 1][y1 - 1].setBackground(Color.green);
 
 		Cezmi cezmi2 = hadi.getBoard().getCezmi2();
 		int x2 = (int) cezmi2.getX() / 20;
 		int y2 = (int) cezmi2.getY() / 20;
+		if(x2 == 24 || x2 == 25) x2 = 23;
 
 		gridSquares[x2][y2-1].setBackground(Color.green);
 		gridSquares[x2+1][y2-1].setBackground(Color.green);

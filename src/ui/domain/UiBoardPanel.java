@@ -63,7 +63,6 @@ public class UiBoardPanel extends JPanel {
             } else if (gizmo instanceof Cezerye) {
             	Cezerye cezerye= (Cezerye) gizmo;
             	this.uiGizmos.add(new UiCezerye(cezerye));
-                System.out.println("Adding the observer");
             } else if (gizmo instanceof Firildak) {
             	Firildak firildak= (Firildak) gizmo;
             	this.uiGizmos.add(new UiFirildak (firildak)); 

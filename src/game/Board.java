@@ -163,7 +163,7 @@ public class Board extends Observable{
             }
         }
         if (valid) {
-            Gizmo g = gizmoFactory.getGizmo(type, x, y);
+            Gizmo g = gizmoFactory. getGizmo(type, x, y);
             gizmoArrayList.add(g);
         }
       
@@ -424,7 +424,6 @@ public class Board extends Observable{
         }
 
         //takozlar
-
         for (int i = 0; i < gizmoArrayList.size(); i++) {
             Gizmo gizmo = gizmoArrayList.get(i);
 
@@ -445,6 +444,7 @@ public class Board extends Observable{
                 }
             }else if (gizmo instanceof Cezerye && cezeryeAppear){
                 if(checkCezeryeCollision(gizmo, ball, ballCircle, ballVelocity, ballVector)){
+                    countdown = (int) (1000 + Math.random()*200*25);
                     cezeryeAppear=false;
                     getCezerye().setCezeryeAppear(cezeryeAppear);
                     getCezerye().setX(1000);
@@ -458,18 +458,18 @@ public class Board extends Observable{
                     switch (specialEffectNumber) {
                         case 0:
                             if(ball.getPlayer() == 2){
-                                cezmi2.setRadius(cezmi2.getRadius()/2);
+                                halveRightSideGizmos();
                             }else if( ball.getPlayer() == 1){
-                                cezmi1.setRadius(cezmi1.getRadius()/2);
+                                halveLeftSideGizmos();
                             }
                             cezeryeSpecialEffect[0] = true;
 
                             break;
                         case 1:
                             if(ball.getPlayer() == 2){
-                                cezmi1.setRadius(cezmi1.getRadius()*2);
+                                doubleLeftSideGizmos();
                             }else if( ball.getPlayer() == 1){
-                                cezmi2.setRadius(cezmi2.getRadius()*2);
+                                doubleRightSideGizmos();
                             }
                             cezeryeSpecialEffect[1] = true;
                             break;
@@ -502,27 +502,24 @@ public class Board extends Observable{
             	
             }
         }
-        
-        
+
+        cezmi1.resetVx();
+        cezmi2.resetVx();
 
         ball.move();
 
     }
 
     private void resetSpecialEffect() {
-        if(cezeryeSpecialEffect[0]){
-            cezmi1.resetRadius();
-            cezmi2.resetRadius();
+        if(cezeryeSpecialEffect[0] || cezeryeSpecialEffect[1]){
+            for (Gizmo gizmo : gizmoArrayList) {
+                gizmo.reset();
+            }
             cezeryeSpecialEffect[0] = false;
-        }
-        if(cezeryeSpecialEffect[1]){
-            cezmi1.resetRadius();
-            cezmi2.resetRadius();
             cezeryeSpecialEffect[1] = false;
         }
         if(cezeryeSpecialEffect[2]){
-            cezmi1.resetVx();
-            cezmi2.resetVx();
+            resetCezmiVelocities();
             cezeryeSpecialEffect[2] = false;
         }
     }
@@ -878,7 +875,38 @@ public class Board extends Observable{
         return result;
 
     }
-
+    public void doubleLeftSideGizmos(){
+        for (Gizmo gizmo : gizmoArrayList) {
+            if(gizmo.getX() < HadiCezmi.BOARD_WIDTH/2){
+                gizmo.setHeight(gizmo.getHeight()*2);
+                gizmo.setWidth(gizmo.getWidth()*2);
+            }
+        }
+    }
+    public void doubleRightSideGizmos(){
+        for (Gizmo gizmo : gizmoArrayList) {
+            if(gizmo.getX() > HadiCezmi.BOARD_WIDTH/2){
+                gizmo.setHeight(gizmo.getHeight()*2);
+                gizmo.setWidth(gizmo.getWidth()*2);
+            }
+        }
+    }
+    public void halveLeftSideGizmos(){
+        for (Gizmo gizmo : gizmoArrayList) {
+            if(gizmo.getX() < HadiCezmi.BOARD_WIDTH/2){
+                gizmo.setHeight(gizmo.getHeight()/2);
+                gizmo.setWidth(gizmo.getWidth()/2);
+            }
+        }
+    }
+    public void halveRightSideGizmos(){
+        for (Gizmo gizmo : gizmoArrayList) {
+            if(gizmo.getX() > HadiCezmi.BOARD_WIDTH/2){
+                gizmo.setHeight(gizmo.getHeight()/2);
+                gizmo.setWidth(gizmo.getWidth()/2);
+            }
+        }
+    }
 
     public void changeBallDiameters(double score1, double score2) {
         if(((score1 + score2) % 2.0) == 0){
@@ -898,5 +926,10 @@ public class Board extends Observable{
             }
         }
         return null;
+    }
+
+    public void resetCezmiVelocities() {
+        cezmi1.resetVx();
+        cezmi2.resetVx();
     }
 }

@@ -122,7 +122,6 @@ public class EditableJButton extends JButton {
     	rotateMode=mode;
     }
     public int getMatrixValue(){
-    	System.out.println("Editabledaki deger "+matrixValue);
     	return matrixValue;
     }
     public void setMatrixValue(int newMatrixValue){

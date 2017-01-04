@@ -39,6 +39,8 @@ public abstract class Gizmo extends Observable {
     public Vect[] points;
     protected Vect center;
 
+
+    public abstract void reset();
     //methods
     /**
      * Rotates gizmos. 
@@ -237,6 +239,8 @@ public abstract class Gizmo extends Observable {
     public void setPoints(Vect[] points) {
         this.points = points;
     }
+
+
 
 
 }

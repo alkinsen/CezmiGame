@@ -40,11 +40,12 @@ public class UiSquareTakoz extends UiTakoz {
 
 	@Override
 	public void update(Observable o, Object arg) {
-		System.out.println("update square takoz");
 		SquareTakoz temp = (SquareTakoz) o;
 
 		this.x = (int)Math.round(temp.getX());
 		this.y = (int)Math.round(temp.getY());
+		this.width = temp.getWidth();
+		this.height = temp.getHeight();
 		this.color = temp.getColor();
 
 	}

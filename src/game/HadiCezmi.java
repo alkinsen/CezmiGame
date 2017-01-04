@@ -112,7 +112,6 @@ public class HadiCezmi implements Observer{
             if (gizmoList.get(i).containsKey("orientation")) {
                 if (gizmoList.get(i).containsKey("type") && gizmoList.get(i).containsKey("x") && gizmoList.get(i).containsKey("y")) {
                     if (gizmoList.get(i).containsKey("orientation")) {
-                    	System.out.println(gizmoList.get(i));
                         board.addGizmo(gizmoList.get(i).get("type"), Integer.parseInt(gizmoList.get(i).get("x")), Integer.parseInt(gizmoList.get(i).get("y")), Integer.parseInt(gizmoList.get(i).get("orientation")));
                     } else {
                         board.addGizmo(gizmoList.get(i).get("type"), Integer.parseInt(gizmoList.get(i).get("x")), Integer.parseInt(gizmoList.get(i).get("y")));
@@ -301,6 +300,7 @@ public class HadiCezmi implements Observer{
 			player2.setScore(num+score[1]);
 		}
 		board.resetBallPositions();
+        board.resetCezmiVelocities();
         board.changeBallDiameters(player1.getScore(), player2.getScore());
         board.resetBallVelocities();
 		System.out.println("Player1: "+player1.getScore()+ "Player2: "+player2.getScore());

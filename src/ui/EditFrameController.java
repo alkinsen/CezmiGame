@@ -107,7 +107,6 @@ public class EditFrameController extends StartFrameController {
 						Gizmo gizmo=hadiCezmi.getBoard().getGizmoArrayList().get(k);
             			if(gizmo.getX()==(i*20) && gizmo.getY()==(j*20)){
             				int modeofrot=(rotationAmount)%4;
-            				System.out.println(modeofrot);
         					if(modeofrot==0){
         						hadiCezmi.getBoard().getGizmoArrayList().get(k).setOrientation(0);
         					}else if(modeofrot==1){
@@ -145,7 +144,6 @@ public class EditFrameController extends StartFrameController {
 						Gizmo gizmo=hadiCezmi.getBoard().getGizmoArrayList().get(k);
             			if(gizmo.getX()==(i*20) && gizmo.getY()==(j*20)){
             				int modeofrot=(rotationAmount)%4;
-            				System.out.println(modeofrot);
         					if(modeofrot==0){
         						hadiCezmi.getBoard().getGizmoArrayList().get(k).setOrientation(0);
         					}else if(modeofrot==1){
