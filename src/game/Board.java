@@ -464,6 +464,7 @@ public class Board extends Observable{
                     getCezerye().setX(1000);
                     getCezerye().setY(1000);
                     countdown = (int) (1000 + Math.random()*200*25);
+                    countdown = 200;
                     getCezerye().setCountdown(countdown);
 
                     Random rand = new Random();

@@ -47,17 +47,8 @@ public class Engel extends Observable{
 	public String toString() {
 		return "Engel [x=" + x + ", y=" + y + ", width=" + width + ", height=" + height + "]";
 	}
-	
-	public void paint(Graphics g) {
-	    Rectangle clipRect = g.getClipBounds();
 
-	    if (clipRect.intersects(this.boundingBox())) {
-	      g.setColor(color);
-	      g.fillRect(x, y, width, height);
-	    }
-	  }
-  
-  public Rectangle boundingBox() {
+  	public Rectangle boundingBox() {
 	    return new Rectangle(x, y, width, height);
   }
 
