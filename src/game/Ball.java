@@ -3,8 +3,6 @@ package game;
 import ui.GameFrame;
 
 import java.awt.Color;
-import java.awt.Graphics;
-import java.awt.Rectangle;
 import java.util.List;
 import java.util.Observable;
 import java.util.Observer;

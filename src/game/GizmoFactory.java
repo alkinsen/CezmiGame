@@ -1,8 +1,5 @@
 package game;
 
-import ui.domain.UiBoardPanel;
-import ui.domain.UiSquareTakoz;
-
 /**
  * Created by ASEN14 on 8.12.2016.
  */

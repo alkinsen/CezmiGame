@@ -165,8 +165,17 @@ public class Board extends Observable{
         if (valid) {
             Gizmo g = gizmoFactory. getGizmo(type, x, y);
             gizmoArrayList.add(g);
+
         }
-      
+    }
+
+    public void addCezerye(int x, int y, double time){
+        getCezerye().setX(x);
+        getCezerye().setY(y);
+        countdown = (int)time * 200;
+        getCezerye().setCountdown(countdown);
+        cezeryeAppear = true;
+        getCezerye().setCezeryeAppear(true);
     }
 
     public void addGizmo(String type, int x, int y, int orientation) {
@@ -255,7 +264,6 @@ public class Board extends Observable{
         Vect ball2Vector = new Vect(ball2.getX(), ball2.getX());
 
         if(getLevel() == 2 && Geometry.timeUntilBallBallCollision(ballCircle, ballVelocity, ball2Circle, ball2Velocity) <= 0){
-            System.out.println("ball to ball2");
             Vect returnVectBall = Geometry.reflectCircle(ballVector, ball2Vector, ballVelocity);
             Vect returnVectBall2 = Geometry.reflectCircle(ball2Vector, ballVector, ball2Velocity);
             changeBallVelocity(returnVectBall.x(), returnVectBall.y());
@@ -266,9 +274,14 @@ public class Board extends Observable{
       //check the situation of cezerye
         if(!cezeryeAppear && countdown == -1){
         	countdown = (int) (1000 + Math.random()*200*25);
+            countdown=200;
+            getCezerye().setCountdown(countdown);
         }else if(!cezeryeAppear && countdown == 0){
-        	int xLoc = (int)(Math.random()*24.0) * 20;
-        	int yLoc = (int)(Math.random()*18.0) * 20  + 40;
+            int xLoc = (int)(Math.random()*24.0) * 20;
+            int yLoc = (int)(Math.random()*18.0) * 20  + 40;
+
+            xLoc =240;
+            yLoc=300;
         	boolean validity = this.verifyGizmo(xLoc, yLoc);
         	while(validity){
                 xLoc = (int)(Math.random()*24.0) * 20;
@@ -281,16 +294,21 @@ public class Board extends Observable{
         	cezeryeAppear=true;
             getCezerye().setCezeryeAppear(cezeryeAppear);
         	countdown=1000;
+            getCezerye().setCountdown(countdown);
         }else if(!cezeryeAppear && countdown>0){
         	countdown--;
+            getCezerye().setCountdown(countdown);
         }else if(cezeryeAppear && countdown >0){
         	countdown--;
+            getCezerye().setCountdown(countdown);
         }else if(cezeryeAppear && countdown == 0){
         	cezeryeAppear=false;
             getCezerye().setCezeryeAppear(cezeryeAppear);
             getCezerye().setX(1000);
             getCezerye().setY(1000);
             countdown = (int) (1000 + Math.random()*200*25);
+            countdown=200;
+            getCezerye().setCountdown(countdown);
         }
     }
     public void checkCollisionAndReflectBall(Ball ball, boolean leftPressed, boolean rightPressed) {
@@ -449,7 +467,8 @@ public class Board extends Observable{
                     getCezerye().setCezeryeAppear(cezeryeAppear);
                     getCezerye().setX(1000);
                     getCezerye().setY(1000);
-                    countdown = (int) (1000 + Math.random()*200*25);
+                    countdown = 200;
+                    getCezerye().setCountdown(countdown);
 
                     Random rand = new Random();
                     int specialEffectNumber = rand.nextInt(3);
@@ -502,9 +521,6 @@ public class Board extends Observable{
             	
             }
         }
-
-        cezmi1.resetVx();
-        cezmi2.resetVx();
 
         ball.move();
 
@@ -620,12 +636,12 @@ public class Board extends Observable{
     public void resetBallVelocities(){
         Random random = new Random();
         if(getLevel() == 1){
-            double vx = random.nextDouble()*2 - 1.0;
-            double vy = 0.0;
+            double vx = random.nextDouble()*4 - 2.0;
+            double vy = random.nextDouble()*2 - 1.0;;
             changeBallVelocity(vx, vy);
         }else if(getLevel() == 2){
-            double vx = random.nextDouble()*2 - 1.0;
-            double vy = 0.0;
+            double vx = random.nextDouble()*4 - 2.0;
+            double vy = random.nextDouble()*2 - 1.0;;
             changeBallVelocity(vx, vy);
             vx = random.nextDouble();
             changeBall2Velocity(vx, vy);

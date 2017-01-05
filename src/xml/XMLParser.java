@@ -32,7 +32,7 @@ public class XMLParser {
 		} 
 	}
 
-	private int getLevel(){
+	public int getLevel(){
 		Node tempLevel;
 		NodeList nodeLevelList;
 		int cezmiIntLevel = 1;
@@ -286,7 +286,7 @@ public class XMLParser {
 						String cezeryeTime = cezerye.getAttribute("time");
 						double cezeryeDoubleTime =  Double.parseDouble(cezeryeTime);	
 
-						if(cezeryeIntX > 0 && cezeryeIntX < 500 && cezeryeIntY > 0 && cezeryeIntY < 380 && cezeryeDoubleTime > 0 && cezeryeDoubleTime <= 5){
+						if(cezeryeDoubleTime >= 0 && cezeryeDoubleTime <= 5){
 							cezeryeInfo.put("x", cezerye.getAttribute("x"));
 							cezeryeInfo.put("y", cezerye.getAttribute("y"));
 							cezeryeInfo.put("time", cezerye.getAttribute("time"));
@@ -480,7 +480,7 @@ public class XMLParser {
 
 							if(!leftTokat.getAttribute("x").equals("")){
 
-								gizmoInfo.put("type", "leftTokat");
+								gizmoInfo.put("type", "LeftTokat");
 								String leftTokatX = leftTokat.getAttribute("x");
 								int  leftTokatIntX = Integer.parseInt(leftTokatX);
 								String leftTokatY = leftTokat.getAttribute("y");
@@ -523,7 +523,7 @@ public class XMLParser {
 							HashMap<String, String> gizmoInfo = new HashMap<String, String>();
 							if(!rightTokat.getAttribute("x").equals("")){
 
-								gizmoInfo.put("type", "leftTokat");
+								gizmoInfo.put("type", "RightTokat");
 								String rightTokatX = rightTokat.getAttribute("x");
 								int  rightTokatIntX = Integer.parseInt(rightTokatX);
 								String rightTokatY = rightTokat.getAttribute("y");

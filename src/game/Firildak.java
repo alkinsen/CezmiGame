@@ -65,6 +65,7 @@ public class Firildak extends SquareTakoz {
         points[1] = new Vect(x + width, y);
         points[2] = new Vect(x + width, y + height);
         points[3] = new Vect(x, y + height);
+        center = new Vect((double) x + (double) width / 2, (double) y + (double) height / 2);
         setChanged();
         notifyObservers();
     }

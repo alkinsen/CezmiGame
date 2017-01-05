@@ -126,27 +126,4 @@ public class Cezmi extends Observable {
         setVx(10);
     }
 
-//    public void moveUp() {
-//        if (cezmiLevel == 2) {
-//            if (x == 0 || x == 500) {
-//                if (!(y <= 0) && !(y >= 500)) {
-//                    y = y - vy;
-//                }
-//            }
-//        }
-//        setChanged();
-//        notifyObservers(this);
-//    }
-//
-//    public void moveDown() {
-//        if (cezmiLevel == 2) {
-//            if (x == 0 || x == 500) {
-//                if (!(y <= 0) && !(y >= 500)) {
-//                    y = y + vy;
-//                }
-//            }
-//        }
-//        setChanged();
-//        notifyObservers(this);
-//    }
 }

@@ -37,6 +37,7 @@ public class RightTokat extends Tokat {
 		points[1] = new Vect(x + width, y);
 		points[2] = new Vect(x + width, y + height);
 		points[3] = new Vect(x, y + height);
+
 		setChanged();
 		notifyObservers();
 	}
